@@ -1,5 +1,5 @@
 {
-  "name": "economic",
+  "name": "ng4-ecarts-amap",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -21,7 +21,16 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.3",
+    "@types/jquery": "^2.0.0",
+    "angular2-layer": "^2.0.7",
     "core-js": "^2.4.1",
+    "echarts": "^3.8.5",
+    "font-awesome": "^4.7.0",
+    "jquery": "^2.0.0",
+    "ngx-echarts": "^2.0.1",
+    "node-sass": "^4.7.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
