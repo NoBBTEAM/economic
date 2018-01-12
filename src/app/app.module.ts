@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { StoreModule } from '../../node_modules/_@ngrx_store@2.2.3@@ngrx/store';
 import { amapReducer } from './core/amap-ngrx/amap.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContainerReducer } from './core/container-ngrx/contsiner.reducer';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     CoreModule,
     AppRoutingModule,
-    StoreModule.provideStore({ amap: amapReducer })
+    StoreModule.provideStore({ amap: amapReducer, container: ContainerReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

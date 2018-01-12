@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemAnimate, CircleAnimate, ItemPositionAnimate } from '../../shared/animations';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ContainerStyle } from '../../core/container-ngrx/container.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-layout',
@@ -13,6 +16,9 @@ import { Router } from '@angular/router';
   ]
 })
 export class LayoutComponent implements OnInit {
+  // 其他组件会改变container的样式， 所以用一个Reduce来管理
+  tagState$: Observable<ContainerStyle>;
+  container: ContainerStyle;
   // 搜索框是否选择状态
   isSearchActive = false;
   // 右边面板是否显示
@@ -34,18 +40,23 @@ export class LayoutComponent implements OnInit {
     'middle': '/int',
     'right': '/mac'
   };
-  constructor(private router: Router) {
-
+  constructor(private router: Router,
+    private store: Store<ContainerStyle>) {
+      this.tagState$ = this.store.select('container');
   }
 
   ngOnInit() {
+    this.tagState$.subscribe((state: ContainerStyle) => {
+      console.log(state.width);
+      this.container = state;
+    });
   }
 
   itemClick(flag: string) {
-    console.log(flag);
     if (!this.isCircleMenuShow) {
       this.isCircleMenuShow = !this.isCircleMenuShow;
       this.animateState = this.animateState === 'on' ? 'off' : 'on';
+      // 上面的动画执行完成之后，各自回到左中右
       setTimeout(() => {
         this.itemPosition = {
           first: 'left',
@@ -55,12 +66,12 @@ export class LayoutComponent implements OnInit {
         this.isCircleMenuShowCopy = this.isCircleMenuShow;
       }, 600);
     } else {
+      // 动画的过程，先统一到一个地方在回到左边
       this.itemPosition = {
         first: flag,
         second: flag,
         third: flag
       };
-      this.router.navigate([this.ROUTES[flag]]);
       setTimeout(() => {
         this.itemPosition = {
           first: 'left',
@@ -71,6 +82,7 @@ export class LayoutComponent implements OnInit {
         this.isCircleMenuShowCopy = this.isCircleMenuShow;
         this.animateState = this.animateState === 'on' ? 'off' : 'on';
       }, 600);
+      this.router.navigate([this.ROUTES[flag]]);
     }
   }
 
