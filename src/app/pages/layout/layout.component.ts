@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemAnimate, CircleAnimate, ItemPositionAnimate } from '../../shared/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -28,7 +29,14 @@ export class LayoutComponent implements OnInit {
     second: 'left',
     third: 'left'
   };
-  constructor() { }
+  ROUTES = {
+    'left': '/mic',
+    'middle': '/int',
+    'right': '/mac'
+  };
+  constructor(private router: Router) {
+
+  }
 
   ngOnInit() {
   }
@@ -52,6 +60,7 @@ export class LayoutComponent implements OnInit {
         second: flag,
         third: flag
       };
+      this.router.navigate([this.ROUTES[flag]]);
       setTimeout(() => {
         this.itemPosition = {
           first: 'left',

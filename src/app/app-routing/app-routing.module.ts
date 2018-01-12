@@ -12,6 +12,7 @@ export const routes: Routes = [
       {path: 'mic', loadChildren: '../pages/microcosmic/microcosmic.module#MicrocosmicModule'},
       {path: 'int', loadChildren: '../pages/intermediate/intermediate.module#IntermediateModule'},
       {path: 'mac', loadChildren: '../pages/macroscopic/macroscopic.module#MacroscopicModule'},
+      {path: '**', redirectTo: '/mic', pathMatch: 'full'}
     ]
   },
 ];
