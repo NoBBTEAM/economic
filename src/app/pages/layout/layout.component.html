@@ -1,6 +1,52 @@
-<p>
-  layout works!
-</p>
-<app-map></app-map>
-<router-outlet></router-outlet>
+<div class="default-container">
+  <!-- <div id="gaodemap-container" class="gaodemap-container" tabindex="0"></div> -->
+  <app-map></app-map>
+  <!-- <button style="position: fixed; top: 0; left: 10px; z-index: 1000;" (click)="add()">ADD</button>
+  <button style="position: fixed; top: 0; left: 200px; z-index: 1000;" (click)="delete()">DELETE</button>
+  <button style="position: fixed; top: 100px; left: 10px; z-index: 1000;" (click)="openInfo()">OPEN_INFO</button>
+  <button style="position: fixed; top: 100px; left: 200px; z-index: 1000;" (click)="closeInfo()">CLOSE_INFO</button> -->
+  <!--菜单按钮-->
+  <div class="circle-menu" [ngClass]="{'active': isCircleMenuShow, 'resetactive': !isCircleMenuShow}">
+    <!-- <div class="item circle-item3 active" [ngClass]="{'big': isCircleMenuShow}"> -->
+    <div class="item circle-item3 active" [@ItemAnimate]="animateState" (click)="itemClick('left')" [@ItemPositionAnimate]="itemPosition['first']" [ngClass]="{'curr': isCircleMenuShowCopy}">
+      <div class="menu-top">
+        <span class="circle" [@CircleAnimate]="animateState"></span>
+      </div>
+      <span class="menu-bot">微观经济指标</span>
+    </div>
+    <div class="item circle-item2" [@ItemAnimate]="animateState" (click)="itemClick('middle')" [@ItemPositionAnimate]="itemPosition['second']" [ngClass]="{'curr': isCircleMenuShowCopy}">
+      <div class="menu-top">
+        <span class="circle" [@CircleAnimate]="animateState"></span>
+      </div>
+      <span class="menu-bot">中观经济指标</span>
+    </div>
+    <div class="item circle-item1" [@ItemAnimate]="animateState" (click)="itemClick('right')" [@ItemPositionAnimate]="itemPosition['third']" [ngClass]="{'curr': isCircleMenuShowCopy}">
+      <div class="menu-top">
+        <span class="circle" [@CircleAnimate]="animateState"></span>
+      </div>
+      <span class="menu-bot">宏观经济指标</span>
+    </div>
+  </div>
+  <!--遮罩层-->
+  <div class="cover-mask" [ngClass]="{'active': isCircleMenuShow}"></div>
 
+  <!-- ===== 搜索 start ===== ===== ===== ===== ===== -->
+  <div class="search_menu_box" (click)="$event.stopPropagation();notSearchActive()"></div>
+  <div class="search_mask" [ngClass]="{'active': isSearchActive}" (click)="$event.stopPropagation();notSearchActive()">
+  </div>
+  <div class="search_input_box" [ngClass]="{'active': isSearchActive}">
+    <input type="text" class="search_input">
+    <button class="search_btn" id="searchBtn"></button>
+  </div>
+  <!-- ===== 搜索 the end ===== ===== ===== ===== ===== -->
+  <!-- ===== 内容面板 start ===== ===== ===== ===== ===== -->
+  <div class="microcosmic_container animated" id="microcosmic_container" [ngClass]="{'slideInRight': isRirhtPanelShow, 'slideOutRight': !isRirhtPanelShow}">
+    <div class="back-arrow">
+      <span class="back-arrow-btn" (click)="notRirhtPanelShow()" [ngClass]="{'active': !isRirhtPanelShow && !isSearchActive}"></span>
+    </div>
+    <div class="microcosmic_content" id="microcosmic_content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- ===== 内容面板 the end ===== ===== ===== ===== ===== -->
+</div>

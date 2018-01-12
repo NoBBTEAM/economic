@@ -3,15 +3,15 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { Amap } from '../../core/amap-ngrx/amap.model';
+import { ViewEncapsulation } from '@angular/core';
 declare var AMap: any;
 declare var $: any;
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-map',
-  template: `<div id='t-amap' class='t-amap'></div>?`,
-  styles: [`
-    .t-amap{width:100%;height:100vh;}
-  `]
+  template: `<div id='t-amap' class='t-amap'></div>`,
+  styleUrls: ['map.component.css']
 })
 export class MapComponent implements OnInit {
 
