@@ -35,11 +35,16 @@ export class LayoutComponent implements OnInit {
     second: 'left',
     third: 'left'
   };
+  // 三个按钮的路由
   ROUTES = {
     'left': '/mic',
     'middle': '/int',
     'right': '/mac'
   };
+  // 是否有新的推送消息，来控制显示隐藏
+  hasNotifycation = false;
+  // 消息的内容主体的显示与隐藏
+  canShowNotifyContent = false;
   constructor(private router: Router,
     private store: Store<ContainerStyle>) {
       this.tagState$ = this.store.select('container');
@@ -50,6 +55,21 @@ export class LayoutComponent implements OnInit {
       console.log(state.width);
       this.container = state;
     });
+
+    // 模拟2秒来一个消息
+    // TODO 接受到消息时显示消息框
+    setInterval(() => {
+      this.hasNotifycation = true;
+    }, 60000)
+  }
+
+  noticeClose() {
+    this.hasNotifycation = false;
+    this.canShowNotifyContent = false;
+  }
+
+  showNotifyContent() {
+    this.canShowNotifyContent = !this.canShowNotifyContent;
   }
 
   itemClick(flag: string) {
