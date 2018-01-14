@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MicIndexComponent } from './mic-index.component';
+import { EventNoticeComponent } from './event-notice.component';
 
-describe('MicIndexComponent', () => {
-  let component: MicIndexComponent;
-  let fixture: ComponentFixture<MicIndexComponent>;
+describe('EventNoticeComponent', () => {
+  let component: EventNoticeComponent;
+  let fixture: ComponentFixture<EventNoticeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MicIndexComponent ]
+      declarations: [ EventNoticeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MicIndexComponent);
+    fixture = TestBed.createComponent(EventNoticeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
