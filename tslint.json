@@ -79,6 +79,11 @@
       "check-else",
       "check-whitespace"
     ],
+    "no-inferrable-types": [  
+     true,  
+     "ignore-params",  
+     "ignore-properties"  
+   ],
     "prefer-const": true,
     "quotemark": [
       true,

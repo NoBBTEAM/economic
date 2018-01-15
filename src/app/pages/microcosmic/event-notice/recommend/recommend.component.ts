@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recommend',
-  template: `
-    <p>
-      recommend works!
-    </p>
-  `,
+  templateUrl: './recommend.component.html',
   styles: []
 })
 export class RecommendComponent implements OnInit {

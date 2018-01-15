@@ -11,7 +11,7 @@ export const routes: Routes = [
     children: [
       {path: 'economic', component: EconomicComponent},
       {path: 'forecast', component: ForecastComponent},
-      {path: '**', redirectTo: 'econmic', pathMatch: 'full'}
+      {path: '', redirectTo: 'economic', pathMatch: 'full'}
     ]
   },
 ];

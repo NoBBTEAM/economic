@@ -60,7 +60,7 @@ export class LayoutComponent implements OnInit {
     // TODO 接受到消息时显示消息框
     setInterval(() => {
       this.hasNotifycation = true;
-    }, 60000)
+    }, 60000);
   }
 
   noticeClose() {

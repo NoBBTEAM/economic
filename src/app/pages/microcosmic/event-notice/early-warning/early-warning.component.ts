@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-early-warning',
-  template: `
-    <p>
-      early-warning works!
-    </p>
-  `,
+  templateUrl: './early-warning.component.html',
   styles: []
 })
 export class EarlyWarningComponent implements OnInit {
