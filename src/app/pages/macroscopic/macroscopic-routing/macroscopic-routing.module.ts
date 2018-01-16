@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MacroscopicComponent } from '../macroscopic.component';
-import { EconomicComponent } from '../economic/economic.component';
 import { ForecastComponent } from '../forecast/forecast.component';
 
 export const routes: Routes = [
@@ -9,7 +8,7 @@ export const routes: Routes = [
     path: '',
     component: MacroscopicComponent,
     children: [
-      {path: 'economic', component: EconomicComponent},
+      {path: 'economic', loadChildren: '../mac-economic/mac-economic.module#MacEconomicModule'},
       {path: 'forecast', component: ForecastComponent},
       {path: '', redirectTo: 'economic', pathMatch: 'full'}
     ]
