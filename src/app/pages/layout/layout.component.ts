@@ -37,9 +37,9 @@ export class LayoutComponent implements OnInit {
   };
   // 三个按钮的路由
   ROUTES = {
-    'left': '/mic',
+    'left': '/mac',
     'middle': '/int',
-    'right': '/mac'
+    'right': '/mic'
   };
   // 是否有新的推送消息，来控制显示隐藏
   hasNotifycation = false;
@@ -86,6 +86,11 @@ export class LayoutComponent implements OnInit {
         this.isCircleMenuShowCopy = this.isCircleMenuShow;
       }, 600);
     } else {
+      if (this.ROUTES[flag] === '/mic') {
+        this.container = {
+          width: '60%'
+        };
+      }
       // 动画的过程，先统一到一个地方在回到左边
       this.itemPosition = {
         first: flag,
@@ -101,8 +106,8 @@ export class LayoutComponent implements OnInit {
         this.isCircleMenuShow = !this.isCircleMenuShow;
         this.isCircleMenuShowCopy = this.isCircleMenuShow;
         this.animateState = this.animateState === 'on' ? 'off' : 'on';
+        this.router.navigate([this.ROUTES[flag]]);
       }, 600);
-      this.router.navigate([this.ROUTES[flag]]);
     }
   }
 

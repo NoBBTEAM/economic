@@ -126,6 +126,20 @@ export class MapComponent implements OnInit {
         map.setFitView();
         map.panBy(-580, 40);
       });
+      AMap.event.addListener(map, 'zoomend', function(){
+        const zoom = map.getZoom();
+        const markers = map.getAllOverlays('marker');
+        if (zoom <= 12) {
+            markers.forEach(function(item, index) {
+                item.show();
+            });
+        } else {
+            markers.forEach(function(item, index) {
+                item.hide();
+            });
+        }
+        // map.getAllOverlays('marker')[0].hide()
+    });
     }, 200);
 
   }
