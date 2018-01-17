@@ -381,3 +381,88 @@
   background-color: rgba(0, 0, 0, 0.6);
   visibility: visible;
 }
+.notifycation {
+  /* display: none; */
+  cursor: pointer;
+  z-index: 9999;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  width: 3.5rem;
+  margin-left: -1.75rem;
+  height: .27rem;
+  border-radius: 5px;
+  line-height: .27rem;
+  font-size: 16px;
+  color: #ebebeb;
+  background-color: #7d85cb;
+}
+.notifycation .notifycation-title {
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notifycation .before {
+  position: relative;
+  float: left;
+  top: -.05rem;
+  left: -.08rem;
+  width: .37rem;
+  height: .37rem;
+  border-radius: .22rem;
+  background: url(../../../assets/images/lingdang.png) no-repeat;
+  background-size: .24rem .24rem;
+  background-position: .05rem .08rem;
+  background-color: #7d85cb;
+}
+.close-box {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  float: right;
+}
+.notice-close{
+  display: inline-block;
+  cursor: pointer;
+  width: 30px;height:5px;
+  background: #f9b620;
+  line-height: 0;font-size:0;
+  vertical-align: middle;
+  -webkit-transform: rotate(45deg);
+}
+.notice-close:after{content:'/';display:block;width: 30px;height:5px; background: #f9b620;-webkit-transform: rotate(-90deg);}
+.notify-content {
+  position: fixed;
+  /* display: none; */
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+}
+.notify-content .content{
+  position: absolute;
+  top: .33rem;
+  left: 50%;
+  width: 3.5rem;
+  margin-left: -1.75rem;
+  height: 4.5rem;
+  overflow-y: scroll;
+  padding: .2rem;
+  background-color: #f2f2f2;
+  opacity:none;
+}
+.content::-webkit-scrollbar
+{
+  width: 3px;
+  /* height: 3px;   */
+  background-color: #979797;
+}
+.notify-content .content .piture img{
+  width: 100%;
+}
+.map-position{
+  position: absolute;
+  bottom: 0.0520833333333333rem;
+  left: 0.0520833333333333rem;
+}

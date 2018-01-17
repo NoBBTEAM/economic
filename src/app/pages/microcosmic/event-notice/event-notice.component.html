@@ -1,0 +1,26 @@
+<div class="right-panel">
+  <div class="panel-hd">
+    <div class="title">
+      <div class="title-con">
+        <div class="back-box fl">
+          <span class="back-btn" routerLink="/mic"></span>
+        </div>
+        <h3 class="fl">关注企业事件推送</h3>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel-menu-box">
+      <ul class="panel-menu">
+        <li routerLink="/mic/eventNotice/track" routerLinkActive="active">重点企业追踪</li>
+        <li routerLink="/mic/eventNotice/earlyWarning" routerLinkActive="active">企业信用事件预警</li>
+        <li routerLink="/mic/eventNotice/recommend" routerLinkActive="active">拟规上企业推荐</li>
+      </ul>
+    </div>
+    <div class="panel-menu-right scrollbar">
+      <div class="panel-bd pop-ndex-0 active">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

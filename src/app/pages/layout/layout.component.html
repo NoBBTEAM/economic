@@ -1,3 +1,27 @@
+<div class="notifycation" [hidden]="!hasNotifycation">
+  <div class="before"></div>
+  <div class="notifycation-title" (click)="showNotifyContent()"> 有一条新消息[ &nbsp;华电芜湖电厂二期百万工程正式开工建设 &nbsp;]</div>
+  <div class="close-box" (click)="noticeClose()">
+      <span class="notice-close"></span>
+  </div>
+</div>
+<div class="notify-content" [hidden]="!canShowNotifyContent">
+  <div class="content">
+      <div class="piture">
+          <img src="http://www.chinacenn.com/uploads/allimg/171123/1G51KR8-0.jpg" alt="">
+      </div>
+      <div class="text">
+          <h2>做好“三个坚持” 深入学习宣传党的十九大精神</h2>
+          <small class="data">2017/2/2</small>
+          <div class="text-content">
+              <p>党的十九大凝聚了我们中国共产党人的智慧，反映时代要求和人民愿望，是我们党团结带领全国各族人民迈进新时代、开启新征程、续写新篇章、把新时代中国特色社会主义不断推向前进的政治宣言和行动纲领。中国能建安徽电建一公司华电芜湖项目部党总支认真做好“三个坚持”，组织广大党员干部、一线作业员工全面、深入学习十九大精神，并以十九大精神为指导，不忘初心、砥砺奋进，推进华电集团安徽首个百万机组项目--华电芜湖电厂二期（1×1000MW）3号机组工程的高标准执行。</p>
+              <p>坚持全员全面学习。项目部组织全体员工集中观看党的十九大开幕式，并按照公司的统一部署，快速掀起学习热潮，先后组织召开党员大会2次，支委会2次，党小组会议6次，团员大会1次，专题学习宣传党的十九大精神以及传达公司对于学习宣贯十九大精神的要求。在施工现场、生活区、职工食堂悬挂横幅、布设展板，利用内部局域网、项目部QQ群群发十九大学习材料，为全体党员集中发放十九大报告学习读本和党章，并将十九大材料打印发放至一线班组，通过将十九大精神“进班组、进现场、进宿舍、进食堂”宣传等多种形式，确保党的十九大报告内容，十九大提出的重大思想、重大判断、历史性成就和新时代的基本方略等会议精神及时传达到一线、学习在一线，落实在一线。</p>
+              <p>坚持全员全面学习。项目部组织全体员工集中观看党的十九大开幕式，并按照公司的统一部署，快速掀起学习热潮，先后组织召开党员大会2次，支委会2次，党小组会议6次，团员大会1次，专题学习宣传党的十九大精神以及传达公司对于学习宣贯十九大精神的要求。在施工现场、生活区、职工食堂悬挂横幅、布设展板，利用内部局域网、项目部QQ群群发十九大学习材料，为全体党员集中发放十九大报告学习读本和党章，并将十九大材料打印发放至一线班组，通过将十九大精神“进班组、进现场、进宿舍、进食堂”宣传等多种形式，确保党的十九大报告内容，十九大提出的重大思想、重大判断、历史性成就和新时代的基本方略等会议精神及时传达到一线、学习在一线，落实在一线。</p>
+          </div>
+      </div>
+  </div>
+</div>
+
 <div class="default-container">
   <!-- <div id="gaodemap-container" class="gaodemap-container" tabindex="0"></div> -->
   <app-map></app-map>
@@ -40,7 +64,7 @@
   </div>
   <!-- ===== 搜索 the end ===== ===== ===== ===== ===== -->
   <!-- ===== 内容面板 start ===== ===== ===== ===== ===== -->
-  <div class="microcosmic_container animated" id="microcosmic_container" [ngClass]="{'slideInRight': isRirhtPanelShow, 'slideOutRight': !isRirhtPanelShow}">
+  <div class="microcosmic_container animated" id="microcosmic_container" [ngStyle]="{'width': container.width}" [ngClass]="{'slideInRight': isRirhtPanelShow, 'slideOutRight': !isRirhtPanelShow}">
     <div class="back-arrow">
       <span class="back-arrow-btn" (click)="notRirhtPanelShow()" [ngClass]="{'active': !isRirhtPanelShow && !isSearchActive}"></span>
     </div>
