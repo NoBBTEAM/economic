@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntermediateComponent } from '../intermediate.component';
 import { IndexAbstractComponent } from '../index-abstract/index-abstract.component';
+import { IndustryBoardComponent } from '../industry-board/industry-board.component';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
     component: IntermediateComponent,
     children: [
       {path: 'indexAbstract', component: IndexAbstractComponent},
+      {path: 'industryBoard', component: IndustryBoardComponent},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]
   },
