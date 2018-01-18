@@ -104,28 +104,42 @@ export class MapComponent implements OnInit {
           });
           markers.push(marker);
           marker.on('click', function (e) {
-            $('.mapMarker').removeClass('active');
+            // $('.mapMarker').removeClass('active');
             /*重新setContent实现动画*/
             this.setContent(`<div class='mapMarker active'><span>${e.target.getTitle()}</span></div>`);
             console.log(e);
             console.log(this);
             console.log(e.target.getTitle());
             idustryParkName = e.target.getTitle();
-            $('.middle-view>.column_title_box h3').eq(1).click();
+            // $('.middle-view>.column_title_box h3').eq(1).click();
 
             //            $('.industry-menu li:first-child').click();
-            if ($('.industry-menu .menu-row:last-child li.active').length) {
-              $('.industry-menu .menu-row:last-child li.active').click();
-            } else {
-              $('.industry-menu .menu-row:last-child li:first-child').click();
-            }
+            // if ($('.industry-menu .menu-row:last-child li.active').length) {
+            //   $('.industry-menu .menu-row:last-child li.active').click();
+            // } else {
+            //   $('.industry-menu .menu-row:last-child li:first-child').click();
+            // }
           }); // 园区覆盖物点击事件
         }
         /*添加已绘制园区地图标记*/
-        $('.middle-view>.column_title_box h3').eq(1).addClass('hasParkMark');
+        // $('.middle-view>.column_title_box h3').eq(1).addClass('hasParkMark');
         map.setFitView();
         map.panBy(-580, 40);
       });
+      AMap.event.addListener(map, 'zoomend', function(){
+        const zoom = map.getZoom();
+        const markers = map.getAllOverlays('marker');
+        if (zoom <= 12) {
+            markers.forEach(function(item, index) {
+                item.show();
+            });
+        } else {
+            markers.forEach(function(item, index) {
+                item.hide();
+            });
+        }
+        // map.getAllOverlays('marker')[0].hide()
+    });
     }, 200);
 
   }

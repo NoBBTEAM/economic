@@ -1,4 +1,4 @@
-.column_title_box h3 {
+/* .column_title_box h3 {
   float: left;
   text-align: center;
   margin-left: 10px;
@@ -13,9 +13,9 @@
   background: #f9b620;
   color: #151411;
   box-shadow: inset 0px -2px 3px 0 rgba(0, 0, 0, 0.9), inset 3px 3px 3px 0 rgba(255, 255, 255, 0.4);
-}
+} */
 
-.column_title_box,
+/* .column_title_box,
 .panel-hd .title {
   height: 50px;
   position: relative;
@@ -34,13 +34,9 @@
   height: 100%;
   box-shadow: inset -3px -3px 3px 0 rgba(0, 0, 0, 0.9), inset 3px 3px 3px 0 rgba(255, 255, 255, 0.4);
   background: -webkit-linear-gradient(left, rgba(34, 33, 29, 0.5), rgba(58, 57, 52, 0.5));
-  /* Safari 5.1 - 6.0 */
   background: -o-linear-gradient(right, #22211d, #3a3934);
-  /* Opera 11.1 - 12.0 */
   background: -moz-linear-gradient(right, #22211d, #3a3934);
-  /* Firefox 3.6 - 15 */
   background: linear-gradient(to right, rgba(34, 33, 29, 0.5), rgba(58, 57, 52, 0.5));
-  /* 标准的语法 */
   border-radius: 6px;
 }
 
@@ -65,4 +61,4 @@
   background: #f9b620;
   color: #151411;
   box-shadow: inset 0px -2px 3px 0 rgba(0, 0, 0, 0.9), inset 3px 3px 3px 0 rgba(255, 255, 255, 0.4);
-}
+} */

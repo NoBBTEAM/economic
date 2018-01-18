@@ -1,0 +1,5 @@
+.middle-view-bd {
+  position: relative;
+  overflow: hidden;
+  height: calc(100% - 0.260417rem);
+}
