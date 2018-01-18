@@ -8,7 +8,7 @@
 .column_title_box {
   height: 50px;
   line-height: 50px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .column-box {

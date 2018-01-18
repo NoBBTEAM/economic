@@ -8,7 +8,8 @@ export const routes: Routes = [
     path: '',
     component: IntermediateComponent,
     children: [
-      {path: 'inedexAbstract', component: IndexAbstractComponent}
+      {path: 'indexAbstract', component: IndexAbstractComponent},
+      {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]
   },
 ];

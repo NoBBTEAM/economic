@@ -350,3 +350,7 @@ table tr td:first-child {
   color: #151411;
   box-shadow: inset 0px -2px 3px 0 rgba(0, 0, 0, 0.9), inset 3px 3px 3px 0 rgba(255, 255, 255, 0.4);
 }
+
+.ps-container>.ps-scrollbar-y-rail {
+  background: none !important;
+}
