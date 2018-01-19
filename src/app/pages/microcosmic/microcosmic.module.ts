@@ -6,12 +6,16 @@ import { EventNoticeComponent } from './event-notice/event-notice.component';
 import { TrackComponent } from './event-notice/track/track.component';
 import { EarlyWarningComponent } from './event-notice/early-warning/early-warning.component';
 import { RecommendComponent } from './event-notice/recommend/recommend.component';
+import { MicrocosmicService } from './microcosmic.service';
 
 @NgModule({
   imports: [
     SharedModule,
     MicrocosmicRoutingModule,
   ],
-  declarations: [MicrocosmicComponent, EventNoticeComponent, TrackComponent, EarlyWarningComponent, RecommendComponent]
+  declarations: [MicrocosmicComponent, EventNoticeComponent, TrackComponent, EarlyWarningComponent, RecommendComponent],
+  providers: [
+    MicrocosmicService
+  ]
 })
 export class MicrocosmicModule { }

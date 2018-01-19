@@ -4,8 +4,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { Amap } from '../../core/amap-ngrx/amap.model';
 import { ViewEncapsulation } from '@angular/core';
+import { MicrocosmicService } from '../../pages/microcosmic/microcosmic.service';
 declare var AMap: any;
-declare var $: any;
+// declare var $: any;
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -16,7 +17,8 @@ declare var $: any;
 export class MapComponent implements OnInit {
 
   tagState$: Observable<Amap>;
-  constructor(private store: Store<Amap>) {
+  constructor(private store: Store<Amap>,
+    private microcosmicService: MicrocosmicService) {
     this.tagState$ = this.store.select('amap');
   }
 
@@ -26,9 +28,9 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-    this.tagState$.subscribe((state: Amap) => {
-      console.log(this.AMAPOBJ);
-    });
+    // this.tagState$.subscribe((state: Amap) => {
+    //   console.log(this.AMAPOBJ);
+    // });
     setTimeout(() => {
       const map = new AMap.Map('t-amap');
       this.AMAPOBJ = map;
@@ -38,12 +40,29 @@ export class MapComponent implements OnInit {
             content: data.contentArray.join('<br/>')  // 使用默认信息窗体框样式，显示信息内容
           });
           infoWindow.open(map, map.getCenter());
+        },
+        'ADD_MARKER': (data) => {
+          data.forEach((item, index) => {
+            const marker = new AMap.Marker({
+              position: item.center.split(','),
+              title: item.name,
+              map: map,
+              content: `<div class="mapMarker"><span>${item.name}</span></div>`
+            });
+            marker.on('click', () => {
+              console.log(marker.F.title);
+              this.microcosmicService.changeData(marker.F.title);
+            });
+          });
+          map.setFitView();
+          map.panBy(-580, 10);
+        },
+        'CLEAR_MARKER': (data) => {
+          map.clearMap();
         }
       };
       this.tagState$.subscribe((state: Amap) => {
-        console.log(state);
         if (state.action) {
-          // console.log('this.map.action', this.amap.action);
           this.action[state.action](state.data);
         }
       });
@@ -64,67 +83,6 @@ export class MapComponent implements OnInit {
           zoomToAccuracy: true     // 定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         });
         map.addControl(geolocation);
-        let idustryParkName = null;
-        const markers = [];
-        const provinces = [
-          {
-            'name': '天府新谷',
-            'center': '104.05568,30.586697',
-            'type': 0,
-            'subDistricts': []
-          },
-          {
-            'name': '成都高新孵化园',
-            'center': '104.063923,30.57371',
-            'type': 1,
-            'subDistricts': []
-          },
-          {
-            'name': '天府生命科技园',
-            'center': '104.030421,30.61563',
-            'type': 1,
-            'subDistricts': []
-          },
-          {
-            'name': '天府软件园',
-            'center': '104.071199,30.541204',
-            'type': 1,
-            'subDistricts': []
-          }
-        ];
-
-        for (let i = 0; i < provinces.length; i++) {
-          const marker = new AMap.Marker({
-            position: provinces[i].center.split(','),
-            title: provinces[i].name,
-            map: map,
-            content: `<div class='mapMarker'>
-              <span>${provinces[i].name}</span>
-              </div>`
-          });
-          markers.push(marker);
-          marker.on('click', function (e) {
-            // $('.mapMarker').removeClass('active');
-            /*重新setContent实现动画*/
-            this.setContent(`<div class='mapMarker active'><span>${e.target.getTitle()}</span></div>`);
-            console.log(e);
-            console.log(this);
-            console.log(e.target.getTitle());
-            idustryParkName = e.target.getTitle();
-            // $('.middle-view>.column_title_box h3').eq(1).click();
-
-            //            $('.industry-menu li:first-child').click();
-            // if ($('.industry-menu .menu-row:last-child li.active').length) {
-            //   $('.industry-menu .menu-row:last-child li.active').click();
-            // } else {
-            //   $('.industry-menu .menu-row:last-child li:first-child').click();
-            // }
-          }); // 园区覆盖物点击事件
-        }
-        /*添加已绘制园区地图标记*/
-        // $('.middle-view>.column_title_box h3').eq(1).addClass('hasParkMark');
-        map.setFitView();
-        map.panBy(-580, 40);
       });
       AMap.event.addListener(map, 'zoomend', function(){
         const zoom = map.getZoom();

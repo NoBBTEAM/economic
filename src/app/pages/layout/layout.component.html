@@ -25,10 +25,6 @@
 <div class="default-container">
   <!-- <div id="gaodemap-container" class="gaodemap-container" tabindex="0"></div> -->
   <app-map></app-map>
-  <!-- <button style="position: fixed; top: 0; left: 10px; z-index: 1000;" (click)="add()">ADD</button>
-  <button style="position: fixed; top: 0; left: 200px; z-index: 1000;" (click)="delete()">DELETE</button>
-  <button style="position: fixed; top: 100px; left: 10px; z-index: 1000;" (click)="openInfo()">OPEN_INFO</button>
-  <button style="position: fixed; top: 100px; left: 200px; z-index: 1000;" (click)="closeInfo()">CLOSE_INFO</button> -->
   <!--菜单按钮-->
   <div class="circle-menu" [ngClass]="{'active': isCircleMenuShow, 'resetactive': !isCircleMenuShow}">
     <!-- <div class="item circle-item3 active" [ngClass]="{'big': isCircleMenuShow}"> -->
@@ -52,7 +48,7 @@
     </div>
   </div>
   <!--遮罩层-->
-  <div class="cover-mask" [ngClass]="{'active': isCircleMenuShow}"></div>
+  <div class="cover-mask" [ngClass]="{'active': isCircleMenuShow}" (click)="itemClick('')"></div>
 
   <!-- ===== 搜索 start ===== ===== ===== ===== ===== -->
   <div class="search_menu_box" (click)="$event.stopPropagation();notSearchActive()"></div>
