@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MicrocosmicComponent } from '../microcosmic.component';
 import { EventNoticeComponent } from '../event-notice/event-notice.component';
@@ -20,9 +20,11 @@ export const routes: Routes = [
   }
 ];
 
+export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    routing
   ],
   exports: [
     RouterModule
