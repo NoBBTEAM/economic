@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MapComponent } from './map/map.component';
 import { MicrocosmicService } from '../pages/microcosmic/microcosmic.service';
+import { IntermediateService } from '../pages/intermediate/intermediate.service';
 
 @NgModule({
   imports: [
@@ -9,6 +10,6 @@ import { MicrocosmicService } from '../pages/microcosmic/microcosmic.service';
   exports: [
     MapComponent
   ],
-  providers: [MicrocosmicService]
+  providers: [MicrocosmicService, IntermediateService]
 })
 export class CoreModule { }
