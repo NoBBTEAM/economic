@@ -6,6 +6,7 @@ import { TrackComponent } from '../event-notice/track/track.component';
 import { EarlyWarningComponent } from '../event-notice/early-warning/early-warning.component';
 import { RecommendComponent } from '../event-notice/recommend/recommend.component';
 import { CompanyListComponent } from '../company-list/company-list.component';
+import { CompanyDetailComponent } from '../company-detail/company-detail.component';
 
 export const routes: Routes = [
   { path: '', component: MicrocosmicComponent },
@@ -19,7 +20,8 @@ export const routes: Routes = [
       {path: 'recommend', component: RecommendComponent},
     ]
   },
-  {path: 'companyList', component: CompanyListComponent}
+  {path: 'companyList', component: CompanyListComponent},
+  {path: 'companyDetail/:id', component: CompanyDetailComponent},
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);
