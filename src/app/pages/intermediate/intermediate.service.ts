@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+declare var echarts: any;
 
 @Injectable()
 export class IntermediateService {

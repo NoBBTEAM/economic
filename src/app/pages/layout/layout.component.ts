@@ -42,12 +42,12 @@ export class LayoutComponent implements OnInit {
     'right': '/mic'
   };
   // 是否有新的推送消息，来控制显示隐藏
-  hasNotifycation = false;
+  hasNotifycation = true;
   // 消息的内容主体的显示与隐藏
   canShowNotifyContent = false;
   constructor(private router: Router,
     private store: Store<ContainerStyle>) {
-      this.tagState$ = this.store.select('container');
+    this.tagState$ = this.store.select('container');
   }
 
   ngOnInit() {
@@ -55,6 +55,20 @@ export class LayoutComponent implements OnInit {
       console.log(state.width);
       this.container = state;
     });
+
+    setTimeout(() => {
+      this.isCircleMenuShow = !this.isCircleMenuShow;
+      this.animateState = this.animateState === 'on' ? 'off' : 'on';
+      // 上面的动画执行完成之后，各自回到左中右
+      setTimeout(() => {
+        this.itemPosition = {
+          first: 'left',
+          second: 'middle',
+          third: 'right'
+        };
+        this.isCircleMenuShowCopy = this.isCircleMenuShow;
+      }, 600);
+    }, 1000);
 
     // 模拟2秒来一个消息
     // TODO 接受到消息时显示消息框
@@ -92,11 +106,20 @@ export class LayoutComponent implements OnInit {
         };
       }
       // 动画的过程，先统一到一个地方在回到左边
-      this.itemPosition = {
-        first: flag,
-        second: flag,
-        third: flag
-      };
+      if (flag) {
+        this.itemPosition = {
+          first: flag,
+          second: flag,
+          third: flag
+        };
+      } else {
+        this.itemPosition = {
+          first: 'right',
+          second: 'right',
+          third: 'right'
+        };
+      }
+
       setTimeout(() => {
         this.itemPosition = {
           first: 'left',
@@ -106,7 +129,7 @@ export class LayoutComponent implements OnInit {
         this.isCircleMenuShow = !this.isCircleMenuShow;
         this.isCircleMenuShowCopy = this.isCircleMenuShow;
         this.animateState = this.animateState === 'on' ? 'off' : 'on';
-        this.router.navigate([this.ROUTES[flag]]);
+        const TEST = flag ? this.router.navigate([this.ROUTES[flag]]) : '';
       }, 600);
     }
   }

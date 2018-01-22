@@ -25,14 +25,17 @@
     "@ngrx/store": "^2.2.3",
     "@types/jquery": "^2.0.0",
     "angular2-layer": "^2.0.7",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "echarts": "^3.8.5",
     "font-awesome": "^4.7.0",
+    "intl": "^1.2.5",
     "jquery": "^2.0.0",
     "ngx-echarts": "^2.0.1",
     "ngx-perfect-scrollbar": "^4.0.0",
     "node-sass": "^4.7.2",
     "rxjs": "^5.4.2",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

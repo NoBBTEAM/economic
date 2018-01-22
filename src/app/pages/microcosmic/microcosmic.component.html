@@ -6,22 +6,22 @@
   <div class="chart_box">
     <div class="chart_con fl">
       <div class="flex_item">
-        <div style="width:100%;height:100%;" id="data1" echarts [options] = "option1"></div>
+        <div style="width:100%;height:100%;" id="data1" echarts [options]="annualOutputValue"></div>
       </div>
     </div>
     <div class="chart_con fl">
       <div class="flex_item">
-        <div style="width:100%;height:100%;" id="data2" echarts [options] = "option2"></div>
+        <div style="width:100%;height:100%;" id="data2" echarts [options]="numberOfEnterprises"></div>
       </div>
     </div>
     <div class="chart_con fl">
       <div class="flex_item">
-        <div style="width:100%;height:100%;" id="data3" echarts [options] = "option3"></div>
+        <div style="width:100%;height:100%;" id="data3" echarts [options]="enterpriseSize"></div>
       </div>
     </div>
     <div class="chart_con fl">
       <div class="flex_item">
-        <div style="width:100%;height:100%;" id="data4" echarts [options] = "option4"></div>
+        <div style="width:100%;height:100%;" id="data4" echarts [options]="totalOutputValue"></div>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
     <div class="chart_box">
       <div class="chart_con">
         <div class="flex_item">
-          <div id="lesMiserables" style="width:100%;height:100%;" echarts [options] = "option"></div>
+          <div id="lesMiserables" style="width:100%;height:100%;" echarts [options]="SixMajorIndustries"></div>
         </div>
       </div>
     </div>
