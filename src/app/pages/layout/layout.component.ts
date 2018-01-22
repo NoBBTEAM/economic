@@ -42,7 +42,7 @@ export class LayoutComponent implements OnInit {
     'right': '/mic'
   };
   // 是否有新的推送消息，来控制显示隐藏
-  hasNotifycation = false;
+  hasNotifycation = true;
   // 消息的内容主体的显示与隐藏
   canShowNotifyContent = false;
   constructor(private router: Router,

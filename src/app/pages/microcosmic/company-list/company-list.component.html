@@ -1,0 +1,90 @@
+<div class='zdy-cover-mask' *ngIf="hasLoading">
+  <div class='zdy-big-mask'></div>
+  <div class="zdy-mask-con spinner">
+    <div class="spinner-container container1">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container2">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container3">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+  </div>
+</div>
+<div class="right-panel company-list animated slideInRight">
+  <div class="panel-hd">
+    <div class="title">
+      <div class="title-con">
+        <div class="back-box fl">
+          <span class="back-btn"></span>
+        </div>
+        <h3 class="fl" id="titleName">
+          成都
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel-menu-box">
+      <ul class="panel-menu" id="filterMenu">
+        <!-- 筛选条件展示域 -->
+        <!-- <li class="active">全部</li>
+        <li filterName="" filterValue="1">国有企业</li>
+        <li filterName="" filterValue="2">民营企业</li>
+        <li filterName="" filterValue="3">500强企业</li>
+        <li>外资企业</li> -->
+      </ul>
+    </div>
+    <div class="panel-menu-right" id="panel-menu-right">
+      <div class="panel-top">
+        <div class="panel-bd pop-index-0 animated active">
+          <div class="panel-content" id="companyList">
+            <!-- 列表展示页 -->
+            <!-- <div class="company-item">
+              <div class="company-logo">
+                <img src="../images/company_logo.png" alt="">
+              </div>
+              <div class="info">
+                <div class="name">成都凡达科技有限责任公司</div>
+                <span>民企</span>
+                <span class="num">50人以下</span>
+              </div>
+            </div>
+            <div class="company-item">
+              <div class="company-logo">
+                <img src="../images/company_logo.png" alt="">
+              </div>
+              <div class="info">
+                <div class="name">成都凡达科技有限责任公司</div>
+                <span>民企</span>
+                <span class="num">50人以下</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="panel-bot">
+        <span id="companyPage" currentPage=1 totalPage=1>第1页，共1页</span>
+        <ul class="company-pagination">
+          <li class="prev" id="prev">&laquo;</li>
+          <li class="number">
+            <input type="text" id="pageNumber">
+          </li>
+          <li style="width:50px" id="pageSubmit">确定</li>
+          <li class="next" id="next">&raquo;</li>
+          <li class="last" id="last">&raquo;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
