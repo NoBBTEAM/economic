@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Amap } from '../../core/amap-ngrx/amap.model';
 import { ViewEncapsulation } from '@angular/core';
 import { MicrocosmicService } from '../../pages/microcosmic/microcosmic.service';
+import { IntermediateService } from '../../pages/intermediate/intermediate.service';
 declare var AMap: any;
 // declare var $: any;
 
@@ -18,7 +19,7 @@ export class MapComponent implements OnInit {
 
   tagState$: Observable<Amap>;
   constructor(private store: Store<Amap>,
-    private microcosmicService: MicrocosmicService) {
+    private microcosmicService: MicrocosmicService, private intermediateService: IntermediateService) {
     this.tagState$ = this.store.select('amap');
   }
 
@@ -55,6 +56,23 @@ export class MapComponent implements OnInit {
             });
           });
           map.setFitView();
+          map.panBy(-580, 10);
+        },
+        'ADD_MARKER_MID': (data) => {
+          data.forEach((item, index) => {
+            const marker = new AMap.Marker({
+              position: item.center.split(','),
+              title: item.name,
+              map: map,
+              content: `<div class="mapMarker"><span>${item.name}</span></div>`
+            });
+            marker.on('click', () => {
+              console.log(marker.F.title);
+              this.intermediateService.changeData(marker.F.title);
+            });
+          });
+          map.setFitView();
+          map.setZoom(12);
           map.panBy(-580, 10);
         },
         'CLEAR_MARKER': (data) => {

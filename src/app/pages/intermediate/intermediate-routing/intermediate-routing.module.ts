@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntermediateComponent } from '../intermediate.component';
 import { IndexAbstractComponent } from '../index-abstract/index-abstract.component';
@@ -15,14 +15,15 @@ export const routes: Routes = [
     ]
   },
 ];
+export const routing: ModuleWithProviders = RouterModule.forChild(routes);
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    routing
   ],
   exports: [
     RouterModule
   ],
   declarations: []
 })
-export class IntermediaRoutingModule { }
+export class IntermediateRoutingModule { }
