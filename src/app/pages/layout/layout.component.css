@@ -429,9 +429,9 @@
   background: #f9b620;
   line-height: 0;font-size:0;
   vertical-align: middle;
-  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
-.notice-close:after{content:'/';display:block;width: 30px;height:5px; background: #f9b620;-webkit-transform: rotate(-90deg);}
+.notice-close:after{content:'/';display:block;width: 30px;height:5px; background: #f9b620;transform: rotate(-90deg);}
 .notify-content {
   position: fixed;
   /* display: none; */

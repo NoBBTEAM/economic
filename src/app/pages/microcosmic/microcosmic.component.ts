@@ -35,20 +35,21 @@ export class MicrocosmicComponent implements OnInit, OnDestroy {
     private storeAmap: Store<Amap>,
     private microcosmicService: MicrocosmicService) {
     this.storeContainer.select('container');
-
-      // data => {
-      //   this.annualOutputValue = data.annualOutputValue;
-      //   this.numberOfEnterprises = data.numberOfEnterprises;
-      //   this.enterpriseSize = data.enterpriseSize;
-      //   this.totalOutputValue = data.totalOutputValue;
-      //   this.SixMajorIndustries = data.SixMajorIndustries;
-      // }
   }
 
   ngOnInit() {
     this.subscription = this.microcosmicService.getData()
-      .subscribe((data: string) => {
-        console.log(data);
+      .subscribe((data) => {
+        // 年产值
+        this.annualOutputValue = data.annualOutputValue;
+        // 企业数量
+        this.numberOfEnterprises = data.numberOfEnterprises;
+        // 企业规模
+        this.enterpriseSize = data.enterpriseSize;
+        // 生产总值
+        this.totalOutputValue = data.totalOutputValue;
+        // 集群行业
+        this.SixMajorIndustries = data.SixMajorIndustries;
       });
     // 改变container的宽度
     this.storeContainer.dispatch({
