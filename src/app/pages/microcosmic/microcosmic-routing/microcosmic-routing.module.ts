@@ -24,7 +24,7 @@ export const routes: Routes = [
   {path: 'companyDetail/:id', component: CompanyDetailComponent},
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routing = RouterModule.forChild(routes);
 
 @NgModule({
   imports: [
