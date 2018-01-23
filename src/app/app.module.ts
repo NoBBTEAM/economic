@@ -11,6 +11,8 @@ import { amapReducer } from './core/amap-ngrx/amap.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContainerReducer } from './core/container-ngrx/contsiner.reducer';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { LayoutService } from './pages/layout/layout.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,14 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     CoreModule,
     AppRoutingModule,
     PerfectScrollbarModule,
     StoreModule.provideStore({ amap: amapReducer, container: ContainerReducer })
   ],
-  providers: [],
+  providers: [LayoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

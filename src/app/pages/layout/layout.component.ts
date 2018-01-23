@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ContainerStyle } from '../../core/container-ngrx/container.model';
 import { Observable } from 'rxjs/Observable';
+import { LayoutService } from './layout.service';
 
 @Component({
   selector: 'app-layout',
@@ -46,8 +47,14 @@ export class LayoutComponent implements OnInit {
   // 消息的内容主体的显示与隐藏
   canShowNotifyContent = false;
   constructor(private router: Router,
+    private layoutService: LayoutService,
     private store: Store<ContainerStyle>) {
     this.tagState$ = this.store.select('container');
+  }
+
+  search() {
+    this.layoutService.search('成都')
+      .subscribe(res => console.log(res));
   }
 
   ngOnInit() {
