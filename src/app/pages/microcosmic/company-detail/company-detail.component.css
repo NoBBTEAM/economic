@@ -1,0 +1,30 @@
+.company-detail .panel-content .flex-item{
+  width: 3.125rem;
+  height: 2.083333rem;
+}
+#guanxi-main,#guanxi-main2{
+  width: 100%;
+}
+.company-list-addr{
+  position: relative;
+  padding: 5px;
+  border: 1px solid rgba(0,0,0,.7);
+  background: #f9b620;
+  white-space: nowrap;
+  margin-left: 30px;
+  font-size: 12px;
+}
+.company-list-addr:hover{
+  z-index: 9;
+}
+.company-list-addr:after{
+  content:'';
+  display: block;
+  position: absolute;
+  left: -45px;
+  top: -15px;
+  /* background: url("../images/position_icon.png") center no-repeat; */
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
