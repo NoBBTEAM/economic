@@ -14,7 +14,8 @@ import { LayoutService } from './layout.service';
     ItemAnimate,
     CircleAnimate,
     ItemPositionAnimate
-  ]
+  ],
+  providers: [LayoutService]
 })
 export class LayoutComponent implements OnInit {
   // 其他组件会改变container的样式， 所以用一个Reduce来管理
@@ -22,6 +23,8 @@ export class LayoutComponent implements OnInit {
   container: ContainerStyle;
   // 搜索框是否选择状态
   isSearchActive = false;
+  // 搜索的关键字
+  keyWord = '';
   // 右边面板是否显示
   isRirhtPanelShow = true;
   // 三个按钮
@@ -53,8 +56,7 @@ export class LayoutComponent implements OnInit {
   }
 
   search() {
-    this.layoutService.search('成都')
-      .subscribe(res => console.log(res));
+    this.layoutService.search(this.keyWord);
   }
 
   ngOnInit() {
