@@ -8,7 +8,6 @@ export class IntermediateService {
   isShowTimesColors = false;
   isShowLandChooseTime = false;
   constructor() { }
-
   getData(flag) {
     // 天府软件园企业数和经济总值
     const mainData = {
@@ -220,18 +219,142 @@ export class IntermediateService {
 
     option.series = Series3;
     const optionMainPart3 = JSON.parse(JSON.stringify(option));
+
+    // 热力图
+    const yearsHeat = ['2012', '2013', '2014', '2015', '2016', '2017'];
+    const industry_cluster = ['集成电路', '软件及服务外包', '光电', '生物医药', '通信', '精密机械'];
+    const rankDataNum = [[0, 0, 0], [0, 1, 3], [0, 2, 5], [0, 3, 6], [0, 4, 2], [0, 5, 4],
+      [1, 0, 1], [1, 1, 3], [1, 2, 1], [1, 3, 14], [1, 4, 6], [1, 5, 15],
+      [2, 0, 11], [2, 1, 23], [2, 2, 4], [2, 3, 25], [2, 4, 6], [2, 5, 2],
+      [3, 0, 1], [3, 1, 2], [3, 2, 5], [3, 3, 6], [3, 4, 0], [3, 5, 4],
+      [4, 0, 6], [4, 1, 5], [4, 2, 4], [4, 3, 1], [4, 4, 2], [4, 5, 3],
+      [5, 0, 5], [5, 1, 4], [5, 2, 6], [5, 3, 1], [5, 4, 2], [5, 5, 3]];
+    const rankData = rankDataNum.map(function (item) {
+      return [item[1], item[0], item[2] || '-'];
+    });
+    const optionHeats = {
+      color: ['blue', 'yellow', 'white', 'green', 'pink'],
+      title: {
+//                    text: '南部园区行业热度统计',
+        textStyle: {
+          color: '#fff',
+          fontSize: 16
+        },
+        x: 'center'
+      },
+      tooltip: {
+        position: 'top'
+      },
+      animation: false,
+      grid: {
+        height: '55%',
+        y: '18%',
+        x: '22%'
+      },
+      xAxis: {
+        type: 'category',
+        data: yearsHeat,
+        splitArea: {
+          show: true
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: true,
+          textStyle: {
+            color: '#B2B2B2',
+            fontSize: 12,
+          },
+          interval: 0,
+          //rotate: -30
+        },
+      },
+      yAxis: {
+        type: 'category',
+        data: industry_cluster,
+        splitArea: {
+          show: true
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: true,
+          textStyle: {
+            color: '#B2B2B2',
+            fontSize: 12,
+          },
+          interval: 0,
+          //formatter: '{value} 万'
+        },
+        nameTextStyle: {
+          color: '#B2B2B2',
+          fontSize: 12
+        }
+      },
+      visualMap: {
+        min: 0,
+        max: 10,
+        calculable: true,
+        orient: 'horizontal',
+        left: 'center',
+        bottom: '5%',
+        textStyle: {
+          color: '#B2B2B2',
+          fontSize: 12,
+        },
+      },
+      series: [{
+        name: '行业热度',
+        type: 'heatmap',
+        data: rankData,
+        label: {
+          normal: {
+            show: true
+          }
+        },
+        itemStyle: {
+          emphasis: {
+            shadowBlur: 10,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }]
+    };
+    // ---------------------天府软件园行业热度
+    // 为echarts对象加载数据
+    const optionHeatMap = JSON.parse(JSON.stringify(optionHeats));
+    // ---------------------高新孵化园行业热度
+//            option.title.text = '西部园区行业热度统计';
+    const optionHeatMap1 = JSON.parse(JSON.stringify(optionHeats));
+    // ---------------------生命科技园行业热度
+//            option.title.text = '东部园区行业热度统计';
+    const optionHeatMap2 = JSON.parse(JSON.stringify(optionHeats));
+    // ---------------------天府新股行业热度
+//            option.title.text = '东部园区行业热度统计';
+    const optionHeatMap3 = JSON.parse(JSON.stringify(optionHeats));
     return new Observable<any>((observer) => {
       observer.next({
         optionMainPart: optionMainPart,
         optionMainPart1: optionMainPart1,
         optionMainPart2: optionMainPart2,
         optionMainPart3: optionMainPart3,
+        optionHeatMap: optionHeatMap,
+        optionHeatMap1: optionHeatMap1,
+        optionHeatMap2: optionHeatMap2,
+        optionHeatMap3: optionHeatMap3,
       });
     });
   }
   changeData(title) {
     this.isShowTimesColors = true;
-    this.isShowTimesColors = false;
     console.log(this.isShowTimesColors, title);
   }
 }

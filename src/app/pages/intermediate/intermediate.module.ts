@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IntermediateComponent } from './intermediate.component';
+import { IntermediaRoutingModule } from './intermedia-routing/intermedia-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { IndexAbstractComponent } from './index-abstract/index-abstract.component';
 import { IndustryBoardComponent } from './industry-board/industry-board.component';
@@ -15,7 +16,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   imports: [
     SharedModule,
-    IntermediateRoutingModule,
+    IntermediaRoutingModule,
     PerfectScrollbarModule,
   ],
   providers: [
