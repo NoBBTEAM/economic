@@ -10,7 +10,10 @@ export const routes: Routes = [
     component: IntermediateComponent,
     children: [
       {path: 'indexAbstract', component: IndexAbstractComponent},
-      {path: 'industryBoard', component: IndustryBoardComponent},
+      {path: 'industryBoard', component: IndustryBoardComponent,
+        children: [
+          {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'}
+        ]},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]
   },

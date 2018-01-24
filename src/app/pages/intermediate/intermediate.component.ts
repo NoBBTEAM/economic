@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Amap } from '../../core/amap-ngrx/amap.model';
 import { CLEAR_MARKER } from '../../core/amap-ngrx/amap.actions';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-intermediate',
   templateUrl: './intermediate.component.html',
   styleUrls: ['./intermediate.component.css']

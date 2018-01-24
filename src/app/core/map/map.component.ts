@@ -66,8 +66,10 @@ export class MapComponent implements OnInit {
               map: map,
               content: `<div class="mapMarker"><span>${item.name}</span></div>`
             });
-            marker.on('click', () => {
+            marker.on('click', (e) => {
               console.log(marker.F.title);
+              console.log(e);
+              marker.setContent(`<div class="mapMarker active"><span>${item.name}</span></div>`);
               this.intermediateService.changeData(marker.F.title);
             });
           });
