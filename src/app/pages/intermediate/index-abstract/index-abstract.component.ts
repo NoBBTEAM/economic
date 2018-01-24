@@ -3,6 +3,8 @@ import { IntermediateService } from '../intermediate.service';
 import {ADD_MARKER_MID, CLEAR_MARKER} from '../../../core/amap-ngrx/amap.actions';
 import {Amap} from '../../../core/amap-ngrx/amap.model';
 import { Store } from '@ngrx/store';
+import {CHANGE} from '../../../core/container-ngrx/container.action';
+import {ContainerStyle} from '../../../core/container-ngrx/container.model';
 
 @Component({
   selector: 'app-index-abstract',
@@ -20,9 +22,24 @@ export class IndexAbstractComponent implements OnInit {
   optionHeatMap2: any;
   optionMainPart3: any;
   optionHeatMap3: any;
-  constructor(private intermediateService: IntermediateService, private storeAmap: Store<Amap>) { }
+  constructor(private intermediateService: IntermediateService, private storeAmap: Store<Amap>, private store: Store<ContainerStyle>) {
+    this.store.select('container');
+  }
 
   ngOnInit() {
+    this.store.dispatch({
+      type: CHANGE,
+      payload: {
+        width: '60%'
+      }
+    });
+    this.storeAmap.dispatch({
+      type: CLEAR_MARKER,
+      payload: {
+        action: 'CLEAR_MARKER',
+        data: ''
+      }
+    });
     this.storeAmap.dispatch({
       type: ADD_MARKER_MID,
       payload: {

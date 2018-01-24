@@ -4,10 +4,9 @@ declare var echarts: any;
 
 @Injectable()
 export class IntermediateService {
-
+  constructor() { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
-  constructor() { }
   getData(flag) {
     // 天府软件园企业数和经济总值
     const mainData = {
@@ -355,6 +354,7 @@ export class IntermediateService {
   }
   changeData(title) {
     this.isShowTimesColors = true;
+    this.isShowTimesColors = false;
     console.log(this.isShowTimesColors, title);
   }
 }
