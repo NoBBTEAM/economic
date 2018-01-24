@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntermediateComponent } from '../intermediate.component';
 import { IndexAbstractComponent } from '../index-abstract/index-abstract.component';
@@ -10,19 +10,23 @@ export const routes: Routes = [
     component: IntermediateComponent,
     children: [
       {path: 'indexAbstract', component: IndexAbstractComponent},
-      {path: 'industryBoard', component: IndustryBoardComponent},
+      {path: 'industryBoard', component: IndustryBoardComponent,
+        children: [
+          {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'}
+        ]},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]
   },
 ];
+export const routing = RouterModule.forChild(routes);
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    routing
   ],
   exports: [
     RouterModule
   ],
   declarations: []
 })
-export class IntermediaRoutingModule { }
+export class IntermediateRoutingModule { }

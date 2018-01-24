@@ -3,3 +3,11 @@
   overflow: hidden;
   height: calc(100% - 0.260417rem);
 }
+.mapMarker.active{
+  animation: markermove 1.5s infinite;
+  box-shadow: 0 0 0 10px rgba(0,0,0,0.4);
+}
+@keyframes markermove {
+  0%,100%{transform: scale(1)}
+  50%{transform: scale(1.1)}
+}

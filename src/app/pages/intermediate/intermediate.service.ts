@@ -5,6 +5,8 @@ declare var echarts: any;
 @Injectable()
 export class IntermediateService {
 
+  isShowTimesColors = false;
+  isShowLandChooseTime = false;
   constructor() { }
 
   getData(flag) {
@@ -226,5 +228,10 @@ export class IntermediateService {
         optionMainPart3: optionMainPart3,
       });
     });
+  }
+  changeData(title) {
+    this.isShowTimesColors = true;
+    this.isShowTimesColors = false;
+    console.log(this.isShowTimesColors, title);
   }
 }
