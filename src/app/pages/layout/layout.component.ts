@@ -56,7 +56,10 @@ export class LayoutComponent implements OnInit {
   }
 
   search() {
-    this.layoutService.search(this.keyWord);
+    this.layoutService.search({
+      keyWord: this.keyWord
+    });
+    this.router.navigate(['/mic/companyList']);
   }
 
   ngOnInit() {

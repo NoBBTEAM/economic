@@ -61,7 +61,7 @@
   </div>
   <div class="search_input_box" [ngClass]="{'active': isSearchActive}">
     <input type="text" class="search_input" [(ngModel)]="keyWord" (keyup.enter)="search();notSearchActive()">
-    <button class="search_btn" id="searchBtn" routerLink="/mic/companyList" (click)="$event.stopPropagation();search();notSearchActive()"></button>
+    <button class="search_btn" id="searchBtn" (click)="$event.stopPropagation();search();notSearchActive()"></button>
   </div>
   <!-- ===== 搜索 the end ===== ===== ===== ===== ===== -->
   <!-- ===== 内容面板 start ===== ===== ===== ===== ===== -->
