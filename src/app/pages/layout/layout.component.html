@@ -56,7 +56,11 @@
   <div class="cover-mask" [ngClass]="{'active': isCircleMenuShow}" (click)="itemClick('')"></div>
 
   <!-- ===== 搜索 start ===== ===== ===== ===== ===== -->
-  <div class="search_menu_box" (click)="$event.stopPropagation();notSearchActive()"></div>
+  <div class="fast-menu">
+    <div class="menu_box search_menu_box" (click)="$event.stopPropagation();notSearchActive()"></div>
+    <div class="menu_box follow_menu_box" routerLink="/mic/eventNotice/track"></div>
+    <div class="menu_box manager_menu_box" (click)="$event.stopPropagation();"></div>
+  </div>
   <div class="search_mask" [ngClass]="{'active': isSearchActive}" (click)="$event.stopPropagation();notSearchActive()">
   </div>
   <div class="search_input_box" [ngClass]="{'active': isSearchActive}">
