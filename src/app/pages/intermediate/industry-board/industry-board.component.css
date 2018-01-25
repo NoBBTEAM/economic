@@ -36,7 +36,7 @@
     background: rgba(0,0,0,.5);
 }
 .industry-panel .industry-menu .menu-row:not(:first-child) .sub-menu{
-    display: none;
+    /*display: none;*/
 }
 .industry-panel .industry-menu .sub-menu li{
     padding: 10px 15px;

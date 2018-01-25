@@ -15,6 +15,7 @@ export const routes: Routes = [
       {path: '', redirectTo: 'mic', pathMatch: 'full'}
     ]
   },
+  {path: 'admin', loadChildren: '../pages/manage-system/manage-system.module#ManageSystemModule'}
 ];
 
 @NgModule({

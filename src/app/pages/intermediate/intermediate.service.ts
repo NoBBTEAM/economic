@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+
 declare var echarts: any;
 
 @Injectable()
 export class IntermediateService {
-  constructor() { }
+  private parkRegistUrl = '/v1/land/queryAllFundsByenterpriseType';
+  constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
   getData(flag) {
@@ -356,5 +360,9 @@ export class IntermediateService {
     this.isShowTimesColors = true;
     this.isShowTimesColors = false;
     console.log(this.isShowTimesColors, title);
+  }
+  getParkRegistMoney(keyWord): Observable<any> {
+      return this.http.get(`${this.parkRegistUrl}`)
+        .map(res => (res));
   }
 }
