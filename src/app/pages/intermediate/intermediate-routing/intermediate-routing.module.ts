@@ -12,7 +12,8 @@ export const routes: Routes = [
       {path: 'indexAbstract', component: IndexAbstractComponent},
       {path: 'industryBoard', component: IndustryBoardComponent,
           children: [
-              {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'}
+              {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'},
+              {path: 'parkMenu', loadChildren: '../industry-board/park-menu/park-menu.module#ParkMenuModule'}
           ]},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]

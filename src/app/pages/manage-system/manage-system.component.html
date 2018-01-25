@@ -1,0 +1,24 @@
+<header class="admin-head"><div class="system-back" routerLink="/mic"></div><div class="head-right">后台管理</div></header>
+<div class="admin-container">
+  <div class="left-bar">
+    <ul class="nav-list">
+      <li class="nav_item">
+        <a routerLink="import" routerLinkActive="active" (click)="changeMenuShow()">
+          <i class="fa fa-handshake-o"></i>EXCEL导入<i class="arrow fa fa-angle-right"></i>
+        </a>
+      </li>
+      <li class="nav_item">
+        <a routerLink="roles" routerLinkActive="active" (click)="changeMenuShow('user')">
+          <i class="fa fa-user-o"></i>用户管理<i class="arrow fa fa-angle-right"></i>
+        </a>
+      </li>
+      <ul class="drown-menu" *ngIf="menusControl.user">
+        <li><a routerLink="roles" routerLinkActive="active">角色管理</a></li>
+        <li><a routerLink="function" routerLinkActive="active">功能管理</a></li>
+      </ul>
+    </ul>
+  </div>
+  <div class="right-con">
+    <router-outlet></router-outlet>
+  </div>
+</div>
