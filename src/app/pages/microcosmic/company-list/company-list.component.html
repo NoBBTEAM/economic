@@ -29,7 +29,7 @@
           <span class="back-btn"></span>
         </div>
         <h3 class="fl" id="titleName">
-          成都
+          {{keyWord}}
         </h3>
       </div>
     </div>
@@ -37,13 +37,10 @@
   <div class="content">
     <div class="panel-menu-box">
       <ul class="panel-menu" id="filterMenu">
-        <li class="">全部</li>
-        <li filtername="enterpriseType" filtervalue="通信公司 (61)">通信公司 (61)</li>
-        <li filtername="enterpriseType" filtervalue="房地产公司 (46)">房地产公司 (46)</li>
-        <li filtername="enterpriseType" filtervalue="医药公司 (44)">医药公司 (44)</li>
-        <li filtername="enterpriseType" filtervalue="精密机械公司 (42)" class="active">精密机械公司 (42)</li>
-        <li filtername="enterpriseType" filtervalue="金融证券公司 (41)">金融证券公司 (41)</li>
-        <li filtername="enterpriseType" filtervalue="互联网科技公司 (37)" class="">互联网科技公司 (37)</li>
+        <perfect-scrollbar style="height: 100%">
+          <li class="" (click)="enterpriseTypeClick()">全部</li>
+          <li *ngFor="let enterpriseType of enterpriseTypes" [ngClass]="{'active': enterpriseTypeActive[enterpriseType]}" (click)="enterpriseTypeClick(enterpriseType)">{{enterpriseType}}（{{enterpriseTypesNumber[enterpriseType]}}）</li>
+        </perfect-scrollbar>
       </ul>
     </div>
     <div class="panel-menu-right" id="panel-menu-right">
@@ -52,92 +49,14 @@
 
           <div class="panel-bd pop-index-0 animated active">
             <div class="panel-content" id="companyList">
-              <div class="company-item animated flipInX" companyid="842243f8-2c50-41f2-bb5b-44dafd20f6b1">
+              <div class="company-item animated flipInX" *ngFor="let company of companys">
                 <div class="company-logo">
                   <img src="../images/company_logo.png" alt="">
                 </div>
                 <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>天子集团有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="ba7245ed-f43b-4604-8df7-39cd24f4b1f4" routerLink="/mic/companyDetail/39cd24f4b1f4">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>飞晨服饰有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="1657015c-697b-4dff-8a68-76a399271aaf">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>新高科实业有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="12274e17-e4a4-4598-9ae7-8c84ddd8774c">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>经纬策划传播有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="2a1de152-a151-41fb-b469-09d10e72e9b9">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>五块石电子电器市场菲达电器经营部</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="5ae166fd-8cc8-4a11-b721-5c9eb1853ae1">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>知本投资管理咨询有限责任公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="1f04c2ee-fdd9-422d-9e58-f6dff86ec3a0">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>路易达皮具贸易有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
-                </div>
-              </div>
-              <div class="company-item animated flipInX" companyid="58434ee5-7886-4b76-8e67-1d25f8ca339c">
-                <div class="company-logo">
-                  <img src="../images/company_logo.png" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <font color="red">成都</font>王府井影业有限公司</div>
-                  <span>精密机械公司</span>
-                  <span class="num"></span>
+                  <div class="name" [innerHTML]="company?.name"></div>
+                  <span>{{company?.enterpriseType}}</span>
+                  <span class="num">{{company?.id}}</span>
                 </div>
               </div>
             </div>
@@ -145,7 +64,7 @@
         </perfect-scrollbar>
       </div>
       <div class="panel-bot">
-        <app-pagination></app-pagination>
+        <app-pagination [pageParam]="pageParam"></app-pagination>
       </div>
     </div>
   </div>

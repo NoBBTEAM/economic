@@ -7,6 +7,7 @@ import { EarlyWarningComponent } from '../event-notice/early-warning/early-warni
 import { RecommendComponent } from '../event-notice/recommend/recommend.component';
 import { CompanyListComponent } from '../company-list/company-list.component';
 import { CompanyDetailComponent } from '../company-detail/company-detail.component';
+import { BreedTrackComponent } from '../event-notice/breed-track/breed-track.component';
 
 export const routes: Routes = [
   { path: '', component: MicrocosmicComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
       {path: 'track', component: TrackComponent},
       {path: 'earlyWarning', component: EarlyWarningComponent},
       {path: 'recommend', component: RecommendComponent},
+      {path: 'breedTrack', component: BreedTrackComponent},
     ]
   },
   {path: 'companyList', component: CompanyListComponent},

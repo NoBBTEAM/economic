@@ -9,6 +9,7 @@ import { RecommendComponent } from './event-notice/recommend/recommend.component
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { BreedTrackComponent } from './event-notice/breed-track/breed-track.component';
 // import { MicrocosmicService } from './microcosmic.service';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     EarlyWarningComponent,
     RecommendComponent,
     CompanyDetailComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    BreedTrackComponent
   ],
 })
 export class MicrocosmicModule { }
