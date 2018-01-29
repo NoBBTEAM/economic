@@ -8,11 +8,15 @@ import { MacEconomicIncomeComponent } from './mac-economic-income/mac-economic-i
 import { MacEconomicInvestComponent } from './mac-economic-invest/mac-economic-invest.component';
 import { MacEconomicPillarComponent } from './mac-economic-pillar/mac-economic-pillar.component';
 import { MacEconomicComponent } from './mac-economic.component';
+import { MacEconomicGdpService } from './mac-economic-gdp/mac-economic-gdp.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { MacEconomicPillarService } from './mac-economic-pillar/mac-economic-pillar.service';
 
 @NgModule({
   imports: [
     SharedModule,
-    MacEconomicRoutingModule
+    MacEconomicRoutingModule,
+    PerfectScrollbarModule,
   ],
   declarations: [
     MacEconomicComponent,
@@ -22,6 +26,10 @@ import { MacEconomicComponent } from './mac-economic.component';
     MacEconomicIncomeComponent,
     MacEconomicInvestComponent,
     MacEconomicPillarComponent,
+  ],
+  providers: [
+    MacEconomicGdpService,
+    MacEconomicPillarService
   ]
 })
 export class MacEconomicModule { }

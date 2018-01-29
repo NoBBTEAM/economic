@@ -35,6 +35,10 @@
   padding-left: 10px;
 }
 
+.macros-view-bd .panel-content {
+  height: 100%;
+}
+
 .macros-view-bd .panel-content .table tr td {
   text-align: center;
 }
@@ -77,6 +81,10 @@
 .public-budget .flex-cell {
   flex: none;
   width: 80%;
+}
+
+.panel-menu-right .panel-bd {
+  height: 100%;
 }
 
 .chose-time {
