@@ -2,6 +2,10 @@
   width: 90px;
 }
 
+.table tr td {
+  text-align: center;
+}
+
 .chose-time .form-control {
   padding: 0 10px;
   height: 25px;
