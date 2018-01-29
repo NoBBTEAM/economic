@@ -59,7 +59,7 @@
   <div class="fast-menu">
     <div class="menu_box search_menu_box" (click)="$event.stopPropagation();notSearchActive()"></div>
     <div class="menu_box follow_menu_box" routerLink="/mic/eventNotice/track"></div>
-    <div class="menu_box manager_menu_box" (click)="$event.stopPropagation();"></div>
+    <div class="menu_box manager_menu_box" routerLink="/admin" (click)="$event.stopPropagation();"></div>
   </div>
   <div class="search_mask" [ngClass]="{'active': isSearchActive}" (click)="$event.stopPropagation();notSearchActive()">
   </div>
