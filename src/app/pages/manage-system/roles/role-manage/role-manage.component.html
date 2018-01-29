@@ -8,10 +8,10 @@
       <div *ngIf="name.invalid && (name.dirty || name.touched)"
            class="alert alert-danger">
         <div *ngIf="name.errors.required">
-          Name is required.
+          角色名称不能为空.
         </div>
         <div *ngIf="name.errors.minlength">
-          Name must be at least 4 characters long.
+          角色名称不能少于4位.
         </div>
       </div>
     </div>
@@ -24,9 +24,29 @@
 
     <div class="role-con">
       <label class="form-label">角色功能</label>
+      <div class="roles-item">
+        <div class="roles-all"><label><input type="checkbox" (change)="changeRoleGrop('gropRole1')" [checked]="RoleGroupChecked.gropRole1"><i></i>权限串</label><span class="fa fa-chevron-down roles-all-arrow fr" (click)="changeRoleShow('role1')" [ngClass]="{'active':allRoleType.role1}"></span></div>
+        <div class="role-list" *ngIf="!allRoleType.role1">
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole1" (change)="removeRoleGrop('gropRole1',$event)"><i></i>权限串1</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole1" (change)="removeRoleGrop('gropRole1',$event)"><i></i>权限串2</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole1" (change)="removeRoleGrop('gropRole1',$event)"><i></i>权限串1</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole1" (change)="removeRoleGrop('gropRole1',$event)"><i></i>权限串2</label></div>
+        </div>
+      </div>
+
+      <div class="roles-item">
+        <div class="roles-all"><label><input type="checkbox" (change)="changeRoleGrop('gropRole2')" [checked]="RoleGroupChecked.gropRole2"><i></i>权限串</label><span class="fa fa-chevron-down roles-all-arrow fr" (click)="changeRoleShow('role2')" [ngClass]="{'active':allRoleType.role2}"></span></div>
+        <div class="role-list" *ngIf="!allRoleType.role2">
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole2" (change)="removeRoleGrop('gropRole2',$event)"><i></i>权限串1</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole2" (change)="removeRoleGrop('gropRole2',$event)"><i></i>权限串2</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole2" (change)="removeRoleGrop('gropRole2',$event)"><i></i>权限串1</label></div>
+          <div class="item"><label><input type="checkbox" [checked]="RoleGroupType.gropRole2" (change)="removeRoleGrop('gropRole2',$event)"><i></i>权限串2</label></div>
+        </div>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!roleForm.form.valid">Submit</button>
+    <button type="submit" class="btn btn-success" [disabled]="!roleForm.form.valid">确认</button>
+    <button type="button" class="btn btn-danger" routerLink="/admin/roles">取消</button>
     <!-- - -->
   </form>
 </div>

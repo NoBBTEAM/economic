@@ -1,0 +1,18 @@
+.single-form{
+  width: 50%;
+  margin: 20px auto;
+}
+.single-form .form-label{
+  position: relative;
+  padding-left: 10px;
+}
+.single-form .form-label::before{
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  bottom: 2px;
+  width: 4px;
+  background: #f9b620;
+  border-radius: 5px;
+}
