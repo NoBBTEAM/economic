@@ -3,6 +3,9 @@ import { IntermediateService } from '../../../intermediate.service';
 import { Store } from '@ngrx/store';
 import {CHANGE} from '../../../../../core/container-ngrx/container.action';
 import {ContainerStyle} from '../../../../../core/container-ngrx/container.model';
+import {CLEAR_MARKER} from '../../../../../core/amap-ngrx/amap.actions';
+import {Amap} from '../../../../../core/amap-ngrx/amap.model';
+declare var AMap: any;
 
 @Component({
   selector: 'app-land-nature',
@@ -11,7 +14,7 @@ import {ContainerStyle} from '../../../../../core/container-ngrx/container.model
 })
 export class LandNatureComponent implements OnInit {
 
-  constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>) {
+  constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>, private storeAmap: Store<Amap>) {
     this.store.select('container');
   }
   landNatureEchat: any;
@@ -37,6 +40,133 @@ export class LandNatureComponent implements OnInit {
           this.buildCharts(conutData);
         },500);
       });
+    this.intermediateService.getLandNaturePolygon()
+      .subscribe(res => {
+        this.storeAmap.dispatch({
+          type: CLEAR_MARKER,
+          payload: {
+            action: 'CLEAR_MARKER',
+            data: ''
+          }
+        });
+      });
+  }
+  creatPolygonO(res) {
+    let pointsArr = [];
+    for(var i=0;i<res.length;i++){
+      // pointsArr.push(res[i].points);
+      var point_x_y = [];
+      var pointItem = {id:"",position:"",inefficient:"",landArea:"",landUsrNature:""};
+      for(var j=0;j<res[i].points.length;j++){
+        point_x_y.push([res[i].points[j].point_80_x,res[i].points[j].point_80_y]);
+      }
+      pointItem.id = res[i].id;
+      pointItem.unifiedLandMark = res[i].unifiedLandMark;
+      pointItem.rightHolder = res[i].rightHolder;
+      pointItem.landCardNumber = res[i].landCardNumber;
+      pointItem.landIsLocated = res[i].landIsLocated;
+      pointItem.inefficient = res[i].inefficient;
+      pointItem.generalType = res[i].generalType;
+      /*实测面积*/
+      pointItem.landArea = res[i].landArea;
+      /*使用全面积*/
+      pointItem.usageArea = res[i].usageArea;
+      pointItem.landUsrNature = res[i].landUsrNature;
+      pointItem.position = point_x_y;
+      pointsArr.push(pointItem);
+    }
+    // dataPolygonNatureLands = pointsArr;
+    const newpointers = pointsArr;
+    //-----
+    var color;
+    for(var i=0;i<newpointers.length;i++){
+
+      if(newpointers[i].generalType == "储备用地"){
+        color =colors[0];
+        // var color ="transparent"
+      }else if(newpointers[i].generalType == "工业用地"){
+        color =colors[1];
+      }else if(newpointers[i].generalType == "公共设施及其他用地"){
+        color =colors[2];
+      }else if(newpointers[i].generalType == "科研用地"){
+        color =colors[3];
+      }else if(newpointers[i].generalType == "商服用地"){
+        color =colors[4];
+      }else if(newpointers[i].generalType == "住宅用地"){
+        color =colors[5];
+      }else{
+        color =colors[6];
+      }
+
+      const polygonOptions = {
+        map: map,
+        strokeColor: "#fff",
+        // strokeColor: color,
+        strokeWeight: 2,
+        fillColor: color,
+        fillOpacity: 0.8,
+        /*strokeStyle: "dashed",
+        strokeDasharray: [20,10],*/
+        extData: {
+          id: newpointers[i].id,
+          type: newpointers[i].type,
+          landType: newpointers[i].landType,
+          landCardNumber: newpointers[i].landCardNumber,
+          landArea: newpointers[i].landArea,
+          usageArea: newpointers[i].usageArea,
+          /*按性质分类*/
+          generalType: newpointers[i].generalType,
+          landUsrNature: newpointers[i].landUsrNature,
+          unifiedLandMark: newpointers[i].unifiedLandMark,
+          landIsLocated: newpointers[i].landIsLocated,
+          rightHolder: newpointers[i].rightHolder,
+          color: color,
+          slected: false
+        }
+      };
+      // 外多边形坐标数组和内多边形坐标数组
+      var pointers = newpointers[i].position;
+      const polygonNatureLand = new AMap.Polygon(polygonOptions);
+      polygonNatureLand.on("click",function(e){
+        /*看数据*/
+        console.log(this.getExtData())
+        if(!this.getExtData().slected){
+          // var lanTitle = idustryParkName;
+          var landArea = this.getExtData().landArea;
+          var landUsrNature = this.getExtData().landUsrNature;
+          var that = this;
+          var unifiedLandMark = this.getExtData().unifiedLandMark;
+          // chooseLanId = unifiedLandMark;
+          // $(".industry-menu .menu-row:last-child li:first-child").click();
+          // $(".industry-menu .menu-row:last-child li:first-child").siblings().hide();
+          //在地图上改变当前点击的多边形
+          /*for(var i=0;i<polygonNatureLands.lands.length;i++){
+            if(polygonNatureLands.lands[i].getExtData().slected){
+              polygonNatureLands.lands[i].setOptions({strokeColor:"#fff",fillColor:polygonNatureLands.lands[i].getExtData().color});
+              var oldExtData = polygonNatureLands.lands[i].getExtData();//先保存原始ExtData数据
+              oldExtData.slected = false;//改变之前选中的状态为false
+              polygonNatureLands.lands[i].setExtData(oldExtData)//更新之前选中的ExtData
+              break;
+            }
+          }*/
+          var newExtData = this.getExtData();
+          newExtData.slected = true;
+          // this.setOptions({strokeColor:selectedColor,fillColor:selectedColor});
+          this.setExtData(newExtData);
+          // var options = {lanTitle:lanTitle,landArea:landArea,landUsrNature:landUsrNature,polygon:that};
+          // landInfoWindowFn(map,options,"polygonNatureLands");
+          // viewLandPanel(this.getExtData())
+        }
+      })
+      polygonNatureLand.on("mouseover",function(e){
+      })
+      polygonNatureLand.on("mouseout",function(e){
+        // landInfoWindow.close()
+      })
+      // console.log(polygon)
+      polygonNatureLand.setPath(pointers);
+      // polygonNatureLands.lands.push(polygonNatureLand);
+    }
   }
   /*组装为echart需要的数据*/
   conutTypeData(arr) {

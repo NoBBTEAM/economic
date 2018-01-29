@@ -11,6 +11,7 @@ export class IntermediateService {
   private parkCompanyTypeUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyIncomeUrl = '/v1/land/findRevenueByTime';
   private LandNatureEchatUrl = '/v1/land/findCountByGeneralType';
+  private LandNaturePolygonUrl = '/v1/land/findAllHasType';
   constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
@@ -378,6 +379,10 @@ export class IntermediateService {
   }
   getLandNatureEchat(): Observable<any> {
       return this.http.get(`${this.LandNatureEchatUrl}`)
+        .map(res => (res));
+  }
+  getLandNaturePolygon(): Observable<any> {
+      return this.http.get(`${this.LandNaturePolygonUrl}`)
         .map(res => (res));
   }
 }
