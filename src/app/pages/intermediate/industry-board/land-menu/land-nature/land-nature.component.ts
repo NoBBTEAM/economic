@@ -1,118 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { IntermediateService } from '../../../intermediate.service';
 import { Store } from '@ngrx/store';
-import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
 import {CHANGE} from '../../../../../core/container-ngrx/container.action';
+import {ContainerStyle} from '../../../../../core/container-ngrx/container.model';
 
 @Component({
-  selector: 'app-regist-money',
-  templateUrl: './regist-money.component.html',
-  styleUrls: ['./regist-money.component.css']
+  selector: 'app-land-nature',
+  templateUrl: './land-nature.component.html',
+  styleUrls: ['./land-nature.component.css']
 })
-export class RegistMoneyComponent implements OnInit {
-  registMoneyData: any;
-  parkName = '起步园区';
-  chooseBuildName = undefined;
-  chooseBuildId = '';
-  colors = {
-    '生物医药': '#ff7e9f',
-    '电子信息': '#ff7e00',
-    '精密制造': '#a57c52',
-    '其他': '#7d7dff',
-    '服务业': '#ff0000'
-  }
-  conutData= [];
-  typeList = [];
+export class LandNatureComponent implements OnInit {
+
   constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>) {
     this.store.select('container');
   }
-
+  landNatureEchat: any;
+  colors = {
+    '储备用地': '#bf7eff',
+    '工业用地': '#a57c52',
+    '公共设施及其他用地': '#2a8ab8',
+    '科研用地': '#ff7eff',
+    '商服用地': '#ff0000',
+    '住宅用地': '#ffd041'
+  }
   ngOnInit() {
-
     this.store.dispatch({
       type: CHANGE,
       payload: {
         width: '60%'
       }
     });
-      const test = this.intermediateService.getParkRegistMoney('高新西区')
-        .subscribe(res => {
-          console.log(res);
-          for(var i=0;i<res.length;i++){
-            if(res[i].floorId){
-              if(this.chooseBuildName !=undefined){
-                if(this.chooseBuildId == res[i].floorId){
-                  this.typeList.push(res[i].type);
-                }
-              }else{
-                if(this.parkName == res[i].location){
-                  this.typeList.push(res[i].type);
-                }
-              }
-            }else{
-              this.typeList.push(res[i]);
-            }
-          }
-          this.conutData = this.conutTypeData(this.typeList);
-
-          setTimeout(() => {
-            this.buildCharts(this.conutData);
-          },500)
-        })
-      console.log(test);
-  }
-
-  /*数组去重*/
-  unique (arr) {
-    return Array.from(new Set(arr))
+    this.intermediateService.getLandNatureEchat()
+      .subscribe(res => {
+        const conutData = this.conutTypeData(res);
+        setTimeout(() => {
+          this.buildCharts(conutData);
+        },500);
+      });
   }
   /*组装为echart需要的数据*/
   conutTypeData(arr) {
-    var nameArr = [];
-    var result = [];
-    for(var i=0;i<arr.length;i++){
-      // console.log(arr[i]);
-      var j;
-      if(arr[i].total){
-        if( (j=nameArr.indexOf(arr[i].type))>-1){
-          /*for(var j=0;j<result.length;j++){
-              if(result[j].name == arr[i]){
-                  result[j].value +=1;
-              }
-          }*/
-          result[j].value +=arr[i].total;
-        }else {
-          nameArr.push(arr[i]);
-          result.push({
-            value:arr[i].total,
-            name:arr[i].type
-          })
-        }
-      }else {
-        if( (j=nameArr.indexOf(arr[i]))>-1){
-          /*for(var j=0;j<result.length;j++){
-              if(result[j].name == arr[i]){
-                  result[j].value +=1;
-              }
-          }*/
-          result[j].value +=1;
-        }else {
-          nameArr.push(arr[i]);
-          result.push({
-            value:arr[i][0],
-            name:arr[i][1],
-            itemStyle: {
-              color: this.colors[arr[i][1]]
-            },
-            build: true,
-          })
-        }
-      }
-    }
+    arr.shift();
+    var result = []
+    arr.forEach(function(item, index) {
+      result.push({
+        name: item[1],
+        value: item[0]
+      })
+    })
     return result;
   }
   buildCharts(conutData) {
-    let newData = [];
+    var newData = [];
     for(var i=0;i<conutData.length;i++){
       if(!conutData[i].build){
         if(conutData[i].name !="1" && conutData[i].name !="2" && conutData[i].name !="3" && conutData[i].name !="4" && conutData[i].name !="5" && conutData[i].name !="6" && conutData[i].name !="7" && conutData[i].name !="8" && conutData[i].name !="9" && conutData[i].name !="10"){
@@ -122,20 +61,19 @@ export class RegistMoneyComponent implements OnInit {
         newData = conutData;
       }
     }
-    const industryType = newData;
-    console.log(newData)
-    const legendData = [];
-    const COLORS = [];
+    var industryType = newData;
+    var legendData = [];
+    var COLORS = []
     for(var i=0;i<industryType.length;i++){
       legendData.push(industryType[i].name)
-      COLORS.push(this.colors[industryType[i].name]);
+      COLORS.push(this.colors[industryType[i].name])
     }
     console.log(industryType)
     console.log(legendData)
     const option = {
-      color : COLORS,
+      color: COLORS,
       title : {
-        text: '企业注册资本占比',
+        text: '用地性质占比',
         x:'center',
         textStyle: {
           color: '#fff',
@@ -165,7 +103,7 @@ export class RegistMoneyComponent implements OnInit {
       },
       series : [
         {
-          name: '企业注册资本占比',
+          name: '用地性质占比',
           type: 'pie',
           radius : '45%',
           center: ['65%', '60%'],
@@ -203,7 +141,6 @@ export class RegistMoneyComponent implements OnInit {
         }
       ]
     };
-    this.registMoneyData = option;
+    this.landNatureEchat = option;
   }
-
 }

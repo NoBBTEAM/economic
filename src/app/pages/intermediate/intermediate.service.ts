@@ -8,6 +8,9 @@ declare var echarts: any;
 @Injectable()
 export class IntermediateService {
   private parkRegistUrl = '/v1/land/queryAllFundsByenterpriseType';
+  private parkCompanyTypeUrl = '/v1/land/queryAllFundsByenterpriseType';
+  private parkCompanyIncomeUrl = '/v1/land/findRevenueByTime';
+  private LandNatureEchatUrl = '/v1/land/findCountByGeneralType';
   constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
@@ -363,6 +366,18 @@ export class IntermediateService {
   }
   getParkRegistMoney(keyWord): Observable<any> {
       return this.http.get(`${this.parkRegistUrl}`)
+        .map(res => (res));
+  }
+  getParkCompanyType(): Observable<any> {
+      return this.http.get(`${this.parkCompanyTypeUrl}`)
+        .map(res => (res));
+  }
+  getParkCompanyIncome(time): Observable<any> {
+      return this.http.get(`${this.parkCompanyIncomeUrl + '?time=' + time}`)
+        .map(res => (res));
+  }
+  getLandNatureEchat(): Observable<any> {
+      return this.http.get(`${this.LandNatureEchatUrl}`)
         .map(res => (res));
   }
 }
