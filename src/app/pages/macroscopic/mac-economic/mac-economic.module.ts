@@ -14,6 +14,7 @@ import { MacEconomicPillarService } from './mac-economic-pillar/mac-economic-pil
 import { MacEconomicInvestService } from './mac-economic-invest/mac-economic-invest.service';
 import { MacEconomicBudgetService } from './mac-economic-budget/mac-economic-budget.service';
 import { MacEconomicExpendService } from './mac-economic-expend/mac-economic-expend.service';
+import { MacEconomicIncomeService } from './mac-economic-income/mac-economic-income.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { MacEconomicExpendService } from './mac-economic-expend/mac-economic-exp
     MacEconomicPillarService,
     MacEconomicInvestService,
     MacEconomicBudgetService,
-    MacEconomicExpendService
+    MacEconomicExpendService,
+    MacEconomicIncomeService
   ]
 })
 export class MacEconomicModule { }
