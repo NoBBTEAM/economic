@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./function-manage.component.css']
 })
 export class FunctionManageComponent implements OnInit {
-
+  functionName: string;
+  functionMethod: string = 'POST';
+  functionDesc: string;
+  methods = ['POST', 'GET', 'DELETE', 'PATCH'];
   constructor() { }
 
   ngOnInit() {

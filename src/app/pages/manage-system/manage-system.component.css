@@ -21,6 +21,7 @@ header .system-back{
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
+  outline: none;
 }
 header .system-back::after{
   content: '';
@@ -39,7 +40,7 @@ header .system-back::after{
   letter-spacing: 3px;
   text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
-a:hover{
+a{
   text-decoration: none;
 }
 .admin-container{
@@ -62,7 +63,7 @@ a:hover{
 }
 .nav_item a:hover, .nav_item a.active {
   background-color: #1c202c;
-  color: #2cb2a8;
+  color: #f9b71c;
 }
 .nav_item a {
   cursor: pointer;
@@ -101,5 +102,20 @@ a:hover{
 }
 .drown-menu li a:hover,.drown-menu li a.active{
   background-color: #1c202c;
-  color: #2cb2a8;
+  color: #f9b71c;
+}
+.head-right .system-name,.head-right .admin-name{
+  text-shadow: 3px 3px 10px #000;
+}
+.head-right .admin-name{
+  font-weight: normal;
+  color: #fff;
+  font-size: 16px;
+  margin-right: 20px;
+}
+button{
+  outline: none;
+}
+.text-c th{
+  text-align: center;
 }
