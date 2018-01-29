@@ -29,11 +29,11 @@
           <div class="menu-row" [ngClass]="{'active':isShowLandMenu}">
             <div  class="menu-item" (click)="showIndustryMenus('LandMenu')"><div class="menu-text">地块统计</div><span class="fa fa-caret-down info-arrow"></span></div>
             <ul class="sub-menu" *ngIf="isShowLandMenu">
-              <li class="item4"><em></em>用地性质</li>
-              <li class="item1"><em></em>单一业主和楼宇</li>
-              <li class="item3"><em></em>单一业主收入排名</li>
-              <li class="item2"><em></em>单一业主经济产出</li>
-              <li class="item5"><em></em>低效用地</li>
+              <li routerLink="landMenu/landNature" routerLinkActive="active" class="item4"><em></em>用地性质</li>
+              <li routerLink="landMenu/singleFloor" routerLinkActive="active" class="item1"><em></em>单一业主和楼宇</li>
+              <li routerLink="landMenu/ecoTop" routerLinkActive="active" class="item3"><em></em>单一业主收入排名</li>
+              <li routerLink="landMenu/ecoOutput" routerLinkActive="active" class="item2"><em></em>单一业主经济产出</li>
+              <li routerLink="landMenu/inefficientLand" routerLinkActive="active" class="item5"><em></em>低效用地</li>
               <!--<li class="item6"><em></em>楼宇</li>-->
             </ul>
           </div>

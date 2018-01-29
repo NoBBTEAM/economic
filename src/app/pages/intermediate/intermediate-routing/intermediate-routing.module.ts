@@ -13,7 +13,8 @@ export const routes: Routes = [
       {path: 'industryBoard', component: IndustryBoardComponent,
           children: [
               {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'},
-              {path: 'parkMenu', loadChildren: '../industry-board/park-menu/park-menu.module#ParkMenuModule'}
+              {path: 'parkMenu', loadChildren: '../industry-board/park-menu/park-menu.module#ParkMenuModule'},
+              {path: 'landMenu', loadChildren: '../industry-board/land-menu/land-menu.module#LandMenuModule'}
           ]},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]

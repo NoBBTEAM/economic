@@ -1,6 +1,6 @@
 // src/app/core/pet-tag.reducer.ts
 import { Action } from '@ngrx/store';
-import { ADD_MARKER, ADD_MARKER_MID, REMOVE_MARKER, OPEN_INFO, CLOSE_INFO, CLEAR_MARKER } from './amap.actions';
+import { ADD_MARKER, ADD_MARKER_MID, REMOVE_MARKER, OPEN_INFO, CLOSE_INFO, CLEAR_MARKER, ADD_POLYGON } from './amap.actions';
 import { Amap, AmapInit } from './amap.model';
 
 export function amapReducer(state: Amap = AmapInit, {type, payload}) {
@@ -16,6 +16,8 @@ export function amapReducer(state: Amap = AmapInit, {type, payload}) {
     case OPEN_INFO:
       return Object.assign({}, state, payload);
     case CLOSE_INFO:
+      return Object.assign({}, state, payload);
+    case ADD_POLYGON:
       return Object.assign({}, state, payload);
     default:
       return state;

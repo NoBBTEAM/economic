@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IntermediateService } from '../../../intermediate.service';
+import { Store } from '@ngrx/store';
+import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
+import {CHANGE} from '../../../../../core/container-ngrx/container.action';
 
 @Component({
   selector: 'app-regist-money',
@@ -20,32 +23,43 @@ export class RegistMoneyComponent implements OnInit {
   }
   conutData= [];
   typeList = [];
-  constructor(private intermediateService: IntermediateService) { }
+  constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>) {
+    this.store.select('container');
+  }
 
   ngOnInit() {
-    const test = this.intermediateService.getParkRegistMoney('高新西区')
-      .subscribe(res => {
-        console.log(res);
-        for(var i=0;i<res.length;i++){
-          if(res[i].floorId){
-            if(this.chooseBuildName !=undefined){
-              if(this.chooseBuildId == res[i].floorId){
-                this.typeList.push(res[i].type);
+
+    this.store.dispatch({
+      type: CHANGE,
+      payload: {
+        width: '60%'
+      }
+    });
+      const test = this.intermediateService.getParkRegistMoney('高新西区')
+        .subscribe(res => {
+          console.log(res);
+          for(var i=0;i<res.length;i++){
+            if(res[i].floorId){
+              if(this.chooseBuildName !=undefined){
+                if(this.chooseBuildId == res[i].floorId){
+                  this.typeList.push(res[i].type);
+                }
+              }else{
+                if(this.parkName == res[i].location){
+                  this.typeList.push(res[i].type);
+                }
               }
             }else{
-              if(this.parkName == res[i].location){
-                this.typeList.push(res[i].type);
-              }
+              this.typeList.push(res[i]);
             }
-          }else{
-            this.typeList.push(res[i]);
           }
-        }
-        this.conutData = this.conutTypeData(this.typeList);
-        this.buildCharts(this.conutData);
-      })
-    console.log(test);
+          this.conutData = this.conutTypeData(this.typeList);
 
+          setTimeout(() => {
+            this.buildCharts(this.conutData);
+          },500)
+        })
+      console.log(test);
   }
 
   /*数组去重*/
