@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MacEconomicInvestService {
@@ -137,7 +138,7 @@ export class MacEconomicInvestService {
     });
   }
 
-  getDate() {
+  getDate(): Observable<any> {
     return this.subject.asObservable();
   }
 }

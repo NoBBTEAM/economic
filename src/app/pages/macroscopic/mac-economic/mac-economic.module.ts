@@ -12,6 +12,8 @@ import { MacEconomicGdpService } from './mac-economic-gdp/mac-economic-gdp.servi
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { MacEconomicPillarService } from './mac-economic-pillar/mac-economic-pillar.service';
 import { MacEconomicInvestService } from './mac-economic-invest/mac-economic-invest.service';
+import { MacEconomicBudgetService } from './mac-economic-budget/mac-economic-budget.service';
+import { MacEconomicExpendService } from './mac-economic-expend/mac-economic-expend.service';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { MacEconomicInvestService } from './mac-economic-invest/mac-economic-inv
   providers: [
     MacEconomicGdpService,
     MacEconomicPillarService,
-    MacEconomicInvestService
+    MacEconomicInvestService,
+    MacEconomicBudgetService,
+    MacEconomicExpendService
   ]
 })
 export class MacEconomicModule { }
