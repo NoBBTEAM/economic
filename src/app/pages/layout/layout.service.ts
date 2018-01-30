@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import { Subject } from 'rxjs/Subject';
 
 export interface SearchParams {
   keyWord?: string;
@@ -31,7 +30,7 @@ export interface SearchResponse {
 
 @Injectable()
 export class LayoutService {
-  private subject = new Subject<any>();
+  private subject = new BehaviorSubject<any>(0);
 
   private searchUrl = '/company/listCompanysPage';
 
