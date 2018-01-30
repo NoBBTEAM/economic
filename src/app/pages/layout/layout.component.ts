@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ContainerStyle } from '../../core/container-ngrx/container.model';
 import { Observable } from 'rxjs/Observable';
 import { LayoutService } from './layout.service';
+import { IntermediateService } from '../intermediate/intermediate.service';
 
 @Component({
   selector: 'app-layout',
@@ -18,6 +19,8 @@ import { LayoutService } from './layout.service';
   providers: [LayoutService]
 })
 export class LayoutComponent implements OnInit {
+  isShowParkBuildBar: boolean = false;
+  showBuildList: boolean = false;
   // 其他组件会改变container的样式， 所以用一个Reduce来管理
   tagState$: Observable<ContainerStyle>;
   container: ContainerStyle;
@@ -51,6 +54,7 @@ export class LayoutComponent implements OnInit {
   canShowNotifyContent = false;
   constructor(private router: Router,
     private layoutService: LayoutService,
+    private intermediateService: IntermediateService,
     private store: Store<ContainerStyle>) {
     this.tagState$ = this.store.select('container');
   }
@@ -67,6 +71,9 @@ export class LayoutComponent implements OnInit {
       console.log(state.width);
       this.container = state;
     });
+    this.intermediateService.getShowHideData().subscribe(res => {
+      this.isShowParkBuildBar = res.isShowParkBuildBar;
+    })
 
     setTimeout(() => {
       this.isCircleMenuShow = !this.isCircleMenuShow;

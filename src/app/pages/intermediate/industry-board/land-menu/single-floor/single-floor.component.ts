@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {ADD_POLYGON} from '../../../../../core/amap-ngrx/amap.actions';
-import {ContainerStyle} from '../../../../../core/container-ngrx/container.model';
-import {IntermediateService} from '../../../intermediate.service';
-import {Amap} from '../../../../../core/amap-ngrx/amap.model';
-import {CHANGE} from '../../../../../core/container-ngrx/container.action';
+import { ADD_POLYGON } from '../../../../../core/amap-ngrx/amap.actions';
+import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
+import { IntermediateService } from '../../../intermediate.service';
+import { Amap } from '../../../../../core/amap-ngrx/amap.model';
+import { CHANGE } from '../../../../../core/container-ngrx/container.action';
 
 @Component({
   selector: 'app-single-floor',

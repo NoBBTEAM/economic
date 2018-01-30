@@ -78,4 +78,16 @@
     </div>
   </div>
   <!-- ===== 内容面板 the end ===== ===== ===== ===== ===== -->
+
+  <div id="panel" class="park-build scrollbar1" [ngClass]="{'active': isShowParkBuildBar}">
+    <div class="park-build-con">
+      <div class="park-name">起步园</div>
+      <!--<div class="park-info">
+          <div class="info-l fl">写字楼<span><em class="num">8</em>栋</span></div>
+          <div class="info-r fl">企业<span><em class="num">200</em>家</span></div>
+      </div>-->
+      <div class="choose-park-buid" (click)="showBuildList=!showBuildList"><div class="choose-park-buid-name">楼宇列表</div><span class="fa fa-caret-down build-arrow"></span></div>
+      <div id="myList" [hidden]="!showBuildList"></div>
+    </div>
+  </div>
 </div>
