@@ -7,6 +7,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { MicrocosmicService } from '../../pages/microcosmic/microcosmic.service';
 import { IntermediateService } from '../../pages/intermediate/intermediate.service';
 declare var AMap: any;
+declare var AMapUI: any;
 // declare var $: any;
 
 @Component({
@@ -106,6 +107,12 @@ export class MapComponent implements OnInit {
               }
             }
         },
+        'ADD_BUILD_MARKER': (data) => {
+          this.parkBuildInfo(map, data);
+          map.off('zoomend', function (e) {
+            console.log(e);
+          });
+        },
         'CLEAR_MARKER': (data) => {
           map.clearMap();
         }
@@ -133,7 +140,7 @@ export class MapComponent implements OnInit {
         });
         map.addControl(geolocation);
       });
-      AMap.event.addListener(map, 'zoomend', function(){
+      /*AMap.event.addListener(map, 'zoomend', function(){
         const zoom = map.getZoom();
         const markers = map.getAllOverlays('marker');
         if (zoom <= 12) {
@@ -146,7 +153,7 @@ export class MapComponent implements OnInit {
             });
         }
         // map.getAllOverlays('marker')[0].hide()
-    });
+    });*/
     }, 200);
 
   }
@@ -444,5 +451,318 @@ export class MapComponent implements OnInit {
       // polygons.lands.push(polygon);
 
     }
+  }
+  /*楼宇信息*/
+  parkBuildInfo(map, parkName) {
+    const _that = this;
+    AMapUI.loadUI(['misc/MarkerList', 'overlay/SimpleMarker', 'overlay/SimpleInfoWindow'],
+      function(MarkerList, SimpleMarker, SimpleInfoWindow) {
+
+        const defaultIconStyle = {
+            src: '../assets/images/build_position_icon.png',
+            style: {
+              width: '40px',
+              height: '50px'
+            }
+          }, // 默认的图标样式
+          // hoverIconStyle = 'green', //鼠标hover时的样式
+          hoverIconStyle = {
+            src: '../assets/images/build_position_icon.png',
+            style: {
+              width: '60px',
+              height: '70px'
+            }
+          }, // 鼠标hover时的样式
+          selectedIconStyle = {
+            src: '../assets/images/build_position_icon.png',
+            style: {
+              width: '60px',
+              height: '70px'
+            }
+          } // 选中时的图标样式
+        ;
+        const iconOffset = {
+          defaultOffset: new AMap.Pixel(-20, -35), // 默认的图标样式
+          hoverOffset: new AMap.Pixel(-28, -50), // 鼠标hover时的样式
+          selectedOffset: new AMap.Pixel(-28, -50) // 选中时的图标样式
+        };
+        const markerList = new MarkerList({
+          map: map,
+          // ListElement对应的父节点或者ID
+          listContainer: 'myList', // document.getElementById("myList"),
+          // 选中后显示
+
+          // 从数据中读取位置, 返回lngLat
+          getPosition: function(item) {
+            // return [item.longitude, item.latitude];
+            return item.position;
+          },
+          // 数据ID，如果不提供，默认使用数组索引，即index
+          getDataId: function(item, index) {
+
+            return item.id;
+          },
+          getInfoWindow: function(data, context, recycledInfoWindow) {
+            const tpl = '<div class="build-info-window"><%- data.name %><div>';
+            // MarkerList.utils.template支持underscore语法的模板
+            const content = MarkerList.utils.template(tpl, {
+              data: data
+            });
+            if (recycledInfoWindow) {
+
+              // recycledInfoWindow.setInfoTitle(data.name);
+              // recycledInfoWindow.setInfoBody(data.address);
+              recycledInfoWindow.setContent(content);
+
+              return recycledInfoWindow;
+            }
+
+            // return new SimpleInfoWindow({
+            //     /*infoTitle: data.name,
+            //     infoBody: data.address,*/
+            //     offset: new AMap.Pixel(0, -37),
+            //     content: content
+            // });
+            return new AMap.InfoWindow({
+              /*infoTitle: data.name,
+              infoBody: data.address,*/
+              offset: new AMap.Pixel(-15, -37),
+              content: content
+            });
+          },
+          // 构造marker用的options对象, content和title支持模板，也可以是函数，返回marker实例，或者返回options对象
+          getMarker: function(data, context, recycledMarker) {
+
+            const label = String.fromCharCode('A'.charCodeAt(0) + context.index);
+
+            if (recycledMarker) {
+              recycledMarker.setIconLabel(label);
+              return;
+            }
+
+            return new SimpleMarker({
+              containerClassNames: 'build-marker',
+              iconStyle: defaultIconStyle,
+              // iconLabel: label,
+              // 设置基点偏移
+              offset: iconOffset.defaultOffset
+            });
+          },
+          // 构造列表元素，与getMarker类似，可以是函数，返回一个dom元素，或者模板 html string
+          getListElement: function(data, context, recycledListElement) {
+            // console.log(data,context,recycledListElement)
+            const label = String.fromCharCode('A'.charCodeAt(0) + context.index);
+
+            // 使用模板创建
+            const innerHTML = MarkerList.utils.template(
+              '<div class="poi-info-left">' +
+              '    <h5 class="poi-title"><span class="fa fa-building-o build-name-icon"></span>' +
+              '        <%- data.name %>' +
+              '    </h5>' +
+              '</div>' +
+              '<div class="clear"></div>', {
+                data: data,
+                label: label
+              });
+
+            if (recycledListElement) {
+              recycledListElement.innerHTML = innerHTML;
+              return recycledListElement;
+            }
+
+            return '<li class="poibox">' +
+              innerHTML +
+              '</li>';
+          },
+          // 列表节点上监听的事件
+          listElementEvents: ['click', 'mouseenter', 'mouseleave'],
+          // marker上监听的事件
+          markerEvents: ['click', 'mouseover', 'mouseout'],
+          // makeSelectedEvents:false,
+          selectedClassNames: 'selected',
+          autoSetFitView: false
+        });
+
+        // window.markerList = markerList;
+
+        markerList.on('selectedChanged', function(event, info) {
+          // $("#myList").hide();
+          map.panBy(-580, 40);
+
+          // $("#myList").slideUp("fast");
+          // $(".build-arrow").removeClass("active");
+          if (info.selected) {
+            // $(".choose-park-buid-name").html(info.selected.data.name);
+            // chooseBuildName = info.selected.data.name;
+            // chooseBuildId = info.selected.data.id;
+
+            /*if($(".industry-menu .menu-row:last-child li.active").length){
+                $(".industry-menu .menu-row:last-child li.active").click();
+            }else{
+                $(".industry-menu .menu-row:last-child li:first-child").click();
+            }*/
+            console.log(info);
+
+            if (info.selected.marker) {
+              // 更新为选中样式
+              info.selected.marker.setIconStyle(selectedIconStyle);
+              info.selected.marker.setOffset(iconOffset.selectedOffset);
+            }
+
+            // 选中并非由列表节点上的事件触发，将关联的列表节点移动到视野内
+            if (!info.sourceEventInfo.isListElementEvent) {
+
+              if (info.selected.listElement) {
+                // scrollListElementIntoView($(info.selected.listElement));
+              }
+            }
+          }
+
+          if (info.unSelected && info.unSelected.marker) {
+            // 更新为默认样式
+            info.unSelected.marker.setIconStyle(defaultIconStyle);
+            info.unSelected.marker.setOffset(iconOffset.defaultOffset);
+          }
+        });
+
+        markerList.on('listElementMouseenter markerMouseover', function(event, record) {
+
+          if (record && record.marker) {
+
+            forcusMarker(record.marker);
+
+            // this.openInfoWindowOnRecord(record);
+
+            // 非选中的id
+            if (!this.isSelectedDataId(record.id)) {
+              // 设置为hover样式
+              record.marker.setIconStyle(hoverIconStyle);
+              record.marker.setOffset(iconOffset.hoverOffset);
+              // this.closeInfoWindow();
+            }
+          }
+        });
+
+        markerList.on('listElementMouseleave markerMouseout', function(event, record) {
+
+          if (record && record.marker) {
+
+            if (!this.isSelectedDataId(record.id)) {
+              // 恢复默认样式
+              record.marker.setIconStyle(defaultIconStyle);
+              record.marker.setOffset(iconOffset.defaultOffset);
+            }
+          }
+        });
+
+        // 数据输出完成
+        markerList.on('renderComplete', function(event, records) {
+          map.setFitView();
+          map.panBy(-580, 40);
+
+        });
+
+        // markerList.on('*', function(type, event, res) {
+        //     console.log(type, event, res);
+        // });
+
+        // 加载数据
+        function loadData(src, callback) {
+          console.log(src)
+          /*$.getJSON(src, function(data) {
+              console.log(data.result)
+  for(var i=0;i<data.result.length;i++){
+                  if(parkName == data.result[i].name){
+
+                      //渲染数据
+                      markerList.render(data.result[i].info);
+                  }
+  }
+          // markerList._dataSrc = src;
+
+          //渲染数据
+          // markerList.render(data);
+          // markerList.render(testData);
+
+          if (callback) {
+              callback(null, data);
+          }
+          });*/
+          // markerList.render(testData);
+          /*$.ajax({
+            // url:"/v1/company/getLet",
+            url:"/v1/floor/findAll",
+            type:"GET",
+            dataType:"json",
+            data:{},
+            success:function(res){
+              const result = [];
+              for (let i = 0; i < res.length; i++) {
+                if (res[i].coordinate) {
+                  let list = {id: '', name: '', position: []};
+                  list = res[i];
+                  list.id = res[i].id;
+                  list.name = res[i].floorName;
+                  list.position = res[i].coordinate.split(',');
+                  result.push(list);
+                }
+              }
+              /!*for(var k in res){
+                  var list={};
+                  list.name = k;
+                  list.position = res[k].split(",");
+                  result.push(list);
+              }*!/
+              // 渲染数据
+              markerList.render(result);
+            },error:function(err){
+              console.log(err)
+            }
+
+
+          })*/
+        }
+        _that.intermediateService.getBuildPositionList().subscribe(res => {
+          const result = [];
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].coordinate) {
+              let list = {id: '', name: '', position: []};
+              list = res[i];
+              list.id = res[i].id;
+              list.name = res[i].floorName;
+              list.position = res[i].coordinate.split(',');
+              result.push(list);
+            }
+          }
+          // 渲染数据
+          markerList.render(result);
+        })
+        // loadData($btns.attr('data-path'));
+        // loadData("http://localhost:63342/economic/middleViews/test.json");
+        // loadData("/economic/middleViews/test.json");
+        // loadData();
+
+        function forcusMarker(marker) {
+          marker.setTop(true);
+          // map.panBy(-580,40);
+          // 不在地图视野内
+          if (!(map.getBounds().contains(marker.getPosition()))) {
+
+            // 移动到中心
+            // map.setCenter(marker.getPosition());
+          }
+        }
+
+        function isElementInViewport(el) {
+          const rect = el.getBoundingClientRect();
+
+          return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+          );
+        }
+      });
   }
 }

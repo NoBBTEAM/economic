@@ -14,7 +14,8 @@ export const routes: Routes = [
           children: [
               {path: '', loadChildren: '../industry-board/industry-menu/industry-menu.module#IndustryMenuModule'},
               {path: 'parkMenu', loadChildren: '../industry-board/park-menu/park-menu.module#ParkMenuModule'},
-              {path: 'landMenu', loadChildren: '../industry-board/land-menu/land-menu.module#LandMenuModule'}
+              {path: 'landMenu', loadChildren: '../industry-board/land-menu/land-menu.module#LandMenuModule'},
+              {path: 'buildMenu', loadChildren: '../industry-board/floor-menu/floor-menu.module#FloorMenuModule'}
           ]},
       {path: '', redirectTo: 'indexAbstract', pathMatch: 'full'}
     ]

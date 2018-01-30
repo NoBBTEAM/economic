@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 declare var echarts: any;
 
 @Injectable()
 export class IntermediateService {
+  private subject = new BehaviorSubject<any>(0);
   private parkRegistUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyTypeUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyIncomeUrl = '/v1/land/findRevenueByTime';
@@ -14,11 +16,25 @@ export class IntermediateService {
   private LandNaturePolygonUrl = '/v1/land/findAllHasType';
   private singleFloorEchartUrl = '/v1/land/getSingleAndFloor';
   private singleFloorPolygonUrl = '/v1/land/findAll';
+  private buildBasicUrl = '/v1/floor/findAll';
+  private buildCompanyListUrl = '/v1/company/findByFloor';
+  private buildPositionListUrl = '/v1/floor/findAll';
   constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
+  isShowParkBuildBar = false;
   selectedPolygonLands: any;
   dataPolygonLands: object = {'dataPolygonNatureLands': [], 'dataPolygonSingleLands': []};
+
+  changeShowHideData() {
+    this.isShowParkBuildBar = !this.isShowParkBuildBar;
+    this.subject.next({
+      'isShowParkBuildBar': this.isShowParkBuildBar
+    });
+  }
+  getShowHideData(): Observable<any> {
+    return this.subject.asObservable();
+  }
   getData(flag) {
     // 天府软件园企业数和经济总值
     const mainData = {
@@ -369,6 +385,7 @@ export class IntermediateService {
     this.isShowTimesColors = false;
     console.log(this.isShowTimesColors, title);
   }
+  /*园区统计菜单*/
   getParkRegistMoney(keyWord): Observable<any> {
       return this.http.get(`${this.parkRegistUrl}`)
         .map(res => (res));
@@ -381,6 +398,7 @@ export class IntermediateService {
       return this.http.get(`${this.parkCompanyIncomeUrl + '?time=' + time}`)
         .map(res => (res));
   }
+  /*地块菜单*/
   getLandNatureEchat(): Observable<any> {
       return this.http.get(`${this.LandNatureEchartUrl}`)
         .map(res => (res));
@@ -408,5 +426,18 @@ export class IntermediateService {
   }
   getSelectedLand() {
     return this.selectedPolygonLands;
+  }
+  /*楼宇菜单*/
+  getBuildInformation(): Observable<any> {
+    return this.http.get(`${this.buildBasicUrl}`)
+      .map(res => (res));
+  }
+  getBuildCompanyList(landId): Observable<any> {
+    return this.http.get(`${this.buildCompanyListUrl + '?landid=' + landId }`)
+      .map(res => (res));
+  }
+  getBuildPositionList(): Observable<any> {
+    return this.http.get(`${this.buildPositionListUrl}`)
+      .map(res => (res));
   }
 }
