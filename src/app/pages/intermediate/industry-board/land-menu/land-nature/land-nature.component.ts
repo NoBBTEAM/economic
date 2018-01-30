@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IntermediateService } from '../../../intermediate.service';
 import { Store } from '@ngrx/store';
-import {CHANGE} from '../../../../../core/container-ngrx/container.action';
-import {ContainerStyle} from '../../../../../core/container-ngrx/container.model';
-import {CLEAR_MARKER} from '../../../../../core/amap-ngrx/amap.actions';
-import {Amap} from '../../../../../core/amap-ngrx/amap.model';
+import { CHANGE } from '../../../../../core/container-ngrx/container.action';
+import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
+import { CLEAR_MARKER } from '../../../../../core/amap-ngrx/amap.actions';
+import { Amap } from '../../../../../core/amap-ngrx/amap.model';
 declare var AMap: any;
 
 @Component({
@@ -14,10 +14,6 @@ declare var AMap: any;
 })
 export class LandNatureComponent implements OnInit {
 
-  constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>, private storeAmap: Store<Amap>) {
-    this.store.select('container');
-  }
-  landNatureEchat: any;
   colors = {
     '储备用地': '#bf7eff',
     '工业用地': '#a57c52',
@@ -25,7 +21,12 @@ export class LandNatureComponent implements OnInit {
     '科研用地': '#ff7eff',
     '商服用地': '#ff0000',
     '住宅用地': '#ffd041'
+  };
+  constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>, private storeAmap: Store<Amap>) {
+    this.store.select('container');
   }
+  landNatureEchat: any;
+
   ngOnInit() {
     this.store.dispatch({
       type: CHANGE,
@@ -38,7 +39,7 @@ export class LandNatureComponent implements OnInit {
         const conutData = this.conutTypeData(res);
         setTimeout(() => {
           this.buildCharts(conutData);
-        },500);
+        }, 500);
       });
     this.intermediateService.getLandNaturePolygon()
       .subscribe(res => {
@@ -52,13 +53,33 @@ export class LandNatureComponent implements OnInit {
       });
   }
   creatPolygonO(res) {
-    let pointsArr = [];
-    for(var i=0;i<res.length;i++){
+    const colors = {
+      '储备用地': '#bf7eff',
+      '工业用地': '#a57c52',
+      '公共设施及其他用地': '#2a8ab8',
+      '科研用地': '#ff7eff',
+      '商服用地': '#ff0000',
+      '住宅用地': '#ffd041'
+    };
+    const pointsArr = [];
+    for (let i = 0; i < res.length; i++) {
       // pointsArr.push(res[i].points);
-      var point_x_y = [];
-      var pointItem = {id:"",position:"",inefficient:"",landArea:"",landUsrNature:""};
-      for(var j=0;j<res[i].points.length;j++){
-        point_x_y.push([res[i].points[j].point_80_x,res[i].points[j].point_80_y]);
+      const point_x_y = [];
+      const pointItem = {
+        id: '',
+        inefficient: '',
+        landArea: '',
+        landUsrNature: '',
+        unifiedLandMark: '',
+        rightHolder: '',
+        landCardNumber: '',
+        landIsLocated: '',
+        generalType: '',
+        usageArea: '',
+        position: []
+      };
+      for (let j = 0; j < res[i].points.length; j++) {
+        point_x_y.push([res[i].points[j].point_80_x, res[i].points[j].point_80_y]);
       }
       pointItem.id = res[i].id;
       pointItem.unifiedLandMark = res[i].unifiedLandMark;
@@ -77,35 +98,35 @@ export class LandNatureComponent implements OnInit {
     }
     // dataPolygonNatureLands = pointsArr;
     const newpointers = pointsArr;
-    //-----
-    var color;
-    for(var i=0;i<newpointers.length;i++){
+    // -----
+    let color;
+    for (let i = 0; i < newpointers.length; i++) {
 
-      if(newpointers[i].generalType == "储备用地"){
-        color =colors[0];
-        // var color ="transparent"
-      }else if(newpointers[i].generalType == "工业用地"){
-        color =colors[1];
-      }else if(newpointers[i].generalType == "公共设施及其他用地"){
-        color =colors[2];
-      }else if(newpointers[i].generalType == "科研用地"){
-        color =colors[3];
-      }else if(newpointers[i].generalType == "商服用地"){
-        color =colors[4];
-      }else if(newpointers[i].generalType == "住宅用地"){
-        color =colors[5];
-      }else{
-        color =colors[6];
+      if (newpointers[i].generalType === '储备用地') {
+        color = colors[0];
+        // var color ='transparent'
+      } else if (newpointers[i].generalType === '工业用地') {
+        color = colors[1];
+      } else if (newpointers[i].generalType === '公共设施及其他用地') {
+        color = colors[2];
+      } else if (newpointers[i].generalType === '科研用地') {
+        color = colors[3];
+      } else if (newpointers[i].generalType === '商服用地') {
+        color = colors[4];
+      } else if (newpointers[i].generalType === '住宅用地') {
+        color = colors[5];
+      } else {
+        color = colors[6];
       }
 
       const polygonOptions = {
         map: map,
-        strokeColor: "#fff",
+        strokeColor: '#fff',
         // strokeColor: color,
         strokeWeight: 2,
         fillColor: color,
         fillOpacity: 0.8,
-        /*strokeStyle: "dashed",
+        /*strokeStyle: 'dashed',
         strokeDasharray: [20,10],*/
         extData: {
           id: newpointers[i].id,
@@ -125,44 +146,44 @@ export class LandNatureComponent implements OnInit {
         }
       };
       // 外多边形坐标数组和内多边形坐标数组
-      var pointers = newpointers[i].position;
+      const pointers = newpointers[i].position;
       const polygonNatureLand = new AMap.Polygon(polygonOptions);
-      polygonNatureLand.on("click",function(e){
+      polygonNatureLand.on('click', function (e) {
         /*看数据*/
-        console.log(this.getExtData())
-        if(!this.getExtData().slected){
+        console.log(this.getExtData());
+        if (!this.getExtData().slected) {
           // var lanTitle = idustryParkName;
-          var landArea = this.getExtData().landArea;
-          var landUsrNature = this.getExtData().landUsrNature;
-          var that = this;
-          var unifiedLandMark = this.getExtData().unifiedLandMark;
+          const landArea = this.getExtData().landArea;
+          const landUsrNature = this.getExtData().landUsrNature;
+          const that = this;
+          const unifiedLandMark = this.getExtData().unifiedLandMark;
           // chooseLanId = unifiedLandMark;
-          // $(".industry-menu .menu-row:last-child li:first-child").click();
-          // $(".industry-menu .menu-row:last-child li:first-child").siblings().hide();
-          //在地图上改变当前点击的多边形
+          // $('.industry-menu .menu-row:last-child li:first-child').click();
+          // $('.industry-menu .menu-row:last-child li:first-child').siblings().hide();
+          // 在地图上改变当前点击的多边形
           /*for(var i=0;i<polygonNatureLands.lands.length;i++){
             if(polygonNatureLands.lands[i].getExtData().slected){
-              polygonNatureLands.lands[i].setOptions({strokeColor:"#fff",fillColor:polygonNatureLands.lands[i].getExtData().color});
+              polygonNatureLands.lands[i].setOptions({strokeColor:'#fff',fillColor:polygonNatureLands.lands[i].getExtData().color});
               var oldExtData = polygonNatureLands.lands[i].getExtData();//先保存原始ExtData数据
               oldExtData.slected = false;//改变之前选中的状态为false
               polygonNatureLands.lands[i].setExtData(oldExtData)//更新之前选中的ExtData
               break;
             }
           }*/
-          var newExtData = this.getExtData();
+          const newExtData = this.getExtData();
           newExtData.slected = true;
           // this.setOptions({strokeColor:selectedColor,fillColor:selectedColor});
           this.setExtData(newExtData);
           // var options = {lanTitle:lanTitle,landArea:landArea,landUsrNature:landUsrNature,polygon:that};
-          // landInfoWindowFn(map,options,"polygonNatureLands");
+          // landInfoWindowFn(map,options,'polygonNatureLands');
           // viewLandPanel(this.getExtData())
         }
-      })
-      polygonNatureLand.on("mouseover",function(e){
-      })
-      polygonNatureLand.on("mouseout",function(e){
+      });
+      polygonNatureLand.on('mouseover', function (e) {
+      });
+      polygonNatureLand.on('mouseout', function (e) {
         // landInfoWindow.close()
-      })
+      });
       // console.log(polygon)
       polygonNatureLand.setPath(pointers);
       // polygonNatureLands.lands.push(polygonNatureLand);
@@ -171,48 +192,57 @@ export class LandNatureComponent implements OnInit {
   /*组装为echart需要的数据*/
   conutTypeData(arr) {
     arr.shift();
-    var result = []
-    arr.forEach(function(item, index) {
+    const result = [];
+    arr.forEach(function (item, index) {
       result.push({
         name: item[1],
         value: item[0]
-      })
-    })
+      });
+    });
     return result;
   }
   buildCharts(conutData) {
-    var newData = [];
-    for(var i=0;i<conutData.length;i++){
-      if(!conutData[i].build){
-        if(conutData[i].name !="1" && conutData[i].name !="2" && conutData[i].name !="3" && conutData[i].name !="4" && conutData[i].name !="5" && conutData[i].name !="6" && conutData[i].name !="7" && conutData[i].name !="8" && conutData[i].name !="9" && conutData[i].name !="10"){
+    let newData = [];
+    for (let i = 0; i < conutData.length; i++) {
+      if (!conutData[i].build) {
+        if (conutData[i].name !== '1' &&
+          conutData[i].name !== '2' &&
+          conutData[i].name !== '3' &&
+          conutData[i].name !== '4' &&
+          conutData[i].name !== '5' &&
+          conutData[i].name !== '6' &&
+          conutData[i].name !== '7' &&
+          conutData[i].name !== '8' &&
+          conutData[i].name !== '9' &&
+          conutData[i].name !== '10') {
           newData.push(conutData[i]);
         }
-      }else{
+      } else {
         newData = conutData;
       }
     }
-    var industryType = newData;
-    var legendData = [];
-    var COLORS = []
-    for(var i=0;i<industryType.length;i++){
-      legendData.push(industryType[i].name)
-      COLORS.push(this.colors[industryType[i].name])
+    const industryType = newData;
+    const legendData = [];
+    const COLORS = [];
+    for (let i = 0; i < industryType.length; i++) {
+      legendData.push(industryType[i].name);
+      COLORS.push(this.colors[industryType[i].name]);
     }
-    console.log(industryType)
-    console.log(legendData)
+    console.log(industryType);
+    console.log(legendData);
     const option = {
       color: COLORS,
-      title : {
+      title: {
         text: '用地性质占比',
-        x:'center',
+        x: 'center',
         textStyle: {
           color: '#fff',
           fontSize: 16
         },
       },
-      tooltip : {
+      tooltip: {
         trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)",
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
         axisPointer: {
           type: 'cross',
           crossStyleL: {
@@ -231,11 +261,11 @@ export class LandNatureComponent implements OnInit {
         },
         top: '10%'
       },
-      series : [
+      series: [
         {
           name: '用地性质占比',
           type: 'pie',
-          radius : '45%',
+          radius: '45%',
           center: ['65%', '60%'],
           /*data:[
               {value:335, name:'国有企业'},
@@ -244,7 +274,7 @@ export class LandNatureComponent implements OnInit {
               {value:135, name:'集体所有制企业'},
               {value:154, name:'股份制企业'}
           ],*/
-          data:industryType,
+          data: industryType,
           label: {
             normal: {
               show: false
