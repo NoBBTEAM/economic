@@ -10,11 +10,15 @@ export class IntermediateService {
   private parkRegistUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyTypeUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyIncomeUrl = '/v1/land/findRevenueByTime';
-  private LandNatureEchatUrl = '/v1/land/findCountByGeneralType';
+  private LandNatureEchartUrl = '/v1/land/findCountByGeneralType';
   private LandNaturePolygonUrl = '/v1/land/findAllHasType';
+  private singleFloorEchartUrl = '/v1/land/getSingleAndFloor';
+  private singleFloorPolygonUrl = '/v1/land/findAll';
   constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
+  selectedPolygonLands: any;
+  dataPolygonLands: object = {'dataPolygonNatureLands': [], 'dataPolygonSingleLands': []};
   getData(flag) {
     // 天府软件园企业数和经济总值
     const mainData = {
@@ -378,11 +382,31 @@ export class IntermediateService {
         .map(res => (res));
   }
   getLandNatureEchat(): Observable<any> {
-      return this.http.get(`${this.LandNatureEchatUrl}`)
+      return this.http.get(`${this.LandNatureEchartUrl}`)
         .map(res => (res));
   }
   getLandNaturePolygon(): Observable<any> {
       return this.http.get(`${this.LandNaturePolygonUrl}`)
         .map(res => (res));
+  }
+  getSingleFloorEchart(): Observable<any> {
+      return this.http.get(`${this.singleFloorEchartUrl}`)
+        .map(res => (res));
+  }
+  getSingleFloorPolygon(): Observable<any> {
+      return this.http.get(`${this.singleFloorPolygonUrl}`)
+        .map(res => (res));
+  }
+  changePolygonLands(type, options) {
+      this.dataPolygonLands[type] = options;
+  }
+  getSavePolygonLands(type) {
+      return this.dataPolygonLands[type];
+  }
+  changeSelectedLand(option) {
+    this.selectedPolygonLands = option;
+  }
+  getSelectedLand() {
+    return this.selectedPolygonLands;
   }
 }

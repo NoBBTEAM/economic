@@ -77,6 +77,35 @@ export class MapComponent implements OnInit {
           map.setZoom(12);
           map.panBy(-580, 10);
         },
+        'ADD_POLYGON': (data) => {
+          map.clearMap();
+          const polygonres = this.intermediateService.getSavePolygonLands(data);
+          console.log(polygonres);
+            if ( data === 'dataPolygonNatureLands' ) {
+              if (polygonres.length < 1) {
+              const PolygonData = this.intermediateService.getLandNaturePolygon()
+                .subscribe(res => {
+                  this.creatNaturePolygon(map, res);
+                  this.intermediateService.changePolygonLands(data, res);
+                  map.setFitView();
+                  map.panBy(-540, 10);
+                });
+              }else {
+                this.creatNaturePolygon(map, polygonres);
+              }
+            }else if ( data === 'dataPolygonSingleLands') {
+              if (polygonres.length < 1) {
+                this.intermediateService.getSingleFloorPolygon().subscribe(res => {
+                  this.creatSingleFloorPolygon(map, res);
+                  this.intermediateService.changePolygonLands(data, res);
+                  map.setFitView();
+                  map.panBy(-540, 10);
+                });
+              }else {
+                this.creatSingleFloorPolygon(map, polygonres);
+              }
+            }
+        },
         'CLEAR_MARKER': (data) => {
           map.clearMap();
         }
@@ -121,5 +150,299 @@ export class MapComponent implements OnInit {
     }, 200);
 
   }
+  creatNaturePolygon(map, res) {
+    const _that = this;
+    const colors = ['#fff', '#a57c52', '#2a8ab8', '#ff7eff', '#ff0000', '#ffdf7e', '#ffd041'];
+    const selectedColor = '#41bb9a';
+    const defaultBorderColor = '#8ee3a2';
+    const defaultLandColor = 'transparent';
+    const pointsArr = [];
+    for (let i = 0; i < res.length; i++) {
+      // pointsArr.push(res[i].points);
+      const point_x_y = [];
+      const pointItem = {
+        id: '',
+        inefficient: '',
+        landArea: '',
+        landUsrNature: '',
+        unifiedLandMark: '',
+        rightHolder: '',
+        landCardNumber: '',
+        landIsLocated: '',
+        generalType: '',
+        usageArea: '',
+        position: []
+      };
+      for (let j = 0; j < res[i].points.length; j++) {
+        point_x_y.push([res[i].points[j].point_80_x, res[i].points[j].point_80_y]);
+      }
+      pointItem.id = res[i].id;
+      pointItem.unifiedLandMark = res[i].unifiedLandMark;
+      pointItem.rightHolder = res[i].rightHolder;
+      pointItem.landCardNumber = res[i].landCardNumber;
+      pointItem.landIsLocated = res[i].landIsLocated;
+      pointItem.inefficient = res[i].inefficient;
+      pointItem.generalType = res[i].generalType;
+      /*实测面积*/
+      pointItem.landArea = res[i].landArea;
+      /*使用全面积*/
+      pointItem.usageArea = res[i].usageArea;
+      pointItem.landUsrNature = res[i].landUsrNature;
+      pointItem.position = point_x_y;
+      pointsArr.push(pointItem);
+    }
 
+    // this.intermediateService.changePolygonNatureLands(pointsArr);
+    // dataPolygonNatureLands = pointsArr;
+    const newpointers = pointsArr;
+    // -----
+    let color;
+    for (let i = 0; i < newpointers.length; i++) {
+
+      if (newpointers[i].generalType === '储备用地') {
+        color = colors[0];
+        // var color ='transparent'
+      } else if (newpointers[i].generalType === '工业用地') {
+        color = colors[1];
+      } else if (newpointers[i].generalType === '公共设施及其他用地') {
+        color = colors[2];
+      } else if (newpointers[i].generalType === '科研用地') {
+        color = colors[3];
+      } else if (newpointers[i].generalType === '商服用地') {
+        color = colors[4];
+      } else if (newpointers[i].generalType === '住宅用地') {
+        color = colors[5];
+      } else {
+        color = colors[6];
+      }
+
+      const polygonOptions = {
+        map: map,
+        strokeColor: '#fff',
+        // strokeColor: color,
+        strokeWeight: 2,
+        fillColor: color,
+        fillOpacity: 0.8,
+        /*strokeStyle: 'dashed',
+        strokeDasharray: [20,10],*/
+        extData: {
+          id: newpointers[i].id,
+          type: newpointers[i].type,
+          landType: newpointers[i].landType,
+          landCardNumber: newpointers[i].landCardNumber,
+          landArea: newpointers[i].landArea,
+          usageArea: newpointers[i].usageArea,
+          /*按性质分类*/
+          generalType: newpointers[i].generalType,
+          landUsrNature: newpointers[i].landUsrNature,
+          unifiedLandMark: newpointers[i].unifiedLandMark,
+          landIsLocated: newpointers[i].landIsLocated,
+          rightHolder: newpointers[i].rightHolder,
+          color: color,
+          slected: false
+        }
+      };
+      // 外多边形坐标数组和内多边形坐标数组
+      const pointers = newpointers[i].position;
+      const polygonNatureLand = new AMap.Polygon(polygonOptions);
+      polygonNatureLand.on('click', function (e) {
+        /*看数据*/
+        console.log(this.getExtData());
+        if (!this.getExtData().slected) {
+          // var lanTitle = idustryParkName;
+          const landArea = this.getExtData().landArea;
+          const landUsrNature = this.getExtData().landUsrNature;
+          const that = this;
+          const unifiedLandMark = this.getExtData().unifiedLandMark;
+          // chooseLanId = unifiedLandMark;
+          // $('.industry-menu .menu-row:last-child li:first-child').click();
+          // $('.industry-menu .menu-row:last-child li:first-child').siblings().hide();
+          // 在地图上改变当前点击的多边形
+          /*for(var i=0;i<polygonNatureLands.lands.length;i++){
+            if(polygonNatureLands.lands[i].getExtData().slected){
+              polygonNatureLands.lands[i].setOptions({strokeColor:'#fff',fillColor:polygonNatureLands.lands[i].getExtData().color});
+              var oldExtData = polygonNatureLands.lands[i].getExtData();//先保存原始ExtData数据
+              oldExtData.slected = false;//改变之前选中的状态为false
+              polygonNatureLands.lands[i].setExtData(oldExtData)//更新之前选中的ExtData
+              break;
+            }
+          }*/
+          // 在地图上改变之前点击的多边形
+          const selectedLand = _that.intermediateService.getSelectedLand();
+          if (selectedLand) {
+            selectedLand.setOptions({strokeColor: '#fff', fillColor: selectedLand.getExtData().color});
+            const oldExtData = selectedLand.getExtData(); // 先保存原始ExtData数据
+            oldExtData.slected = false; // 改变之前选中的状态为false
+            selectedLand.setExtData(oldExtData); // 更新之前选中的ExtData
+          }
+          // 保存当前点击的多边形
+          _that.intermediateService.changeSelectedLand(this);
+          const newExtData = this.getExtData();
+          newExtData.slected = true;
+          this.setOptions({strokeColor: selectedColor, fillColor: selectedColor});
+          this.setExtData(newExtData);
+          // var options = {lanTitle:lanTitle,landArea:landArea,landUsrNature:landUsrNature,polygon:that};
+          // landInfoWindowFn(map,options,'polygonNatureLands');
+          // viewLandPanel(this.getExtData())
+        }
+      });
+      polygonNatureLand.on('mouseover', function (e) {
+      });
+      polygonNatureLand.on('mouseout', function (e) {
+        // landInfoWindow.close()
+      });
+      // console.log(polygon)
+      polygonNatureLand.setPath(pointers);
+      // polygonNatureLands.lands.push(polygonNatureLand);
+    }
+  }
+  creatSingleFloorPolygon(map, res) {
+    const _that = this;
+    const selectedColor = '#41bb9a';
+    const defaultBorderColor = '#8ee3a2';
+    const defaultLandColor = 'transparent';
+    const pointsArr = [];
+    for (let i = 0; i < res.length; i++) {
+      const point_x_y = [];
+      const pointItem = {id: '',
+        unifiedLandMark: '',
+        rightHolder: '',
+        landIsLocated: '',
+        actualUsers: '',
+        isFloor: '',
+        landCardNumber: '',
+        generalType: '',
+        position: [],
+        inefficient: '',
+        landArea: '',
+        usageArea: '',
+        landUsrNature: ''};
+      for (let j = 0; j < res[i].points.length; j++) {
+        point_x_y.push([res[i].points[j].point_80_x, res[i].points[j].point_80_y]);
+      }
+      pointItem.id = res[i].id;
+      pointItem.unifiedLandMark = res[i].unifiedLandMark;
+      pointItem.rightHolder = res[i].rightHolder;
+      pointItem.landIsLocated = res[i].landIsLocated;
+      pointItem.inefficient = res[i].inefficient;
+      pointItem.actualUsers = res[i].actualUsers;
+      pointItem.isFloor = res[i].isFloor;
+      pointItem.landCardNumber = res[i].landCardNumber;
+      /*按性质分类*/
+      pointItem.generalType = res[i].generalType;
+      /*实测面积*/
+      pointItem.landArea = res[i].landArea;
+      /*使用全面积*/
+      pointItem.usageArea = res[i].usageArea;
+      pointItem.landUsrNature = res[i].landUsrNature;
+      pointItem.position = point_x_y;
+      pointsArr.push(pointItem);
+    }
+    // dataPolygons = pointsArr;
+    const newpointers = pointsArr;
+    // -----
+
+    let color;
+    for (let i = 0; i < newpointers.length; i++) {
+      const borderColor = defaultBorderColor;
+      if ((newpointers[i].actualUsers)) {
+        color = '#4747f1';
+        // var color ="transparent"
+      }else if (newpointers[i].isFloor) {
+        color = '#f9b620';
+      }else {
+        color = '#8fd9dd';
+      }
+      const polygonOptions = {
+        map: map,
+        strokeColor: '#fff',
+        // strokeColor: color,
+        strokeWeight: 2,
+        fillColor: color,
+        fillOpacity: 0.8,
+        /*strokeStyle: "dashed",
+        strokeDasharray: [20,10],*/
+        extData: {
+          id: newpointers[i].id,
+          landCardNumber: newpointers[i].landCardNumber,
+          landArea: newpointers[i].landArea,
+          usageArea: newpointers[i].usageArea,
+          /*按性质分类*/
+          generalType: newpointers[i].generalType,
+          landUsrNature: newpointers[i].landUsrNature,
+          unifiedLandMark: newpointers[i].unifiedLandMark,
+          landIsLocated: newpointers[i].landIsLocated,
+          rightHolder: newpointers[i].rightHolder,
+          color: color,
+          slected: false
+        }
+      };
+      // 外多边形坐标数组和内多边形坐标数组
+      const pointers = newpointers[i].position;
+      /*var pathArray = [
+          pointers.outer,
+          pointers.inner,
+          pointers.inner2
+      ];*/
+      const polygon = new AMap.Polygon(polygonOptions);
+      polygon.on('click', function(e){
+        /*看数据*/
+        console.log(this.getExtData())
+        if (!this.getExtData().slected) {
+          // const lanTitle = idustryParkName;
+          const landArea = this.getExtData().landArea;
+          const landUsrNature = this.getExtData().landUsrNature;
+          const that = this;
+          const unifiedLandMark = this.getExtData().unifiedLandMark;
+          // chooseLanId = unifiedLandMark;
+          // $(".industry-menu .menu-row:last-child li:first-child").click();
+          // $(".industry-menu .menu-row:last-child li:first-child").siblings().hide();
+          // 在地图上改变当前点击的多边形
+         /* for (let i = 0; i<polygons.lands.length; i++){
+            if(polygons.lands[i].getExtData().slected){
+              polygons.lands[i].setOptions({strokeColor:"#fff",fillColor:polygons.lands[i].getExtData().color});
+              var oldExtData = polygons.lands[i].getExtData();//先保存原始ExtData数据
+              oldExtData.slected = false;//改变之前选中的状态为false
+              polygons.lands[i].setExtData(oldExtData)//更新之前选中的ExtData
+              break;
+            }
+          }*/
+          // 在地图上改变之前点击的多边形
+          const selectedLand = _that.intermediateService.getSelectedLand();
+          if (selectedLand) {
+            selectedLand.setOptions({strokeColor: '#fff', fillColor: selectedLand.getExtData().color});
+            const oldExtData = selectedLand.getExtData(); // 先保存原始ExtData数据
+            oldExtData.slected = false; // 改变之前选中的状态为false
+            selectedLand.setExtData(oldExtData); // 更新之前选中的ExtData
+          }
+          // 保存当前点击的多边形
+          _that.intermediateService.changeSelectedLand(this);
+          const newExtData = this.getExtData();
+          newExtData.slected = true;
+          this.setOptions({strokeColor: selectedColor, fillColor: selectedColor});
+          this.setExtData(newExtData);
+          // var options = {lanTitle:lanTitle,landArea:landArea,landUsrNature:landUsrNature,polygon:that};
+          // landInfoWindowFn(map,options,"polygons");
+          // viewLandPanel(this.getExtData())
+        }
+
+      })
+      polygon.on('mouseover', function(e){
+        // console.log(e)
+        // var lanTitle = idustryParkName;
+        // var landArea = this.getExtData().landArea;
+        // var landUsrNature = this.getExtData().landUsrNature;
+        // var that = this;
+        // var options = {lanTitle:lanTitle,landArea:landArea,landUsrNature:landUsrNature,polygon:that}
+        // landInfoWindowFn(map,options);
+      })
+      polygon.on('mouseout', function(e){
+        // landInfoWindow.close()
+      })
+      // console.log(polygon)
+      polygon.setPath(pointers);
+      // polygons.lands.push(polygon);
+
+    }
+  }
 }
