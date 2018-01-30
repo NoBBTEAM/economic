@@ -22,3 +22,108 @@
   font-size: 16px;
   color: #151411;
 }
+.park-build{
+  position: absolute;
+  top: 20px;
+  right: 60%;
+  padding: 10px;
+  margin-right: 20px;
+  background: rgba(252, 249, 242, .9);
+  border-radius: 6px;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, .2);
+  display: none;
+}
+.land-choose-time{
+  width: 130px;
+  padding: 10px;
+  overflow: hidden;
+  display: none;
+}
+.park-build-con .park-name{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.park-build-con .info-l{
+  margin-right: 20px;
+}
+.park-info{
+  color: #999999;
+  overflow: hidden;
+}
+.park-info span{
+  color: #333;
+  font-weight: bold;
+}
+.amap-info-content{
+  position: relative;
+  padding-left: 60px;
+  border-radius: 25px;
+  border: 2px solid #f9b620;
+  height: 54px;
+  line-height: 30px;
+  font-size: 20px;
+  white-space: nowrap;
+}
+.amap-info-content:before{
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-image: url("../../../assets/images/park_build_infowind.png");
+  background-color: #f9b620;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: -2px;
+}
+.amap-info-sharp{
+  top: -16px;
+  background: none;
+  width: 30px !important;
+  height: 30px !important;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 2px solid #f9b620;
+  border-bottom: 2px solid #f9b620;
+  transform: rotate(-45deg);
+  background: #fff;
+  border-radius: 0 10px 0 0;
+}
+/*#myList{
+  display: none;
+}*/
+#myList li{
+  cursor: pointer;
+}
+.choose-park-buid{
+  position: relative;
+  border: 1px solid rgba(37, 36, 33, .6);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 5px;
+  margin-top: 5px;
+  min-width: 120px;
+}
+.choose-park-buid .build-arrow{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  transition: transform .3s;
+}
+.choose-park-buid .build-arrow.active{
+  transform: rotate(180deg);
+}
+li.poibox.selected,#myList li:hover {
+  color: #f9b621;
+}
+.zdy-full-cover-mask .zdy-big-mask,.zdy-full-cover-mask .spinner,.zdy-buildfull-cover-mask .zdy-big-mask,.zdy-buildfull-cover-mask .spinner{
+  z-index: 20;
+}
+.poi-title .build-name-icon{
+  margin: 0 5px;
+}
+.park-build.active{
+  display: block;
+}

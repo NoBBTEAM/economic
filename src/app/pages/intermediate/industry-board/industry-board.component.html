@@ -37,6 +37,14 @@
               <!--<li class="item6"><em></em>楼宇</li>-->
             </ul>
           </div>
+          <div class="menu-row" [ngClass]="{'active':isShowFloorMenu}">
+            <div  class="menu-item" (click)="showIndustryMenus('FloorMenu')"><div class="menu-text">楼宇统计</div><span class="fa fa-caret-down info-arrow"></span></div>
+            <ul class="sub-menu" *ngIf="isShowFloorMenu">
+              <li routerLink="buildMenu/builds" routerLinkActive="active" class="item4"><em></em>楼宇信息</li>
+              <li routerLink="buildMenu/registMoney" routerLinkActive="active" class="item1"><em></em>注册资本</li>
+              <li routerLink="buildMenu/companyType" routerLinkActive="active" class="item3"><em></em>企业类型</li>
+            </ul>
+          </div>
         </div>
       </div>
       <!--<div class="panel-menu-box">
