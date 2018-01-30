@@ -98,9 +98,7 @@ export class MacEconomicIncomeService {
           label: {
             normal: {
               show: true,
-              //                            rotate:45,
               offset: [5, -20],
-              //                            color:'#76EEC6',
               position: 'top',
               formatter: function (param) {
                 return param.data + '元';
@@ -109,7 +107,6 @@ export class MacEconomicIncomeService {
           },
           itemStyle: {
             normal: {
-              //                            color:'#76EEC6'
             }
           }
         },
@@ -141,7 +138,6 @@ export class MacEconomicIncomeService {
       },
       tooltip: {
         trigger: 'item',
-        //                formatter: '{a} <br/>{b}: {c} ({d}%)'
         formatter: '{a} <br/>{b}: {c}%'
       },
       legend: {
@@ -165,7 +161,6 @@ export class MacEconomicIncomeService {
             },
             emphasis: {
               show: true,
-              //                            formatter: '{b}: {d}%',
               formatter: '{b}: {c}%',
               textStyle: {
                 fontSize: '25',

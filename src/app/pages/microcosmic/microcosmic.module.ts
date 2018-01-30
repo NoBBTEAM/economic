@@ -10,6 +10,7 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
 import { CompanyListComponent } from './company-list/company-list.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { BreedTrackComponent } from './event-notice/breed-track/breed-track.component';
+import { BreedTrackService } from './event-notice/breed-track/breed-track.service';
 // import { MicrocosmicService } from './microcosmic.service';
 
 @NgModule({
@@ -28,5 +29,8 @@ import { BreedTrackComponent } from './event-notice/breed-track/breed-track.comp
     CompanyListComponent,
     BreedTrackComponent
   ],
+  providers: [
+    BreedTrackService
+  ]
 })
 export class MicrocosmicModule { }
