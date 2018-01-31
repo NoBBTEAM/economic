@@ -1,3 +1,7 @@
+.macros-view-bd {
+  height: calc(100% - 50px);
+}
+
 .budget-xplain {
   height: 100%;
   background: #151411;
@@ -50,7 +54,6 @@
   border: 20px solid rgba(249, 182, 32, .3);
   border-radius: 50%;
 }
-
 
 /*.xplain-con .xplain-item2,.xplain-con .xplain-item3{
   animation: budgetArrowShake2 4s infinite;
@@ -208,7 +211,6 @@
   background-size: contain;
 }
 
-
 /*secede*/
 
 .xplain-item2 .xplain-item-top .xplain-icon.icon1 .icon {
@@ -225,7 +227,6 @@
   background: url("../../../../assets/images/budget_right_2.png") center no-repeat;
   background-size: contain;
 }
-
 
 /*third*/
 
@@ -245,7 +246,6 @@
   background: url("../../../../assets/images/budget_top_3.png") center no-repeat;
   background-size: contain;
 }
-
 
 /*btn*/
 
@@ -275,7 +275,7 @@
 
 .explain-progress-bar,
 .enter-budget {
-  display: none;
+  /* display: none; */
 }
 
 .enter-budget {
@@ -313,7 +313,6 @@
 .enter-budget-btn:hover .explain-btn-bg {
   width: 100%;
 }
-
 
 /*.xplain-btn:before{
   content:'';
