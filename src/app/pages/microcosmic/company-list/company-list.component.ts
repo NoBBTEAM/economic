@@ -43,6 +43,9 @@ export class CompanyListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.layoutService.getSubject()
       .subscribe((res: SearchResponse) => {
+        if (!res) {
+          return false;
+        }
         const that = this;
         this.pageParam = res.data.pageParam;
         this.keyWord = res.data.keyWord;
@@ -86,6 +89,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
+    console.log('COMPANY LIST ON DESTROY++++++++++++');
     this.subscription.unsubscribe();
   }
 

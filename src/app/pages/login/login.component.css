@@ -41,7 +41,7 @@
   margin: 30px auto 0;
 }
 
-.login-box form .label div {
+.login-box form .label div.img-box {
   float: left;
   vertical-align: top;
   height: 60px;
@@ -49,6 +49,10 @@
   color: #000;
   background: #fff;
   border-radius: 0 8px 8px 0;
+}
+
+.login-box form .label div.img-box>div {
+  line-height: 60px;
 }
 
 .login-box form input {
