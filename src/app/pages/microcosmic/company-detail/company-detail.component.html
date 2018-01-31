@@ -23,20 +23,21 @@
   <div class="content">
     <div class="panel-menu-box">
       <ul class="panel-menu">
-        <li class="active">企业基本信息</li>
-        <!-- <li>企业资质信息</li>
-                <li>企业信用信息</li>
-                <li>经济指标信息</li>
-                <li>经济指标预测</li>
-                <li>业务关联视图</li>
-                <li>经营者关联视图</li>
-                <li>企业综合评价</li> -->
+        <li routerLink="basic" routerLinkActive="active">企业基本信息</li>
+        <li routerLink="qualifications" routerLinkActive="active">企业资质信息</li>
+        <li routerLink="credit" routerLinkActive="active">企业信用信息</li>
+        <li routerLink="economicIndicators" routerLinkActive="active">经济指标信息</li>
+        <li routerLink="economicForecast" routerLinkActive="active">经济指标预测</li>
+        <li routerLink="businessContext" routerLinkActive="active">业务关联视图</li>
+        <li routerLink="operatorNexus" routerLinkActive="active">经营者关联视图</li>
+        <li routerLink="overview" routerLinkActive="active">企业综合评价</li>
       </ul>
     </div>
     <div class="panel-menu-right">
 
       <perfect-scrollbar style="height: 100%">
-        <div class="panel-bd pop-index-0 animated active">
+        <router-outlet></router-outlet>
+        <!-- <div class="panel-bd pop-index-0 animated active">
           <div class="panel-content">
             <div class="panel-item-title">工商登记信息：</div>
 
@@ -193,7 +194,7 @@
               </tr>
             </table>
           </div>
-        </div>
+        </div> -->
 
         <!-- <div class="panel-bd pop-index-1 animated">
           <div class="panel-content">

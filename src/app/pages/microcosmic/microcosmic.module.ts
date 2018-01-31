@@ -11,6 +11,14 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { BreedTrackComponent } from './event-notice/breed-track/breed-track.component';
 import { BreedTrackService } from './event-notice/breed-track/breed-track.service';
+import { CompanyBasicInfoComponent } from './company-detail/company-basic-info/company-basic-info.component';
+import { CompanyQualificationsInfoComponent } from './company-detail/company-qualifications-info/company-qualifications-info.component';
+import { CompanyCreditInfoComponent } from './company-detail/company-credit-info/company-credit-info.component';
+import { CompanyEconomicInfoComponent } from './company-detail/company-economic-info/company-economic-info.component';
+import { CompanyBusinessInfoComponent } from './company-detail/company-business-info/company-business-info.component';
+import { CompanyOperatorNexusInfoComponent } from './company-detail/company-operator-nexus-info/company-operator-nexus-info.component';
+import { CompanyOverviewInfoComponent } from './company-detail/company-overview-info/company-overview-info.component';
+import { CompanyEconomicForecastComponent } from './company-detail/company-economic-forecast/company-economic-forecast.component';
 // import { MicrocosmicService } from './microcosmic.service';
 
 @NgModule({
@@ -27,7 +35,15 @@ import { BreedTrackService } from './event-notice/breed-track/breed-track.servic
     RecommendComponent,
     CompanyDetailComponent,
     CompanyListComponent,
-    BreedTrackComponent
+    BreedTrackComponent,
+    CompanyBasicInfoComponent,
+    CompanyQualificationsInfoComponent,
+    CompanyCreditInfoComponent,
+    CompanyEconomicInfoComponent,
+    CompanyBusinessInfoComponent,
+    CompanyOperatorNexusInfoComponent,
+    CompanyOverviewInfoComponent,
+    CompanyEconomicForecastComponent
   ],
   providers: [
     BreedTrackService

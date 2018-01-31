@@ -354,6 +354,9 @@ table tr td:first-child {
 .ps-container>.ps-scrollbar-y-rail {
   background: none !important;
 }
+.ps-container>.ps-scrollbar-x-rail {
+  display: none !important;
+}
 
 /*加载提示动画*/
 
