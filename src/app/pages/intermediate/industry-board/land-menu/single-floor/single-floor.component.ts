@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ADD_POLYGON } from '../../../../../core/amap-ngrx/amap.actions';
 import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
@@ -11,7 +11,7 @@ import { CHANGE } from '../../../../../core/container-ngrx/container.action';
   templateUrl: './single-floor.component.html',
   styleUrls: ['./single-floor.component.css']
 })
-export class SingleFloorComponent implements OnInit {
+export class SingleFloorComponent implements OnInit, OnDestroy {
 
   constructor(private intermediateService: IntermediateService, private store: Store<ContainerStyle>, private storeAmap: Store<Amap>) {
     this.store.select('container');
@@ -19,6 +19,8 @@ export class SingleFloorComponent implements OnInit {
   singleFloorEchart: any;
 
   ngOnInit() {
+    /*显示当前菜单二级菜单*/
+    this.intermediateService.showIndustryMenus('LandMenu');
     this.store.dispatch({
       type: CHANGE,
       payload: {
@@ -36,6 +38,10 @@ export class SingleFloorComponent implements OnInit {
       const conutData = this.conutTypeData(res)
       this.buildCharts(conutData);
     });
+    this.intermediateService.changeTimeColorControl(['isShowColorsBar', 'isShowSingleColor']);
+  }
+  ngOnDestroy() {
+    this.intermediateService.changeTimeColorControl();
   }
   /*组装为echart需要的数据*/
   conutTypeData(obj) {

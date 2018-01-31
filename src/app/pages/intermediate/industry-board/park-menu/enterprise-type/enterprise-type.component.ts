@@ -20,6 +20,8 @@ export class EnterpriseTypeComponent implements OnInit {
     '服务业': '#ff0000'
   }
   ngOnInit() {
+    /*显示当前菜单二级菜单*/
+    this.intermediateService.showIndustryMenus('ParkMenu');
     const chooseTime = new Date().getFullYear() - 1;
     this.intermediateService.getParkCompanyType()
       .subscribe(res => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ContainerStyle } from '../../../../../core/container-ngrx/container.model';
 import { CHANGE } from '../../../../../core/container-ngrx/container.action';
+import { IntermediateService } from '../../../intermediate.service';
 
 declare var echarts: any;
 @Component({
@@ -11,11 +12,13 @@ declare var echarts: any;
 })
 export class EnterpriseFenbuComponent implements OnInit {
   enterpriseData: any;
-  constructor(private store: Store<ContainerStyle>) {
+  constructor(private store: Store<ContainerStyle>, private intermediateService: IntermediateService) {
     this.store.select('container');
   }
 
   ngOnInit() {
+      /*显示当前菜单二级菜单*/
+      this.intermediateService.showIndustryMenus('IndustryMenu');
       this.store.dispatch({
           type: CHANGE,
           payload: {

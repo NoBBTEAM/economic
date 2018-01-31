@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IntermediateService } from '../../../intermediate.service';
 import { Store } from '@ngrx/store';
 import { CHANGE } from '../../../../../core/container-ngrx/container.action';
@@ -12,7 +12,7 @@ declare var AMap: any;
   templateUrl: './land-nature.component.html',
   styleUrls: ['./land-nature.component.css']
 })
-export class LandNatureComponent implements OnInit {
+export class LandNatureComponent implements OnInit, OnDestroy {
 
   colors = {
     '储备用地': '#bf7eff',
@@ -28,6 +28,8 @@ export class LandNatureComponent implements OnInit {
   landNatureEchat: any;
 
   ngOnInit() {
+    /*显示当前菜单二级菜单*/
+    this.intermediateService.showIndustryMenus('LandMenu');
     this.store.dispatch({
       type: CHANGE,
       payload: {
@@ -41,6 +43,7 @@ export class LandNatureComponent implements OnInit {
           this.buildCharts(conutData);
         }, 500);
       });
+    this.intermediateService.changeTimeColorControl(['isShowColorsBar', 'isShowNatureColor']);
     this.storeAmap.dispatch({
       type: ADD_POLYGON,
       payload: {
@@ -58,6 +61,9 @@ export class LandNatureComponent implements OnInit {
           }
         });
       });*/
+  }
+  ngOnDestroy() {
+    this.intermediateService.changeTimeColorControl();
   }
   /*组装为echart需要的数据*/
   conutTypeData(arr) {

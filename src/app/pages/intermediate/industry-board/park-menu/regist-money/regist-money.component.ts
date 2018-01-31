@@ -28,6 +28,8 @@ export class RegistMoneyComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*显示当前菜单二级菜单*/
+    this.intermediateService.showIndustryMenus('ParkMenu');
 
     this.store.dispatch({
       type: CHANGE,

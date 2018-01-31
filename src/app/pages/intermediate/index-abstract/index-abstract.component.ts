@@ -33,14 +33,14 @@ export class IndexAbstractComponent implements OnInit {
         width: '60%'
       }
     });
-    this.storeAmap.dispatch({
+    /*this.storeAmap.dispatch({
       type: CLEAR_MARKER,
       payload: {
         action: 'CLEAR_MARKER',
         data: ''
       }
-    });
-    this.storeAmap.dispatch({
+    });*/
+    /*this.storeAmap.dispatch({
       type: ADD_MARKER_MID,
       payload: {
         action: 'ADD_MARKER_MID',
@@ -53,7 +53,7 @@ export class IndexAbstractComponent implements OnInit {
           }
         ]
       }
-    });
+    });*/
 
     const DATA = this.intermediateService.getData('Add')
       .subscribe((res) => {
