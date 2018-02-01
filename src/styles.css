@@ -78,10 +78,10 @@ span {
 }
 
 .panel-bd {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(to bottom right, #151411 30%, #151816 50%, #162c2e);
+  /*background: linear-gradient(to bottom right, #151411 30%, #151816 50%, #162c2e);*/
   visibility: hidden;
   border-radius: 0 6px 6px 6px;
   /*transition: all .5s;*/
@@ -140,6 +140,8 @@ span {
   position: relative;
   float: left;
   flex: 1;
+  border-radius: 0 6px 6px 6px;
+  background: linear-gradient(to bottom right, #151411 30%, #151816 50%, #162c2e);
 }
 
 .panel-menu {
