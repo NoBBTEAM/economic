@@ -11,7 +11,7 @@ import { CHANGE } from '../../../core/container-ngrx/container.action';
 })
 export class CompanyDetailComponent implements OnInit {
 
-  id: string;
+  rowKey: string;
   isFollow: boolean;
   constructor(
     private routeInfo: ActivatedRoute,
@@ -26,8 +26,8 @@ export class CompanyDetailComponent implements OnInit {
       }
     });
     this.routeInfo.params.subscribe((params) => {
-      this.id = params.id;
-      console.log(this.id);
+      this.rowKey = params.rowKey;
+      console.log('PARAMS ==========> ', params);
     });
   }
 

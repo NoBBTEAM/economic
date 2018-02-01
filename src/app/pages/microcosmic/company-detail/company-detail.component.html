@@ -6,7 +6,7 @@
           <span class="back-btn"></span>
         </div>
         <!-- <h3 class="fl" id="name">{{id}}企业科技有限公司</h3> -->
-        <h3 class="fl" id="name" [innerHTML]="id"></h3>
+        <h3 class="fl" id="name" [innerHTML]="rowKey"></h3>
         <div class="follow-box" (click)="notFollow()">
           <div class="not-follow" *ngIf="isFollow">
             <img src="/assets/images/not-follow.png" alt="">
