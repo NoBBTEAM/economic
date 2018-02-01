@@ -63,7 +63,7 @@
         </perfect-scrollbar>
       </div>
       <div class="panel-bot">
-        <app-pagination [pageParam]="pageParam"></app-pagination>
+        <app-pagination [pageParam]="pageParam" (page)="consolePage($event)"></app-pagination>
       </div>
     </div>
   </div>

@@ -83,6 +83,13 @@ export class CompanyListComponent implements OnInit, OnDestroy {
     }
     this.enterpriseTypeActive[enterpriseType] = true;
     this.searchParams.enterpriseType = enterpriseType;
+    this.searchParams.page = 0;
+    this.search();
+  }
+
+  consolePage(page: number) {
+    console.log(`from pagination component =========> ${page}`);
+    this.searchParams.page = page - 1;
     this.search();
   }
 
