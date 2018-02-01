@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {path: 'companyList', component: CompanyListComponent},
   {
-    path: 'companyDetail/:id',
+    path: 'companyDetail/:rowKey',
     component: CompanyDetailComponent,
     children: [
       // 基本信息
