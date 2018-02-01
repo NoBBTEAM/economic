@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IntermediateService } from '../intermediate.service';
 
 @Component({
   selector: 'app-industry-board',
@@ -6,41 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./industry-board.component.css']
 })
 export class IndustryBoardComponent implements OnInit {
-  isShowIndustryMenu: boolean = true;
-  isShowParkMenu: boolean = false;
-  isShowLandMenu: boolean = false;
-  isShowFloorMenu: boolean = false;
-  constructor() { }
+  // isShowIndustryMenu: boolean = true;
+  // isShowParkMenu: boolean = false;
+  // isShowLandMenu: boolean = false;
+  // isShowFloorMenu: boolean = false;
+  showIndustryMenusControl: any;
+  constructor(private intermediateService: IntermediateService) { }
 
   ngOnInit() {
+    this.showIndustryMenusControl = this.intermediateService.getIndustryMenusControl();
   }
   showIndustryMenus(flag) {
-    switch (flag) {
-      case 'IndustryMenu':
-        this.isShowParkMenu = false;
-        this.isShowLandMenu = false;
-        this.isShowFloorMenu = false;
-        this.isShowIndustryMenu = true;
-        break;
-      case 'ParkMenu':
-        this.isShowLandMenu = false;
-        this.isShowIndustryMenu = false;
-        this.isShowFloorMenu = false;
-        this.isShowParkMenu = true;
-        break;
-      case 'LandMenu':
-        this.isShowIndustryMenu = false;
-        this.isShowParkMenu = false;
-        this.isShowFloorMenu = false;
-        this.isShowLandMenu = true;
-        break;
-      case 'FloorMenu':
-        this.isShowIndustryMenu = false;
-        this.isShowParkMenu = false;
-        this.isShowLandMenu = false;
-        this.isShowFloorMenu = true;
-        break;
-    }
+    this.intermediateService.showIndustryMenus(flag);
+    this.showIndustryMenusControl = this.intermediateService.getIndustryMenusControl();
+    console.log(this.showIndustryMenusControl);
   }
 
 }

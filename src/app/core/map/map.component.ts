@@ -6,6 +6,7 @@ import { Amap } from '../../core/amap-ngrx/amap.model';
 import { ViewEncapsulation } from '@angular/core';
 import { MicrocosmicService } from '../../pages/microcosmic/microcosmic.service';
 import { IntermediateService } from '../../pages/intermediate/intermediate.service';
+import { Router } from '@angular/router';
 declare var AMap: any;
 declare var AMapUI: any;
 // declare var $: any;
@@ -20,7 +21,9 @@ export class MapComponent implements OnInit {
 
   tagState$: Observable<Amap>;
   constructor(private store: Store<Amap>,
-    private microcosmicService: MicrocosmicService, private intermediateService: IntermediateService) {
+    private router: Router,
+    private microcosmicService: MicrocosmicService,
+    private intermediateService: IntermediateService) {
     this.tagState$ = this.store.select('amap');
   }
 
@@ -71,11 +74,13 @@ export class MapComponent implements OnInit {
               console.log(marker.F.title);
               console.log(e);
               marker.setContent(`<div class="mapMarker active"><span>${item.name}</span></div>`);
-              this.intermediateService.changeData(marker.F.title);
+              this.intermediateService.changeParkName(marker.F.title);
+              /*点击中观园区进入园区数据看板*/
+              this.router.navigate(['/int/industryBoard/parkMenu/registMoney']);
             });
           });
           map.setFitView();
-          map.setZoom(12);
+          // map.setZoom(12);
           map.panBy(-580, 10);
         },
         'ADD_POLYGON': (data) => {
@@ -588,10 +593,11 @@ export class MapComponent implements OnInit {
         markerList.on('selectedChanged', function(event, info) {
           // $("#myList").hide();
           map.panBy(-580, 40);
-
           // $("#myList").slideUp("fast");
           // $(".build-arrow").removeClass("active");
           if (info.selected) {
+            _that.intermediateService.getBuildCompanyList(info.selected.data.id);
+            _that.intermediateService.changeShowHideData('showBuildMarkerEl', false, info.selected.data.name);
             // $(".choose-park-buid-name").html(info.selected.data.name);
             // chooseBuildName = info.selected.data.name;
             // chooseBuildId = info.selected.data.id;

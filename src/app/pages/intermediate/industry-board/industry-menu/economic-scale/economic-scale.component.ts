@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IntermediateService } from '../../../intermediate.service';
 
 @Component({
   selector: 'app-economic-scale',
@@ -12,9 +13,11 @@ export class EconomicScaleComponent implements OnInit {
   optionDataMain3: any;
   optionDataMain4: any;
   optionDataMain5: any;
-  constructor() { }
+  constructor(private intermediateService: IntermediateService) { }
 
   ngOnInit() {
+    /*显示当前菜单二级菜单*/
+    this.intermediateService.showIndustryMenus('IndustryMenu');
     // x轴：年份
     const year = ['2012', '2013', '2014', '2015', '2016', '2017'];
     // y轴：总产值

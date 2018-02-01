@@ -9,6 +9,9 @@ declare var echarts: any;
 @Injectable()
 export class IntermediateService {
   private subject = new BehaviorSubject<any>(0);
+  private subjectBuild = new BehaviorSubject<any>(0);
+  private subjectPark = new BehaviorSubject<any>(0);
+  private subjectTimeColor = new BehaviorSubject<any>(0);
   private parkRegistUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyTypeUrl = '/v1/land/queryAllFundsByenterpriseType';
   private parkCompanyIncomeUrl = '/v1/land/findRevenueByTime';
@@ -23,17 +26,57 @@ export class IntermediateService {
   isShowTimesColors = false;
   isShowLandChooseTime = false;
   isShowParkBuildBar = false;
+  showBuildMarkerEl = false;
+  choseBuildName: any;
+  choseParkName: any;
+  buildOfCompanys: any;
   selectedPolygonLands: any;
   dataPolygonLands: object = {'dataPolygonNatureLands': [], 'dataPolygonSingleLands': []};
+  industryMenusControl = {
+    isShowIndustryMenu: true,
+    isShowParkMenu: false,
+    isShowLandMenu: false,
+    isShowFloorMenu: false,
+  }
+  showTimeColorControl = {
+    isShowColorsBar: false,
+    isShowTime: false,
+    isShowEcoTime: false,
+    isShowTopTime: false,
+    isShowNatureColor: false,
+    isShowInefficientColor: false,
+    isShowTopColor: false,
+    isShowEcoColor: false,
+    isShowSingleColor: false
+  }
+  parkLists = ['高新西区', '高新东区', '高新南区'];
 
-  changeShowHideData() {
-    this.isShowParkBuildBar = !this.isShowParkBuildBar;
+  changeShowHideData(type, flag?, buildName?) {
+    this[type] = flag;
+    if (buildName) {
+      this.choseBuildName = buildName;
+    }
+    // this.showBuildMarkerEl = !this.showBuildMarkerEl;
     this.subject.next({
-      'isShowParkBuildBar': this.isShowParkBuildBar
+      'isShowParkBuildBar': this.isShowParkBuildBar,
+      'showBuildMarkerEl': this.showBuildMarkerEl,
+      'choseBuildName': this.choseBuildName,
     });
   }
   getShowHideData(): Observable<any> {
     return this.subject.asObservable();
+  }
+  getParkNameList() {
+    return this.parkLists;
+  }
+  changeParkName(parkName) {
+    this.choseParkName = parkName;
+    this.subjectPark.next({
+      'choseParkName': this.choseParkName
+    });
+  }
+  getParkName(): Observable<any> {
+    return this.subjectPark.asObservable();
   }
   getData(flag) {
     // 天府软件园企业数和经济总值
@@ -432,12 +475,91 @@ export class IntermediateService {
     return this.http.get(`${this.buildBasicUrl}`)
       .map(res => (res));
   }
-  getBuildCompanyList(landId): Observable<any> {
+  /*getBuildCompanyList(landId): Observable<any> {
     return this.http.get(`${this.buildCompanyListUrl + '?landid=' + landId }`)
       .map(res => (res));
+  }*/
+  /*根据楼宇id搜索公司列表*/
+  getBuildCompanyList(landId) {
+    this.http.get(`${this.buildCompanyListUrl + '?landid=' + landId }`)
+      .subscribe(res => {
+        console.log(res)
+        this.buildOfCompanys = res;
+        this.subjectBuild.next({
+          'buildOfCompanys': this.buildOfCompanys
+        });
+      });
   }
+  /*给订阅者返回新获取的公司列表*/
+  getBuildOfCompanys(): Observable<any> {
+    return this.subjectBuild.asObservable();
+  }
+  /*获取所有楼宇的坐标等*/
   getBuildPositionList(): Observable<any> {
     return this.http.get(`${this.buildPositionListUrl}`)
       .map(res => (res));
+  }
+  /*中观产业菜单控制*/
+  showIndustryMenus(flag) {
+    switch (flag) {
+      case 'IndustryMenu':
+        this.industryMenusControl.isShowParkMenu = false;
+        this.industryMenusControl.isShowLandMenu = false;
+        this.industryMenusControl.isShowFloorMenu = false;
+        this.industryMenusControl.isShowIndustryMenu = true;
+        break;
+      case 'ParkMenu':
+        this.industryMenusControl.isShowLandMenu = false;
+        this.industryMenusControl.isShowIndustryMenu = false;
+        this.industryMenusControl.isShowFloorMenu = false;
+        this.industryMenusControl.isShowParkMenu = true;
+        break;
+      case 'LandMenu':
+        this.industryMenusControl.isShowIndustryMenu = false;
+        this.industryMenusControl.isShowParkMenu = false;
+        this.industryMenusControl.isShowFloorMenu = false;
+        this.industryMenusControl.isShowLandMenu = true;
+        break;
+      case 'FloorMenu':
+        this.industryMenusControl.isShowIndustryMenu = false;
+        this.industryMenusControl.isShowParkMenu = false;
+        this.industryMenusControl.isShowLandMenu = false;
+        this.industryMenusControl.isShowFloorMenu = true;
+        break;
+    }
+  }
+  getIndustryMenusControl() {
+    return this.industryMenusControl;
+  }
+  /*中观产业颜色和时间控制*/
+  changeTimeColorControl(options?) {
+    this.showTimeColorControl.isShowColorsBar = false,
+    this.showTimeColorControl.isShowTime = false,
+    this.showTimeColorControl.isShowEcoTime = false,
+    this.showTimeColorControl.isShowTopTime = false,
+    this.showTimeColorControl.isShowNatureColor = false,
+    this.showTimeColorControl.isShowInefficientColor = false,
+    this.showTimeColorControl.isShowTopColor = false,
+    this.showTimeColorControl.isShowEcoColor = false,
+    this.showTimeColorControl.isShowSingleColor = false
+    if (options) {
+      for (const item of options) {
+        this.showTimeColorControl[item] = true;
+      }
+    }
+    this.subjectTimeColor.next({
+      'isShowColorsBar': this.showTimeColorControl.isShowColorsBar,
+      'isShowTime': this.showTimeColorControl.isShowTime,
+      'isShowEcoTime': this.showTimeColorControl.isShowEcoTime,
+      'isShowTopTime': this.showTimeColorControl.isShowTopTime,
+      'isShowNatureColor': this.showTimeColorControl.isShowNatureColor,
+      'isShowInefficientColor': this.showTimeColorControl.isShowInefficientColor,
+      'isShowTopColor': this.showTimeColorControl.isShowTopColor,
+      'isShowEcoColor': this.showTimeColorControl.isShowEcoColor,
+      'isShowSingleColor': this.showTimeColorControl.isShowSingleColor
+    });
+  }
+  getTimeColorControl(): Observable<any> {
+    return this.subjectTimeColor.asObservable();
   }
 }

@@ -6,6 +6,8 @@ import { ContainerStyle } from '../../core/container-ngrx/container.model';
 import { Observable } from 'rxjs/Observable';
 import { LayoutService } from './layout.service';
 import { IntermediateService } from '../intermediate/intermediate.service';
+import { ADD_MARKER_MID, CLEAR_MARKER } from '../../core/amap-ngrx/amap.actions';
+import {Amap} from '../../core/amap-ngrx/amap.model';
 
 @Component({
   selector: 'app-layout',
@@ -19,8 +21,23 @@ import { IntermediateService } from '../intermediate/intermediate.service';
   providers: [LayoutService]
 })
 export class LayoutComponent implements OnInit {
-  isShowParkBuildBar: boolean = false;
-  showBuildList: boolean = false;
+  isShowParkBuildBar = false;
+  showTimeColorControl = {
+    isShowColorsBar: false,
+    isShowTime: false,
+    isShowEcoTime: false,
+    isShowTopTime: false,
+    isShowNatureColor: false,
+    isShowInefficientColor: false,
+    isShowTopColor: false,
+    isShowEcoColor: false,
+    isShowSingleColor: false
+  };
+  showBuildMarkerEl = false;
+  choseBuildName: any = '楼宇列表';
+  choseParkName: any = '园区';
+  parkNameLists: any = [];
+  isShowParkNameList: any;
   // 其他组件会改变container的样式， 所以用一个Reduce来管理
   tagState$: Observable<ContainerStyle>;
   container: ContainerStyle;
@@ -55,7 +72,8 @@ export class LayoutComponent implements OnInit {
   constructor(private router: Router,
     private layoutService: LayoutService,
     private intermediateService: IntermediateService,
-    private store: Store<ContainerStyle>) {
+    private store: Store<ContainerStyle>,
+    private storeAmap: Store<Amap>) {
     this.tagState$ = this.store.select('container');
   }
 
@@ -72,8 +90,25 @@ export class LayoutComponent implements OnInit {
       this.container = state;
     });
     this.intermediateService.getShowHideData().subscribe(res => {
-      this.isShowParkBuildBar = res.isShowParkBuildBar;
+      this.isShowParkBuildBar = res.isShowParkBuildBar ? res.isShowParkBuildBar : false;
+      this.showBuildMarkerEl = res.showBuildMarkerEl ? res.showBuildMarkerEl : false;
+      this.choseBuildName = res.choseBuildName ? res.choseBuildName : this.choseBuildName;
     })
+    this.parkNameLists = this.intermediateService.getParkNameList();
+    this.intermediateService.getParkName().subscribe(res => {
+      this.choseParkName = res.choseParkName ? res.choseParkName : this.choseParkName;
+    })
+    this.intermediateService.getTimeColorControl().subscribe(res => {
+      this.showTimeColorControl.isShowColorsBar = res.isShowColorsBar;
+      this.showTimeColorControl.isShowTime = res.isShowTime;
+      this.showTimeColorControl.isShowEcoTime = res.isShowEcoTime;
+      this.showTimeColorControl.isShowTopTime = res.isShowTopTime;
+      this.showTimeColorControl.isShowNatureColor = res.isShowNatureColor;
+      this.showTimeColorControl.isShowInefficientColor = res.isShowInefficientColor;
+      this.showTimeColorControl.isShowTopColor = res.isShowTopColor;
+      this.showTimeColorControl.isShowEcoColor = res.isShowEcoColor;
+      this.showTimeColorControl.isShowSingleColor = res.isShowSingleColor;
+    });
 
     setTimeout(() => {
       this.isCircleMenuShow = !this.isCircleMenuShow;
@@ -160,6 +195,56 @@ export class LayoutComponent implements OnInit {
 
   notRirhtPanelShow() {
     this.isRirhtPanelShow = !this.isRirhtPanelShow;
+  }
+
+  changeParkName(park) {
+
+    this.storeAmap.dispatch({
+      type: CLEAR_MARKER,
+      payload: {
+        action: 'CLEAR_MARKER',
+        data: ''
+      }
+    });
+    let parkData;
+    switch (park) {
+      case '高新南区':
+        parkData = [{
+            'name': '高新南区',
+            'center': '104.065706,30.592168',
+            'type': 0,
+            'subDistricts': []
+          }];
+        break;
+      case '高新西区':
+        parkData = [{
+          'name': '高新西区',
+          'center': '103.922278,30.77348',
+          'type': 1,
+          'subDistricts': []
+          }];
+        break;
+      case '高新东区':
+        parkData = [{
+          'name': '高新东区',
+          'center': '104.26881,30.277292',
+          'type': 1,
+          'subDistricts': []
+          }];
+        break;
+    }
+    this.storeAmap.dispatch({
+      type: ADD_MARKER_MID,
+      payload: {
+        action: 'ADD_MARKER_MID',
+        data: parkData
+      }
+    });
+    this.isShowParkNameList = false;
+    this.intermediateService.changeParkName(park);
+  }
+  showParkNameList() {
+    this.isShowParkNameList = !this.isShowParkNameList;
   }
 
 }

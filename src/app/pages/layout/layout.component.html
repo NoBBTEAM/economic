@@ -81,13 +81,73 @@
 
   <div id="panel" class="park-build scrollbar1" [ngClass]="{'active': isShowParkBuildBar}">
     <div class="park-build-con">
-      <div class="park-name">起步园</div>
-      <!--<div class="park-info">
-          <div class="info-l fl">写字楼<span><em class="num">8</em>栋</span></div>
-          <div class="info-r fl">企业<span><em class="num">200</em>家</span></div>
-      </div>-->
-      <div class="choose-park-buid" (click)="showBuildList=!showBuildList"><div class="choose-park-buid-name">楼宇列表</div><span class="fa fa-caret-down build-arrow"></span></div>
-      <div id="myList" [hidden]="!showBuildList"></div>
+      <div class="park-name" (click)="showParkNameList()">{{choseParkName}}<span class="fa fa-caret-down build-arrow" [ngClass]="{'active': isShowParkNameList}"></span></div>
+      <div class="park-list" *ngIf="isShowParkNameList">
+        <div class="park-item" *ngFor="let park of parkNameLists" (click)="changeParkName(park)"><span class="park-name-icon" [ngClass]="{'active': park == choseParkName}"></span>{{park}}</div>
+      </div>
+      <div class="park-build-bd">
+        <!--<div class="park-info">
+            <div class="info-l fl">写字楼<span><em class="num">8</em>栋</span></div>
+            <div class="info-r fl">企业<span><em class="num">200</em>家</span></div>
+        </div>-->
+        <div class="choose-park-buid" (click)="showBuildMarkerEl=!showBuildMarkerEl"><div class="choose-park-buid-name">{{choseBuildName}}</div><span class="fa fa-caret-down build-arrow" [ngClass]="{'active': showBuildMarkerEl}"></span></div>
+        <div id="myList" [hidden]="!showBuildMarkerEl"></div>
+      </div>
+    </div>
+  </div>
+  <div class="time-colors-panel my-hide" [ngClass]="{'active': showTimeColorControl.isShowColorsBar}">
+    <div class="land-choose-time my-hide" [ngClass]="{'active': showTimeColorControl.isShowTime}">
+      <div class="park-build-con">
+        <div class="park-name">时间</div>
+        <!--<div class="park-info">
+            <div class="info-l fl">写字楼<span><em class="num">8</em>栋</span></div>
+            <div class="info-r fl">企业<span><em class="num">200</em>家</span></div>
+        </div>-->
+        <div class="datetimepicker-box my-hide" [ngClass]="{'active': showTimeColorControl.isShowEcoTime}">
+          <div class="input-group date fl" id="datetimepicker" data-date="" data-date-format="yyyy">
+            <input class="form-control" size="16" type="text" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+          </div>
+        </div>
+        <div class="datetimepicker-top-box my-hide" [ngClass]="{'active': showTimeColorControl.isShowTopTime}">
+          <div class="input-group date fl" id="datetimepicker-top" data-date="" data-date-format="yyyy">
+            <input class="form-control" size="16" type="text" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="land-colors-list" id="land-colors-list">
+      <div class="nature-color my-hide" [ngClass]="{'active': showTimeColorControl.isShowNatureColor}">
+        <div class="color-item"><span class="color-blank reserve-land"></span>储备用地</div>
+        <div class="color-item"><span class="color-blank industry-land"></span>工业用地</div>
+        <div class="color-item"><span class="color-blank other-land"></span>公共设施及其他用地</div>
+        <div class="color-item"><span class="color-blank teach-land"></span>科研用地</div>
+        <div class="color-item"><span class="color-blank bsiness-land"></span>商服用地</div>
+        <div class="color-item"><span class="color-blank  house-land"></span>住宅用地</div>
+      </div>
+      <div class="inefficient-color my-hide" [ngClass]="{'active': showTimeColorControl.isShowInefficientColor}">
+        <div class="color-item"><span class="color-blank uninefficient-land"></span>非低效用地</div>
+        <div class="color-item"><span class="color-blank inefficient-land"></span>低效用地</div>
+      </div>
+      <div class="top-color my-hide" [ngClass]="{'active': showTimeColorControl.isShowTopColor}">
+        <div class="color-item active"><span class="color-blank living-land" data-catname="living"></span>生物医药</div>
+        <div class="color-item active"><span class="color-blank electron-land" data-catname="electron"></span>电子信息</div>
+        <div class="color-item active"><span class="color-blank yiqi-land" data-catname="yiqi"></span>精密制造</div>
+        <div class="color-item active"><span class="color-blank top-other-land" data-catname="other"></span>其他</div>
+        <div class="color-item active"><span class="color-blank service-land" data-catname="service"></span>服务业</div>
+      </div>
+      <div class="eco-color my-hide" [ngClass]="{'active': showTimeColorControl.isShowEcoColor}">
+        <div class="color-item active"><span class="color-blank living-land" data-catname="living"></span>生物医药</div>
+        <div class="color-item active"><span class="color-blank electron-land" data-catname="electron"></span>电子信息</div>
+        <div class="color-item active"><span class="color-blank yiqi-land" data-catname="yiqi"></span>精密制造</div>
+        <div class="color-item active"><span class="color-blank top-other-land" data-catname="other"></span>其他</div>
+        <div class="color-item active"><span class="color-blank service-land" data-catname="service"></span>服务业</div>
+      </div>
+      <div class="single-color my-hide" [ngClass]="{'active': showTimeColorControl.isShowSingleColor}">
+        <div class="color-item"><span class="color-blank uninefficient-land"></span>楼宇</div>
+        <div class="color-item"><span class="color-blank inefficient-land"></span>单一业主</div>
+      </div>
     </div>
   </div>
 </div>
