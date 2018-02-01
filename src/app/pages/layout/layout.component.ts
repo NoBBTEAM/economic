@@ -73,7 +73,7 @@ export class LayoutComponent implements OnInit {
     });
     this.intermediateService.getShowHideData().subscribe(res => {
       this.isShowParkBuildBar = res.isShowParkBuildBar;
-    })
+    });
 
     setTimeout(() => {
       this.isCircleMenuShow = !this.isCircleMenuShow;
