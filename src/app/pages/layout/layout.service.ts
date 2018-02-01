@@ -32,7 +32,7 @@ export interface SearchResponse {
 export class LayoutService {
   private subject = new BehaviorSubject<any>(0);
 
-  private searchUrl = '/company/listCompanysPage';
+  private searchUrl = '/v1/epBaseInfoPojo/listCompanysPage';
 
   constructor(private http: HttpClient) { }
 
