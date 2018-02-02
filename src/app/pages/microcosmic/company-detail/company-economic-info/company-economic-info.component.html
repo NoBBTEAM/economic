@@ -1,33 +1,25 @@
 <!-- 经济指标信息 -->
-<div class="panel-bd pop-index-3 animated">
+<div class="panel-bd pop-index-3 animated m-b-20">
   <div class="panel-content">
     <div class="flex">
       <div class="flex-cell">
-        <div class="flex-item" id="main"></div>
+        <div class="flex-item" echarts [options]="businessIncomeData" id="main"></div>
       </div>
       <div class="flex-cell">
-        <div class="flex-item" id="main3"></div>
-      </div>
-    </div>
-    <div class="flex">
-      <div class="flex-cell">
-        <div class="flex-item" id="main2"></div>
-      </div>
-      <div class="flex-cell">
-        <div class="flex-item" id="main4"></div>
+        <div class="flex-item" echarts [options]="businessIncomeRatioData" id="main3"></div>
       </div>
     </div>
     <div class="flex">
       <div class="flex-cell">
-        <div class="flex-item" id="touzi-main"></div>
+        <div class="flex-item" echarts [options]="numberOfActiveStaffData" id="main2"></div>
       </div>
       <div class="flex-cell">
-        <div class="flex-item" id="touzi-main2"></div>
+        <div class="flex-item" echarts [options]="parkNumberData" id="main4"></div>
       </div>
     </div>
     <div class="flex">
       <div class="flex-cell">
-        <div class="flex-item" id="guanxi-main"></div>
+        <div class="flex-item" echarts [options]="relationPeople" id="guanxi-main"></div>
       </div>
     </div>
     <div class="flex">
@@ -53,15 +45,43 @@
         <td class="nowrap" colspan="3">暂无</td>
       </tr>
     </table>
+    <div class="panel-item-title">政企联系人信息：</div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>姓名</th>
+        <th>职务</th>
+        <th>联系方式</th>
+      </tr>
+      <tr *ngFor="let data of gobernmentContacts">
+        <td class="nowrap">{{data.contactsName}}</td>
+        <td class="nowrap">{{data.duties}}</td>
+        <td class="nowrap">{{data.contactInfo}}</td>
+      </tr>
+    </table>
 
     <div class="panel-item-title">政府项目申报信息：</div>
-    <div class="economic-content">
-      <ul class="">
-        <li>政府项目申报信息-----</li>
-        <li>政府项目申报信息-----</li>
-        <li>政府项目申报信息-----</li>
-      </ul>
-    </div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>项目名称</th>
+        <th>所在区市县</th>
+        <th>组织机构代码/统一社会信用代码</th>
+        <th>项目负责人姓名</th>
+        <th>联合单位名</th>
+        <th>项目总经费</th>
+        <th>申报市级财政科技资金</th>
+        <th>单位自筹资金</th>
+      </tr>
+      <tr *ngFor="let item of ProjectDeclarations">
+        <td class="nowrap">{{item.projectName}}</td>
+        <td class="nowrap">{{item.location}}</td>
+        <td class="nowrap">{{item.code}}</td>
+        <td class="nowrap">{{item.leader}}</td>
+        <td class="nowrap">{{item.jointCompanyName}}</td>
+        <td class="nowrap">{{item.money}}</td>
+        <td class="nowrap">{{item.declareMoney}}</td>
+        <td class="nowrap">{{item.financingMoney}}</td>
+      </tr>
+    </table>
 
     <div class="panel-item-title">招中标信息：</div>
     <div class="economic-content">
@@ -73,13 +93,18 @@
     </div>
 
     <div class="panel-item-title">公司公告：</div>
-    <div class="economic-content">
-      <ul class="">
-        <li>公司公告-----</li>
-        <li>公司公告-----</li>
-        <li>公司公告-----</li>
-      </ul>
-    </div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>发布日期</th>
+        <th>标题</th>
+        <th>内容</th>
+      </tr>
+      <tr *ngFor="let item of notices">
+        <td class="nowrap">{{item.releaseDate | date: 'yyyy-MM-dd'}}</td>
+        <td class="nowrap">{{item.title}}</td>
+        <td class="nowrap">{{item.content}}</td>
+      </tr>
+    </table>
 
     <div class="panel-item-title">企业年报：</div>
     <div class="economic-content">

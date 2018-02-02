@@ -6,6 +6,8 @@ declare var echarts: any;
 
 @Injectable()
 export class MicrocosmicService {
+  // 公司名字存起来，在企业详情的几个小菜单里面要用
+  private companyNameSubject = new BehaviorSubject<any>(0);
   private subject = new BehaviorSubject<any>(0);
   // 区别四个区域
   title: string = '高新西区';
@@ -1364,6 +1366,16 @@ export class MicrocosmicService {
 
   getData(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  setCompanyName(companyName: string) {
+    this.companyNameSubject.next({
+      companyName: companyName
+    });
+  }
+
+  getCompanyName(): Observable<any> {
+    return this.companyNameSubject.asObservable();
   }
 
 }

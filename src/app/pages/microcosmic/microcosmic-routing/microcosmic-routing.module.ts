@@ -16,6 +16,7 @@ import { CompanyEconomicForecastComponent } from '../company-detail/company-econ
 import { CompanyQualificationsInfoComponent } from '../company-detail/company-qualifications-info/company-qualifications-info.component';
 import { CompanyOperatorNexusInfoComponent } from '../company-detail/company-operator-nexus-info/company-operator-nexus-info.component';
 import { CompanyOverviewInfoComponent } from '../company-detail/company-overview-info/company-overview-info.component';
+import { IntangibleAssetsComponent } from '../company-detail/intangible-assets/intangible-assets.component';
 
 export const routes: Routes = [
   { path: '', component: MicrocosmicComponent },
@@ -32,7 +33,7 @@ export const routes: Routes = [
   },
   {path: 'companyList', component: CompanyListComponent},
   {
-    path: 'companyDetail/:rowKey',
+    path: 'companyDetail',
     component: CompanyDetailComponent,
     children: [
       // 基本信息
@@ -41,6 +42,8 @@ export const routes: Routes = [
       {path: 'businessContext', component: CompanyBusinessInfoComponent},
       // 信用信息
       {path: 'credit', component: CompanyCreditInfoComponent},
+      // 无形资产信息
+      {path: 'assets', component: IntangibleAssetsComponent},
       // 经济指标
       {path: 'economicIndicators', component: CompanyEconomicInfoComponent},
       // 经济预测
