@@ -8,12 +8,20 @@ import { Component, OnInit } from '@angular/core';
 export class RoleManageComponent implements OnInit {
   roleName: string;
   roleDesc: string;
-  RoleGroupChecked: object = {gropRole1: false, gropRole2: false};
-  RoleGroupType: object = {gropRole1: false, gropRole2: false};
-  allRoleType: object = {role1: false, role2: false};
+  RoleGroupChecked = {gropRole1: false, gropRole2: false};
+  RoleGroupType = {'gropRole1': false, 'gropRole2': false};
+  allRoleType = {
+    'role1': false,
+    'role2': false,
+
+  };
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+
   }
   changeRoleShow(type: string) {
     if (this.allRoleType[type]) {

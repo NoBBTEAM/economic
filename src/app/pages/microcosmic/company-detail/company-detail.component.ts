@@ -5,11 +5,13 @@ import { Store } from '@ngrx/store';
 import { CHANGE } from '../../../core/container-ngrx/container.action';
 import { MicrocosmicService } from '../microcosmic.service';
 import { Subscription } from 'rxjs/Subscription';
+import { CompanyDetailService } from './company-detail.service';
 
 @Component({
   selector: 'app-company-detail',
   templateUrl: './company-detail.component.html',
-  styleUrls: ['./company-detail.component.css']
+  styleUrls: ['./company-detail.component.css'],
+  providers: [CompanyDetailService]
 })
 export class CompanyDetailComponent implements OnInit, OnDestroy {
 

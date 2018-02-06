@@ -6,12 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-system.component.css']
 })
 export class ManageSystemComponent implements OnInit {
-  menusControl = {};
+  menusControl = {user: false};
   constructor() { }
 
   ngOnInit() {
   }
   changeMenuShow(name?) {
+    // tslint:disable-next-line:forin
     for (const i in this.menusControl) {
       this.menusControl[i] = false;
     }

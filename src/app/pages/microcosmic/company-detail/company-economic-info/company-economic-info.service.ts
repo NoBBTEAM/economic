@@ -21,10 +21,15 @@ export interface CompanyCreditResponse {
 @Injectable()
 export class CompanyEconomicInfoService {
     companyRowkey: any;
+    /*获取营业收入信息*/
     private companyIncomeStatisticsUrl = '/v1/eIIRevenueAndStaffPojo/findIncomeStatisticsByCompanyName';
+    /*获取收入占比信息*/
     private companyRevenueShareUrl = '/v1/eIIRevenueAndStaffPojo/findRevenueShareByCompanyName';
+    /*获取在职人数信息*/
     private companyNumberOfActiveStaffUrl = '/v1/eIIRevenueAndStaffPojo/findNumberOfActiveStaffByCompanyName';
+    /*获取收入同比信息*/
     private companyRevenueYearOnYearUrl = '/v1/eIIRevenueAndStaffPojo/findRevenueYearOnYearByCompanyName';
+    /*取园区人数占比信息*/
     private companyParkNumberUrl = '/v1/eIIRevenueAndStaffPojo/findParkNumberByCompanyName';
     /*根据公司名称,获取企业关联方信息*/
     private companyRelationPeopleUrl = '/v1/eIIRelationPojo/findListByCompanyName';
@@ -41,11 +46,12 @@ export class CompanyEconomicInfoService {
     getIncomeStatistics(company): Observable<any> {
         return this.http.get(`${this.companyIncomeStatisticsUrl + '?companyName=' + company}`);
     }
-    getRevenueShare(company): Observable<any> {
-        return this.http.get(`${this.companyRevenueShareUrl + '?companyName=' + company}`);
+    getRevenueShare(company, time): Observable<any> {
+        console.log(company);
+        return this.http.get(`${this.companyRevenueShareUrl}?companyName=${company}&year=${time}`);
     }
     getNumberOfActiveStaff(company): Observable<any> {
-        return this.http.get(`${this.companyNumberOfActiveStaffUrl + '?companyName=' + company}`);
+        return this.http.get(`${this.companyNumberOfActiveStaffUrl}?companyName=${company.companyName}&pageSize=${company.pageSize}`);
     }
     getRevenueYearOnYear(company): Observable<any> {
         return this.http.get(`${this.companyRevenueYearOnYearUrl + '?companyName=' + company}`);
@@ -75,6 +81,17 @@ export class CompanyEconomicInfoService {
         }
         const params = new HttpParams({ fromString: paramsString });
         return this.http.get<CompanyCreditResponse>(this.WinningBidUrl, { params });
+    }
+    findListByUrl(findParams, type): Observable<any> {
+        let paramsString = '';
+        const url = this[type];
+        for (const key in findParams) {
+            if (findParams.hasOwnProperty(key)) {
+                paramsString += findParams[key] ? `${key}=${findParams[key]}&` : '';
+            }
+        }
+        const params = new HttpParams({ fromString: paramsString });
+        return this.http.get(url, { params });
     }
 
 }

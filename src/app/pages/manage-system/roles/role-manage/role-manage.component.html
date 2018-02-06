@@ -1,12 +1,9 @@
 <div class="single-form">
-  <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
+  <form #roleForm="ngForm">
     <div class="form-group">
       <label class="form-label" for="name">角色名称</label>
-      <input type="text" class="form-control" id="name" minlength="4" required
-             [(ngModel)]="roleName" name="name" placeholder="请输入角色名称"
-             #name="ngModel">
-      <div *ngIf="name.invalid && (name.dirty || name.touched)"
-           class="alert alert-danger">
+      <input type="text" class="form-control" id="name" minlength="4" required [(ngModel)]="roleName" name="name" placeholder="请输入角色名称" #name="ngModel">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
         <div *ngIf="name.errors.required">
           角色名称不能为空.
         </div>
@@ -18,8 +15,7 @@
 
     <div class="form-group">
       <label class="form-label" for="desc">备注</label>
-      <input type="text" class="form-control" id="desc" required
-             [(ngModel)]="roleDesc" name="desc" placeholder="请输入备注">
+      <input type="text" class="form-control" id="desc" required [(ngModel)]="roleDesc" name="desc" placeholder="请输入备注">
     </div>
 
     <div class="role-con">

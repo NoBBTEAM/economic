@@ -1,12 +1,9 @@
 <div class="single-form">
-  <form (ngSubmit)="onSubmit()" #functionForm="ngForm">
+  <form #functionForm="ngForm">
     <div class="form-group">
       <label class="form-label" for="name">权限名称</label>
-      <input type="text" class="form-control" id="name" minlength="4" required
-             [(ngModel)]="functionName" name="name" placeholder="请输入权限名称"
-             #name="ngModel">
-      <div *ngIf="name.invalid && (name.dirty || name.touched)"
-           class="alert alert-danger">
+      <input type="text" class="form-control" id="name" minlength="4" required [(ngModel)]="functionName" name="name" placeholder="请输入权限名称" #name="ngModel">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
         <div *ngIf="name.errors.required">
           权限名称不能为空.
         </div>
@@ -18,14 +15,10 @@
 
     <div class="form-group">
       <label class="form-label" for="method">methods</label>
-      <select class="form-control" id="method"
-              required
-              [(ngModel)]="functionMethod" name="method"
-              #method="ngModel">
+      <select class="form-control" id="method" required [(ngModel)]="functionMethod" name="method" #method="ngModel">
         <option *ngFor="let method of methods" [value]="method">{{method}}</option>
       </select>
-      <div *ngIf="method.invalid && (method.dirty || method.touched)"
-           class="alert alert-danger">
+      <div *ngIf="method.invalid && (method.dirty || method.touched)" class="alert alert-danger">
         <div *ngIf="method.errors.required">
           methods不能为空.
         </div>
@@ -34,10 +27,8 @@
 
     <div class="form-group">
       <label class="form-label" for="desc">权限串</label>
-      <input type="text" class="form-control" id="desc" required
-             [(ngModel)]="functionDesc" name="desc" placeholder="请输入权限串" #desc="ngModel">
-      <div *ngIf="desc.invalid && (desc.dirty || desc.touched)"
-           class="alert alert-danger">
+      <input type="text" class="form-control" id="desc" required [(ngModel)]="functionDesc" name="desc" placeholder="请输入权限串" #desc="ngModel">
+      <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="alert alert-danger">
         <div *ngIf="desc.errors.required">
           权限串不能为空.
         </div>

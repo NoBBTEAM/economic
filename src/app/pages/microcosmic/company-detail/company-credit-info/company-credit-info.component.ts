@@ -108,9 +108,9 @@ export class CompanyCreditInfoComponent implements OnInit {
     this.companyCreditService.findListByCompanyName(this.DebtorInfoParams, 'DebtorInfo')
       .subscribe((res: CompanyCreditResponse) => {
         if (res.responseCode === '_200') {
-          console.log('失信被执行人信息', res.data.eCIJudicialDecisionPojos);
+          console.log('失信被执行人信息', res.data.eCIDebtorInfoPojos);
           this.DebtorInfoParams.lastRowKey = res.data.pagination.lastRowKey;
-          this.DebtorInfos = [...this.DebtorInfos, ...res.data.eCIJudicialDecisionPojos];
+          this.DebtorInfos = [...this.DebtorInfos, ...res.data.eCIDebtorInfoPojos];
         }
       });
   }
@@ -120,9 +120,9 @@ export class CompanyCreditInfoComponent implements OnInit {
     this.companyCreditService.findListByCompanyName(this.DebtorParams, 'Debtor')
       .subscribe((res: CompanyCreditResponse) => {
         if (res.responseCode === '_200') {
-          console.log('被执行人信息', res.data.eCIJudicialDecisionPojos);
+          console.log('被执行人信息', res.data.eCIDebtorInfoPojos);
           this.DebtorParams.lastRowKey = res.data.pagination.lastRowKey;
-          this.Debtors = [...this.DebtorInfos, ...res.data.eCIJudicialDecisionPojos];
+          this.Debtors = [...this.DebtorInfos, ...res.data.eCIDebtorInfoPojos];
         }
       });
   }

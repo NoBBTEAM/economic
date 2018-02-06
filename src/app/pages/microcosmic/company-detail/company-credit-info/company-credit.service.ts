@@ -9,8 +9,10 @@ export interface CompanyCreditResponse {
     data: {
         // 行政处罚
         eCIAdministrativePenaltyPojos?: any[],
-        // 司法判决 / 被执行人
+        // 司法判决
         eCIJudicialDecisionPojos?: any[];
+        // 执行人 / 被执行人
+        eCIDebtorInfoPojos?: any[];
         // 经营异常
         eCIAbnormalBusinessPojos?: any[];
         // 开庭公告 / 裁判文书 / 法院公告

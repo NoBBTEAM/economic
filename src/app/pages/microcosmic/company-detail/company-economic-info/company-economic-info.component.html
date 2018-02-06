@@ -3,10 +3,10 @@
   <div class="panel-content">
     <div class="flex">
       <div class="flex-cell">
-        <div class="flex-item" echarts [options]="businessIncomeData" id="main"></div>
+        <div class="flex-item" echarts [options]="businessIncomeData" (chartClick)="changeBusinessIncomeRatioData($event)" id="main"></div>
       </div>
       <div class="flex-cell">
-        <div class="flex-item" echarts [options]="businessIncomeRatioData" id="main3"></div>
+        <div class="flex-item" echarts [options]="businessIncomeRatioData" [loading]="businessIncomeRatioLoading" id="main3"></div>
       </div>
     </div>
     <div class="flex">
@@ -84,13 +84,69 @@
     </table>
 
     <div class="panel-item-title">招中标信息：</div>
-    <div class="economic-content">
-      <ul class="">
-        <li>招中标信息-----</li>
-        <li>招中标信息-----</li>
-        <li>招中标信息-----</li>
-      </ul>
-    </div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>项目名称</th>
+        <th>项目编号</th>
+        <th>标的物</th>
+        <th>招标方</th>
+        <th>代理人</th>
+        <th>标题</th>
+        <th>内容</th>
+      </tr>
+      <tr *ngFor="let item of WinningBid">
+        <td class="nowrap">{{item.projectName}}</td>
+        <td class="nowrap">{{item.projectCode}}</td>
+        <td class="nowrap">{{item.corpore}}</td>
+        <td class="nowrap">{{item.tenderer}}</td>
+        <td class="nowrap">{{item.agent}}</td>
+        <td class="nowrap">{{item.title}}</td>
+        <td class="nowrap">{{item.content}}</td>
+      </tr>
+    </table>
+    
+    <div class="panel-item-title">股权出质信息：</div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>登记编号</th>
+        <th>出质人</th>
+        <th>证照/证件号码</th>
+        <th>出质股权数额</th>
+        <th>质权人</th>
+        <th>公示日期</th>
+      </tr>
+      <tr *ngFor="let item of EquityPledged">
+        <td class="nowrap">{{item.regCode}}</td>
+        <td class="nowrap">{{item.pledgor}}</td>
+        <td class="nowrap">{{item.identificationCode}}</td>
+        <td class="nowrap">{{item.amountStock}}</td>
+        <td class="nowrap">{{item.pledgee}}</td>
+        <td class="nowrap">{{item.publicityDate | date: 'yyyy-MM-dd'}}</td>
+      </tr>
+    </table>
+    
+    <div class="panel-item-title">招聘信息：</div>
+    <table class="table table-bordered m-t-20 table-align-c" id="">
+      <tr>
+        <th>招聘标题</th>
+        <th>更新时间</th>
+        <th>薪酬福利</th>
+        <th>工作经验</th>
+        <th>职位</th>
+        <th>学历</th>
+        <!-- <th>招聘内容</th> -->
+        <th>招聘人数</th>
+      </tr>
+      <tr *ngFor="let item of EIIRecruit">
+        <td class="nowrap">{{item.title}}</td>
+        <td class="nowrap">{{item.updateDate}}</td>
+        <td class="nowrap">{{item.salary}}</td>
+        <td class="nowrap">{{item.experience}}</td>
+        <td class="nowrap">{{item.position}}</td>
+        <td class="nowrap">{{item.education}}</td>
+        <td class="nowrap">{{item.number}}</td>
+      </tr>
+    </table>
 
     <div class="panel-item-title">公司公告：</div>
     <table class="table table-bordered m-t-20 table-align-c" id="">
@@ -116,12 +172,55 @@
     </div>
 
     <div class="panel-item-title">热点舆论：</div>
-    <div class="economic-content last">
-      <ul class="">
-        <li>热点舆论-----</li>
-        <li>热点舆论-----</li>
-        <li>热点舆论-----</li>
-      </ul>
-    </div>
+    <!-- <perfect-scrollbar style="max-height: 366px" (psYReachEnd)="psYReachEnd('findECITaxIllegalPage')"> -->
+    <perfect-scrollbar style="max-height: 366px" (psYReachEnd)="psYReachEnd()">
+      <table class="table table-bordered m-t-20 table-align-c" id="" style="max-width: 100%;">
+        <tr>
+          <th>发布日期</th>
+          <th>标题</th>
+          <th>内容</th>
+        </tr>
+        <tr *ngFor="let item of PublicOpinions">
+          <td class="nowrap">{{item.releaseDate | date: 'yyyy-MM-dd'}}</td>
+          <td class="nowrap">{{item.title}}</td>
+          <td></td>
+          <!-- <td class="nowrap">{{item.content}}</td> -->
+        </tr>
+      </table>
+    </perfect-scrollbar>
+
+    <div class="panel-item-title">动产抵押：</div>
+    <!-- <perfect-scrollbar style="max-height: 366px" (psYReachEnd)="psYReachEnd('findECITaxIllegalPage')"> -->
+    <perfect-scrollbar style="max-height: 366px" (psYReachEnd)="psYReachEnd()">
+      <table class="table table-bordered m-t-20 table-align-c" id="" style="max-width: 100%;">
+        <tr>
+          <!-- <th>登记编号</th> -->
+          <th>登记机关</th>
+          <th>登记日期</th>
+          <th>状态</th>
+          <th>被担保债权类型</th>
+          <th>被担保债权数额</th>
+          <th>债务人履行债务期限</th>
+          <!-- <th>担保范围</th> -->
+          <th>抵押权人名称</th>
+          <th>抵押权人证照／证件类型</th>
+          <th>证件／证照号码</th>
+        </tr>
+        <tr *ngFor="let item of ChattelMortgage">
+          <!-- <td class="nowrap">{{item.regCode}}</td> -->
+          <td class="nowrap">{{item.regAuthority}}</td>
+          <td class="nowrap">{{item.regDate | date: 'yyyy-MM-dd'}}</td>
+          <td class="nowrap">{{item.status}}</td>
+          <td class="nowrap">{{item.type}}</td>
+          <td class="nowrap">{{item.amount}}</td>
+          <td class="nowrap">{{item.debtMaturity}}</td>
+          <!-- <td class="nowrap">{{item.scopeSecurity}}</td> -->
+          <td class="nowrap">{{item.mortgagedName}}</td>
+          <td class="nowrap">{{item.mortgagedDocumentType}}</td>
+          <td class="nowrap">{{item.documentNumber}}</td>
+          <!-- <td class="nowrap">{{item.content}}</td> -->
+        </tr>
+      </table>
+    </perfect-scrollbar>
   </div>
 </div>
