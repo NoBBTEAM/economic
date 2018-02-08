@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../../../shared/shared.module';
 
 import { FloorMenuRoutingModule } from './floor-menu-routing.module';
 import { BuildInformationComponent } from './build-information/build-information.component';
@@ -9,7 +10,8 @@ import { EnterpriseTypeComponent } from './enterprise-type/enterprise-type.compo
 @NgModule({
   imports: [
     CommonModule,
-    FloorMenuRoutingModule
+    FloorMenuRoutingModule,
+    SharedModule
   ],
   declarations: [BuildInformationComponent, RegistMoneyComponent, EnterpriseTypeComponent]
 })

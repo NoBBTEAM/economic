@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemAnimate, CircleAnimate, ItemPositionAnimate } from '../../shared/animations';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -20,7 +20,7 @@ import {Amap} from '../../core/amap-ngrx/amap.model';
   ],
   providers: [LayoutService]
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
   isShowParkBuildBar = false;
   showTimeColorControl = {
     isShowColorsBar: false,
@@ -38,6 +38,9 @@ export class LayoutComponent implements OnInit {
   choseParkName: any = '园区';
   parkNameLists: any = [];
   isShowParkNameList: any;
+  getShowHideDataFn: any;
+  getParkNameFn: any;
+  getTimeColorControlFn: any;
   // 其他组件会改变container的样式， 所以用一个Reduce来管理
   tagState$: Observable<ContainerStyle>;
   container: ContainerStyle;
@@ -89,16 +92,17 @@ export class LayoutComponent implements OnInit {
       console.log(state.width);
       this.container = state;
     });
-    this.intermediateService.getShowHideData().subscribe(res => {
+    this.getShowHideDataFn = this.intermediateService.getShowHideData().subscribe(res => {
       this.isShowParkBuildBar = res.isShowParkBuildBar ? res.isShowParkBuildBar : false;
       this.showBuildMarkerEl = res.showBuildMarkerEl ? res.showBuildMarkerEl : false;
+      this.isShowParkNameList = res.isShowParkNameList ? res.isShowParkNameList : false;
       this.choseBuildName = res.choseBuildName ? res.choseBuildName : this.choseBuildName;
-    })
+    });
     this.parkNameLists = this.intermediateService.getParkNameList();
-    this.intermediateService.getParkName().subscribe(res => {
+    this.getParkNameFn = this.intermediateService.getParkName().subscribe(res => {
       this.choseParkName = res.choseParkName ? res.choseParkName : this.choseParkName;
-    })
-    this.intermediateService.getTimeColorControl().subscribe(res => {
+    });
+    this.getTimeColorControlFn = this.intermediateService.getTimeColorControl().subscribe(res => {
       this.showTimeColorControl.isShowColorsBar = res.isShowColorsBar;
       this.showTimeColorControl.isShowTime = res.isShowTime;
       this.showTimeColorControl.isShowEcoTime = res.isShowEcoTime;
@@ -129,6 +133,11 @@ export class LayoutComponent implements OnInit {
     setInterval(() => {
       this.hasNotifycation = true;
     }, 60000);
+  }
+  ngOnDestroy() {
+    this.getTimeColorControlFn.unsubscribe();
+    this.getParkNameFn.unsubscribe();
+    this.getShowHideDataFn.unsubscribe();
   }
 
   noticeClose() {
@@ -241,10 +250,12 @@ export class LayoutComponent implements OnInit {
       }
     });
     this.isShowParkNameList = false;
+    this.showBuildMarkerEl = false;
     this.intermediateService.changeParkName(park);
   }
   showParkNameList() {
     this.isShowParkNameList = !this.isShowParkNameList;
+    this.showBuildMarkerEl = false;
   }
 
 }

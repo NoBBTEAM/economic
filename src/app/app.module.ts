@@ -11,15 +11,18 @@ import { StoreModule } from '@ngrx/store';
 import { amapReducer } from './core/amap-ngrx/amap.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContainerReducer } from './core/container-ngrx/contsiner.reducer';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+//import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { LayoutService } from './pages/layout/layout.service';
 import { HttpClientModule } from '@angular/common/http';
+import { HasPromissionDirective } from './core/has-promission-directive/has-promission-directive';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LayoutComponent,
+    HasPromissionDirective
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CoreModule,
     AppRoutingModule,
-    PerfectScrollbarModule,
+    //PerfectScrollbarModule,
+    SharedModule,
     StoreModule.provideStore({ amap: amapReducer, container: ContainerReducer })
   ],
   providers: [],

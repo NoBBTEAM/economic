@@ -19,44 +19,55 @@ export class BuildInformationComponent implements OnInit, OnDestroy {
   }
   buildDataList: any;
   buildOfCompanys: any = [];
+  getBuildOfCompanysFn: any;
+  choseBuildName: any;
+  getShowHideDataFn: any;
   ngOnInit() {
     /*显示当前菜单二级菜单*/
     this.intermediateService.showIndustryMenus('FloorMenu');
-    this.store.dispatch({
-      type: CHANGE,
-      payload: {
-        width: '60%'
-      }
+    this.getShowHideDataFn = this.intermediateService.getShowHideData().subscribe(subres => {
+      this.choseBuildName = subres.choseBuildName;
     });
-    this.storeAmap.dispatch({
-      type: CLEAR_MARKER,
-      payload: {
-        action: 'CLEAR_MARKER',
-        data: ''
-      }
-    });
-    this.storeAmap.dispatch({
-      type: ADD_BUILD_MARKER,
-      payload: {
-        action: 'ADD_BUILD_MARKER',
-        data: '高新西区'
-      }
-    });
-    this.intermediateService.getBuildInformation().subscribe(res => {
-      this.buildDataList = res;
-      console.log(res);
-    });
+    if (!this.choseBuildName) {
+      this.store.dispatch({
+        type: CHANGE,
+        payload: {
+          width: '60%'
+        }
+      });
+      this.storeAmap.dispatch({
+        type: CLEAR_MARKER,
+        payload: {
+          action: 'CLEAR_MARKER',
+          data: ''
+        }
+      });
+      this.storeAmap.dispatch({
+        type: ADD_BUILD_MARKER,
+        payload: {
+          action: 'ADD_BUILD_MARKER',
+          data: '高新西区'
+        }
+      });
+      this.intermediateService.getBuildInformation().subscribe(res => {
+        this.buildDataList = res;
+        console.log(res);
+      });
+    }
     this.intermediateService.changeShowHideData('isShowParkBuildBar', true);
     /*this.intermediateService.getBuildCompanyList('b972af30-3160-457d-b30a-fdf47111a40f').subscribe(res => {
       this.buildCompanyList = res;
     });*/
-    this.intermediateService.getBuildOfCompanys().subscribe(res => {
+    this.getBuildOfCompanysFn = this.intermediateService.getBuildOfCompanys().subscribe(res => {
       this.buildOfCompanys = res.buildOfCompanys;
     });
   }
 
   ngOnDestroy() {
+    this.getBuildOfCompanysFn.unsubscribe();
+    this.getShowHideDataFn.unsubscribe();
     this.intermediateService.changeShowHideData('isShowParkBuildBar', false);
+    this.intermediateService.changeShowHideData('isShowParkNameList', false);
   }
 
 

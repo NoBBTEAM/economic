@@ -85,8 +85,8 @@ export class MicrocosmicService {
               show: true,
               textStyle: {
                 fontSize: 10,
-                fibtWeight: 'normal',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
-                color: '#fff'//'#cde6c7'
+                fibtWeight: 'normal', // 'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
+                color: '#fff' // '#cde6c7'
               },
               position: 'inside'
             }
@@ -95,12 +95,12 @@ export class MicrocosmicService {
             normal: {
               color: 'source',
               width: '2',
-              //曲线程度
+              // 曲线程度
               curveness: 0.5,
               type: 'solid'
             }
           },
-          //边缘标签
+          // 边缘标签
           edgeLable: {
             normal: {
               show: true,
@@ -110,14 +110,11 @@ export class MicrocosmicService {
               formatter: '{c}'
             }
           },
-
-
-
           data: [{
             name: title,
-            //symbol: '/economic/images/menu_bg_3.png',
+            // symbol: '/economic/images/menu_bg_3.png',
             symbolSize: 60,
-            //节点是否可拖拽
+            // 节点是否可拖拽
             draggable: true,
             category: 0
           }, {
@@ -520,8 +517,8 @@ export class MicrocosmicService {
               show: true,
               textStyle: {
                 fontSize: 10,
-                fibtWeight: 'normal',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
-                color: '#fff'//'#cde6c7'
+                fibtWeight: 'normal', // 'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
+                color: '#fff' // '#cde6c7'
               },
               position: 'inside'
             }
@@ -530,12 +527,12 @@ export class MicrocosmicService {
             normal: {
               color: 'source',
               width: '2',
-              //曲线程度
+              // 曲线程度
               curveness: 0.5,
               type: 'solid'
             }
           },
-          //边缘标签
+          // 边缘标签
           edgeLable: {
             normal: {
               show: true,
@@ -550,9 +547,9 @@ export class MicrocosmicService {
 
           data: [{
             name: title,
-            //symbol: '/economic/images/menu_bg_3.png',
+            // symbol: '/economic/images/menu_bg_3.png',
             symbolSize: 60,
-            //节点是否可拖拽
+            // 节点是否可拖拽
             draggable: true,
             category: 0
           }, {
@@ -975,8 +972,8 @@ export class MicrocosmicService {
               show: true,
               textStyle: {
                 fontSize: 10,
-                fibtWeight: 'normal',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
-                color: '#fff'//'#cde6c7'
+                fibtWeight: 'normal', // 'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的
+                color: '#fff'// '#cde6c7'
               },
               position: 'inside'
             }
@@ -985,12 +982,12 @@ export class MicrocosmicService {
             normal: {
               color: 'source',
               width: '2',
-              //曲线程度
+              // 曲线程度
               curveness: 0.5,
               type: 'solid'
             }
           },
-          //边缘标签
+          // 边缘标签
           edgeLable: {
             normal: {
               show: true,
@@ -1003,9 +1000,9 @@ export class MicrocosmicService {
 
           data: [{
             name: title,
-            //symbol: '/economic/images/menu_bg_3.png',
+            // symbol: '/economic/images/menu_bg_3.png',
             symbolSize: 60,
-            //节点是否可拖拽
+            // 节点是否可拖拽
             draggable: true,
             category: 0
           }, {

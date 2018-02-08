@@ -8,7 +8,6 @@ import { EarlyWarningComponent } from './event-notice/early-warning/early-warnin
 import { RecommendComponent } from './event-notice/recommend/recommend.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyListComponent } from './company-list/company-list.component';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { BreedTrackComponent } from './event-notice/breed-track/breed-track.component';
 import { BreedTrackService } from './event-notice/breed-track/breed-track.service';
 import { CompanyBasicInfoComponent } from './company-detail/company-basic-info/company-basic-info.component';
@@ -26,8 +25,7 @@ import { IntangibleAssetsComponent } from './company-detail/intangible-assets/in
 @NgModule({
   imports: [
     SharedModule,
-    MicrocosmicRoutingModule,
-    PerfectScrollbarModule
+    MicrocosmicRoutingModule
   ],
   declarations: [
     MicrocosmicComponent,

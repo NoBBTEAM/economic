@@ -85,7 +85,7 @@
   </div>
   <!-- ===== 内容面板 the end ===== ===== ===== ===== ===== -->
 
-  <div id="panel" class="park-build scrollbar1" [ngClass]="{'active': isShowParkBuildBar}">
+  <div id="panel" class="park-build scrollbar1" [ngClass]="{'active': isShowParkBuildBar, 'right': !isRirhtPanelShow && !isSearchActive}">
     <div class="park-build-con">
       <div class="park-name" (click)="showParkNameList()">{{choseParkName}}<span class="fa fa-caret-down build-arrow" [ngClass]="{'active': isShowParkNameList}"></span></div>
       <div class="park-list" *ngIf="isShowParkNameList">
@@ -96,12 +96,12 @@
             <div class="info-l fl">写字楼<span><em class="num">8</em>栋</span></div>
             <div class="info-r fl">企业<span><em class="num">200</em>家</span></div>
         </div>-->
-        <div class="choose-park-buid" (click)="showBuildMarkerEl=!showBuildMarkerEl"><div class="choose-park-buid-name">{{choseBuildName}}</div><span class="fa fa-caret-down build-arrow" [ngClass]="{'active': showBuildMarkerEl}"></span></div>
+        <div class="choose-park-buid" (click)="showBuildMarkerEl=!showBuildMarkerEl;isShowParkNameList=false"><div class="choose-park-buid-name">{{choseBuildName}}</div><span class="fa fa-caret-down build-arrow" [ngClass]="{'active': showBuildMarkerEl}"></span></div>
         <div id="myList" [hidden]="!showBuildMarkerEl"></div>
       </div>
     </div>
   </div>
-  <div class="time-colors-panel my-hide" [ngClass]="{'active': showTimeColorControl.isShowColorsBar}">
+  <div class="time-colors-panel my-hide" [ngClass]="{'active': showTimeColorControl.isShowColorsBar, 'right': !isRirhtPanelShow && !isSearchActive}">
     <div class="land-choose-time my-hide" [ngClass]="{'active': showTimeColorControl.isShowTime}">
       <div class="park-build-con">
         <div class="park-name">时间</div>

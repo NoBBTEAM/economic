@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService, LoginParams } from './login.service';
 import { Router } from '@angular/router';
-import { NotyService } from '../../core/noty/noty.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [LoginService, NotyService]
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
 
   username = '';
   password = '';
   constructor(
-    private noty: NotyService,
     private loginService: LoginService,
     private router: Router
   ) { }
@@ -31,14 +29,15 @@ export class LoginComponent implements OnInit {
     this.loginService.login(params)
       .subscribe((res: any) => {
         if (res.responseCode === '_200') {
+          sessionStorage.setItem('hasLogin', 'YES');
           this.router.navigate(['mic']);
-          this.noty.alert({
-            text: 'welcome!'
-          });
+          // this.noty.alert({
+          //   text: 'welcome!'
+          // });
         } else {
-          this.noty.alert({
-            text: res.errorMsg
-          });
+          // this.noty.alert({
+          //   text: res.errorMsg
+          // });
         }
       });
   }

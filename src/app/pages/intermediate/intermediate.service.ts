@@ -22,12 +22,15 @@ export class IntermediateService {
   private buildBasicUrl = '/v1/floor/findAll';
   private buildCompanyListUrl = '/v1/company/findByFloor';
   private buildPositionListUrl = '/v1/floor/findAll';
+  private buildRegistMoneyUrl = '/v1/land/queryAllFundsByenterpriseType';
   constructor(private http: HttpClient) { }
   isShowTimesColors = false;
   isShowLandChooseTime = false;
   isShowParkBuildBar = false;
   showBuildMarkerEl = false;
+  isShowParkNameList = false;
   choseBuildName: any;
+  choseBuildId: any;
   choseParkName: any;
   buildOfCompanys: any;
   selectedPolygonLands: any;
@@ -51,16 +54,21 @@ export class IntermediateService {
   }
   parkLists = ['高新西区', '高新东区', '高新南区'];
 
-  changeShowHideData(type, flag?, buildName?) {
+  changeShowHideData(type, flag?, buildName?, buildId?) {
     this[type] = flag;
     if (buildName) {
       this.choseBuildName = buildName;
+    }
+    if (buildId) {
+      this.choseBuildId = buildId;
     }
     // this.showBuildMarkerEl = !this.showBuildMarkerEl;
     this.subject.next({
       'isShowParkBuildBar': this.isShowParkBuildBar,
       'showBuildMarkerEl': this.showBuildMarkerEl,
+      'isShowParkNameList': this.isShowParkNameList,
       'choseBuildName': this.choseBuildName,
+      'choseBuildId': this.choseBuildId,
     });
   }
   getShowHideData(): Observable<any> {
@@ -498,6 +506,10 @@ export class IntermediateService {
   getBuildPositionList(): Observable<any> {
     return this.http.get(`${this.buildPositionListUrl}`)
       .map(res => (res));
+  }
+  /*获取楼宇的注册资金*/
+  getBuildRegistMoney(id): Observable<any> {
+    return this.http.get(`${this.buildRegistMoneyUrl}?floorId=${id}`);
   }
   /*中观产业菜单控制*/
   showIndustryMenus(flag) {

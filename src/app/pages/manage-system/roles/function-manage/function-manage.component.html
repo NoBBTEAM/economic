@@ -1,3 +1,4 @@
+<div class="address-con"><span class="back-btn" routerLink="/admin/function"></span><span class="home-icon fa fa-home"></span>首页 > 功能管理 > 添加功能</div>
 <div class="single-form">
   <form #functionForm="ngForm">
     <div class="form-group">
@@ -36,8 +37,7 @@
     </div>
 
 
-    <button type="submit" class="btn btn-success" [disabled]="!functionForm.form.valid">确认</button>
-    <button type="button" class="btn btn-danger" routerLink="/admin/function">取消</button>
+    <button type="submit" class="btn btn-save" [disabled]="!functionForm.form.valid">确定</button>
     <!-- - -->
   </form>
 </div>

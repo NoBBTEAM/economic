@@ -1,3 +1,4 @@
+<div class="address-con"><span class="back-btn" routerLink="/admin/roles"></span><span class="home-icon fa fa-home"></span>首页 > 角色权限管理 > 添加角色</div>
 <div class="single-form">
   <form #roleForm="ngForm">
     <div class="form-group">
@@ -41,8 +42,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!roleForm.form.valid">确认</button>
-    <button type="button" class="btn btn-danger" routerLink="/admin/roles">取消</button>
+    <button type="submit" class="btn btn-save" [disabled]="!roleForm.form.valid">确定</button>
     <!-- - -->
   </form>
 </div>
