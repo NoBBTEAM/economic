@@ -597,7 +597,7 @@ export class MapComponent implements OnInit {
           // $(".build-arrow").removeClass("active");
           if (info.selected) {
             _that.intermediateService.getBuildCompanyList(info.selected.data.id);
-            _that.intermediateService.changeShowHideData('showBuildMarkerEl', false, info.selected.data.name);
+            _that.intermediateService.changeShowHideData('showBuildMarkerEl', false, info.selected.data.name, info.selected.data.id);
             // $(".choose-park-buid-name").html(info.selected.data.name);
             // chooseBuildName = info.selected.data.name;
             // chooseBuildId = info.selected.data.id;

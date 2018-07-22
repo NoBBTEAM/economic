@@ -17,6 +17,7 @@ export class EnterpriseTypeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.intermediateService.changeShowHideData('isShowParkBuildBar', false);
+    this.intermediateService.changeShowHideData('isShowParkNameList', false);
   }
 
 }

@@ -5,6 +5,7 @@ import { CHANGE } from '../../../core/container-ngrx/container.action';
 import { LayoutService, SearchResponse, SearchParams } from '../../layout/layout.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MicrocosmicService } from '../microcosmic.service';
 
 @Component({
   selector: 'app-company-list',
@@ -36,6 +37,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
   constructor(
     private domSanitizer: DomSanitizer,
     private layoutService: LayoutService,
+    private microcosmicService: MicrocosmicService,
     private store: Store<ContainerStyle>) {
     this.store.select('container');
   }
@@ -73,6 +75,10 @@ export class CompanyListComponent implements OnInit, OnDestroy {
   search() {
     console.log('searchParams==========>\n', this.searchParams);
     this.layoutService.search(this.searchParams);
+  }
+
+  setCompanyName(companyName: string) {
+    this.microcosmicService.setCompanyName(companyName);
   }
 
   enterpriseTypeClick(enterpriseType?: string) {

@@ -8,7 +8,6 @@ import { EarlyWarningComponent } from './event-notice/early-warning/early-warnin
 import { RecommendComponent } from './event-notice/recommend/recommend.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyListComponent } from './company-list/company-list.component';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { BreedTrackComponent } from './event-notice/breed-track/breed-track.component';
 import { BreedTrackService } from './event-notice/breed-track/breed-track.service';
 import { CompanyBasicInfoComponent } from './company-detail/company-basic-info/company-basic-info.component';
@@ -19,13 +18,14 @@ import { CompanyBusinessInfoComponent } from './company-detail/company-business-
 import { CompanyOperatorNexusInfoComponent } from './company-detail/company-operator-nexus-info/company-operator-nexus-info.component';
 import { CompanyOverviewInfoComponent } from './company-detail/company-overview-info/company-overview-info.component';
 import { CompanyEconomicForecastComponent } from './company-detail/company-economic-forecast/company-economic-forecast.component';
+import { CompanyQualificationsInfoService } from './company-detail/company-qualifications-info/company-qualifications-info.service';
+import { IntangibleAssetsComponent } from './company-detail/intangible-assets/intangible-assets.component';
 // import { MicrocosmicService } from './microcosmic.service';
 
 @NgModule({
   imports: [
     SharedModule,
-    MicrocosmicRoutingModule,
-    PerfectScrollbarModule
+    MicrocosmicRoutingModule
   ],
   declarations: [
     MicrocosmicComponent,
@@ -43,10 +43,12 @@ import { CompanyEconomicForecastComponent } from './company-detail/company-econo
     CompanyBusinessInfoComponent,
     CompanyOperatorNexusInfoComponent,
     CompanyOverviewInfoComponent,
-    CompanyEconomicForecastComponent
+    CompanyEconomicForecastComponent,
+    IntangibleAssetsComponent
   ],
   providers: [
-    BreedTrackService
+    BreedTrackService,
+    CompanyQualificationsInfoService
   ]
 })
 export class MicrocosmicModule { }

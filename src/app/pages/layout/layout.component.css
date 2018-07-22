@@ -26,7 +26,6 @@
   animation: circle-menu-hide .6s ease-in forwards;
 }
 
-
 /*恢复动画*/
 
 @keyframes circle-menu-hide {
@@ -46,7 +45,6 @@
     top: 0px;
   }
 }
-
 
 /*展开动画*/
 
@@ -80,7 +78,6 @@
 .circle-menu .item.big {
   animation: item-to-big .6s ease-in forwards;
 }
-
 
 /* 变大和变小动画 */
 
@@ -147,7 +144,6 @@
 .circle-menu .menu-top .circle:hover {
   animation: menu-cicle-rotate 1s linear infinite;
 }
-
 
 /*鼠标hover动画*/
 
@@ -218,13 +214,12 @@
   display: block
 }
 
-
 /* ===== search the start  =====*/
 
 .fast-menu {
   position: absolute;
-  z-index: 99;
-  left: 0;
+  z-index: 100;
+  left: 30px;
   top: 50%;
   width: auto;
   height: 1.041668rem;
@@ -240,20 +235,37 @@
 }
 
 .menu_box.search_menu_box {
-  background: #f9b620 url("/assets/images/xcj_search_min.png") no-repeat center;
+  background: #f9b620 url("../../../assets/images/xcj_search_min.png") no-repeat center;
   background-size: 60%;
 }
 
 .menu_box.follow_menu_box {
   margin-top: 50%;
-  background: #f9b620 url("/assets/images/follow_menu_icon.png") no-repeat center;
+  background: #f9b620 url("../../../assets/images/follow_menu_icon.png") no-repeat center;
   background-size: 60%;
 }
 
 .menu_box.manager_menu_box {
   margin-top: 50%;
-  background: #f9b620 url("/assets/images/system_menu_icon.png") no-repeat center;
+  background: #f9b620 url("../../../assets/images/system_menu_icon.png") no-repeat center;
   background-size: 60%;
+}
+
+.menu_box_hover {
+  display: none;
+  position: relative;
+  left: 108%;
+  width: 105%;
+  height: 0.156250rem;
+  line-height: 0.156250rem;
+  text-align: center;
+  background: #ddd;
+  font-size: 18px;
+  border-radius: 14px 14px 14px 0;
+}
+
+.menu_box:hover .menu_box_hover {
+  display: block;
 }
 
 .search_mask {
@@ -332,10 +344,9 @@
   float: left;
   border-radius: 0 43px 43px 0;
   border: 0;
-  background: #f9b620 url("/assets/images/xcj_search.png") no-repeat center;
+  background: #f9b620 url("../../../assets/images/xcj_search.png") no-repeat center;
   outline: none;
 }
-
 
 /* ===== search the end  =====*/
 
@@ -381,7 +392,7 @@
   width: 30px;
   height: 100%;
   right: 10px;
-  background-image: url("/assets/images/back_arrow_right.png");
+  background-image: url("../../../assets/images/back_arrow_right.png");
   background-position: center;
   background-repeat: no-repeat;
   transition: backgroundColor .5s;
@@ -435,7 +446,7 @@
   width: .37rem;
   height: .37rem;
   border-radius: .22rem;
-  background: url(/assets/images/lingdang.png) no-repeat;
+  background: url(../../../assets/images/lingdang.png) no-repeat;
   background-size: .24rem .24rem;
   background-position: .05rem .08rem;
   background-color: #7d85cb;
@@ -490,7 +501,6 @@
   background-color: #f2f2f2;
   opacity: none;
 }
-
 
 /* .content::-webkit-scrollbar
 {

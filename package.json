@@ -30,10 +30,11 @@
     "echarts": "^3.8.5",
     "font-awesome": "^4.7.0",
     "intl": "^1.2.5",
-    "jquery": "^2.0.0",
+    "mo-js": "^0.288.2",
     "ngx-echarts": "^2.0.1",
     "ngx-perfect-scrollbar": "^4.0.0",
     "node-sass": "^4.7.2",
+    "noty": "^3.1.2",
     "rxjs": "^5.4.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"

@@ -1,4 +1,7 @@
 .con-hd {
   margin: 10px 0 30px;
-  overflow: hidden;
+}
+.add-btn{
+  background: #f9b71c;
+  box-shadow: 3px 3px 10px #9a9a9a;
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { PaginationModule } from './pagination/pagination.module';
+import { ScrollbarComponent } from './scrollbar.component';
 
 @NgModule({
   imports: [
@@ -12,8 +13,9 @@ import { PaginationModule } from './pagination/pagination.module';
   exports: [
     CommonModule,
     NgxEchartsModule,
-    PaginationModule
+    PaginationModule,
+    ScrollbarComponent
   ],
-  declarations: []
+  declarations: [ScrollbarComponent]
 })
 export class SharedModule { }

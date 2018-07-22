@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="flex-cell">
       <div class="build-info">
-        <table class="table table-bordered" id="basic-data">
+        <table class="table table-bordered" id="basic-data" *ngIf="!choseBuildName">
           <tr>
             <th class="nowrap">名称</th>
             <th class="nowrap">地址</th>

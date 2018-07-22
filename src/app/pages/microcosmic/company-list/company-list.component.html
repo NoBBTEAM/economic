@@ -50,9 +50,9 @@
             <div class="panel-content" id="companyList">
               <div class="company-item animated flipInX" *ngFor="let company of companys">
                 <div class="company-logo">
-                  <img src="/assets/images/company_logo.png" alt="">
+                  <img src="assets/images/company_logo.png" alt="">
                 </div>
-                <div class="info" [routerLink]="['/mic/companyDetail', company?.rowKey]">
+                <div class="info" routerLink="/mic/companyDetail" (click)="setCompanyName(company?.rowKey)"> <!-- [routerLink]="['/mic/companyDetail', company?.rowKey]" -->
                   <div class="name" [innerHTML]="company?.name"></div>
                   <span>{{company?.enterpriseType}}</span>
                   <span class="num">{{company?.id}}</span>

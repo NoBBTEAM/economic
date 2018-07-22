@@ -19,14 +19,19 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-          "styles.css",
-          "../node_modules/font-awesome/css/font-awesome.css",
-          "assets/css/animate.min.css",
-          "assets/css/normalize.css",
-          "assets/css/jquery.mCustomScrollbar.min.css",
-          "assets/css/bootstrap-3.3.7.min.css"
+        "styles.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "assets/css/animate.min.css",
+        "assets/css/normalize.css",
+        "assets/css/jquery.mCustomScrollbar.min.css",
+        "assets/css/bootstrap-3.3.7.min.css"
       ],
-      "scripts": ["../node_modules/echarts/dist/echarts.min.js"],
+      "scripts": [
+        "../node_modules/echarts/dist/echarts.min.js",
+        "assets/js/jquery-2.0.0.min.js",
+        "assets/js/jquery.mousewheel.js",
+        "assets/js/jquery.mCustomScrollbar.concat.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
